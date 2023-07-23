@@ -1,0 +1,148 @@
+set scrolloff=999   "make input cursor forever in the middle of the paper
+set nocompatible    "run in vim mode
+set expandtab       "expand tabs into spaces
+set autoindent      "auto-indent new lines
+set smartindent     "return ending brackets to proper locations
+set softtabstop=4   "indentation level of soft-tabs
+set tabstop=4       "indentation leves of normal tabs
+set shiftwidth=4    "how many lines shift using << and >>"
+set showmatch       "show matching brackets
+set ruler           "show cursor position at all times
+set nohls           "dont highlight the previous search term
+set number          "turn on line numbering
+set wrap            "turn on visual word wrapping
+set linebreak       "only break lines on breakat characters
+set clipboard=unnamed
+
+syntax on           "turn on syntax highlighting
+
+map Q gq
+map q ZZ
+map W +
+"map E $
+
+" CTRL-C  Copy 
+map <C-c> "+y
+
+
+" set vim english font
+if has('gui_running')
+    set guioptions-=T  " no toolbar
+    colorscheme elflord
+    set lines=60 columns=108 linespace=0
+    if has('gui_win32')
+      set guifont=DejaVu_Sans_Mono:h10:cANSI
+    else
+      set guifont=DejaVu\ Sans\ Mono\ 10
+    endif
+endif
+
+"自动缩进和补全括号
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
+" <SPACE>   : forward to next word beginning with alphanumeric char
+" <S-SPACE> : backward to prev word beginning with alphanumeric char
+" <C-SPACE> : same as above (as <S-SPACE> not available in console Vim
+" <BS>      : back to prev word ending with alphanumeric char
+function! <SID>GotoPattern(pattern, dir) range
+    let g:_saved_search_reg = @/
+    let l:flags = "We"
+    if a:dir == "b"
+        let l:flags .= "b"
+    endif
+    for i in range(v:count1)
+        call search(a:pattern, l:flags)
+    endfor
+    let @/ = g:_saved_search_reg
+endfunction
+nnoremap <silent> <SPACE> :<C-U>call <SID>GotoPattern('\(^\\|\<\)[A-Za-z0-9_]', 'f')<CR>
+vnoremap <silent> <SPACE> :<C-U>let g:_saved_search_reg=@/<CR>gv/\(^\\|\<\)[A-Za-z0-9_]<CR>:<C-U>let @/=g:_saved_search_reg<CR>gv
+nnoremap <silent> <S-SPACE> :<C-U>call <SID>GotoPattern('\(^\\|\<\)[A-Za-z0-9_]', 'b')<CR>
+vnoremap <silent> <S-SPACE> :<C-U>let g:_saved_search_reg=@/<CR>gv?\(^\\|\<\)[A-Za-z0-9_]<CR>:<C-U>let @/=g:_saved_search_reg<CR>gv
+nnoremap <silent> <BS> :call <SID>GotoPattern('[A-Za-z0-9_]\(\>\\|$\)', 'b')<CR>
+vnoremap <silent> <BS> :<C-U>let g:_saved_search_reg=@/<CR>gv?[A-Za-z0-9_]\(\>\\|$\)<CR>:<C-U>let @/=g:_saved_search_reg<CR>gv
+
+" Redundant mapping of <C-SPACE> to <S-SPACE> so that
+" above mappings are available in console Vim.
+"noremap <C-@> <C-B>
+if has("gui_running")
+    map <silent> <C-Space> <S-SPACE>
+else
+    if has("unix")
+        map <Nul> <S-SPACE>
+    else
+        map <C-@> <S-SPACE>
+    endif
+endif
+
+
+"set autoindent
+set smartindent
+inoremap ' ''<ESC>i
+inoremap " ""<ESC>i
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+inoremap { {<CR>}<ESC>O
+inoremap <Esc> <Esc>:w<CR>
+
+
+
+:inoremap <expr> <Tab> search('\%#[]>)}''"`]', 'n') ? '<Right>' : '<Tab>'
+
+
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+nmap O o<Esc>
+
+"enable filetype plugin"
+filetype plugin on
+filetype indent on
+
+
+" Two columns.
+" " 1. Vertically split window
+" " 2. Offset it one screen
+" " 3. Scrollbind
+command! TwoColumns
+         \   exe "normal zR"
+         \ | set noscrollbind
+         \ | vsplit
+         \ | set scrollbind
+         \ | wincmd w
+         \ | exe "normal \<c-f>"
+         \ | set scrollbind
+         \ | wincmd p
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
