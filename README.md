@@ -6,5 +6,5 @@
 
 # Init Chezmoi on new device
 ```
-  sudo snap install chezmo --classic && chezmoi init --apply lifeike
+  sudo snap install chezmo --classic && sudo chezmoi init --apply lifeike
 ```
