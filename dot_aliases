@@ -479,3 +479,4 @@ alias vf='vim $(fzf)'
 # chezmoi
 #-----------------
 alias update-dotfiles='chezmoi re-add'
+alias sync-dotfiles='chezmoi update'
