@@ -1,6 +1,6 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# Name: Feike Li 2023 
+# Name: Feike Li 2023.07 
 
 
 # If not running interactively, don't do anything
