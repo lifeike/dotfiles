@@ -1,0 +1,9 @@
+[user]
+	email = lifeike@gmail.com
+	name = lifeike
+[core]
+	quotepath = false
+	ignorecase = false
+[credential]
+	helper = store
+	UseHttpPath = true
