@@ -474,3 +474,8 @@ cdf() {
 }
 
 alias vf='vim $(fzf)'
+
+#-----------------
+# chezmoi
+#-----------------
+alias update-dotfiles='chezmoi re-add'
