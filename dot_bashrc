@@ -114,7 +114,7 @@ export PS1='> '
  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu/samba
 
 # fuzzy finder
-export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow'
 
 # tansparent
 # Bug: number at the top line for some reason

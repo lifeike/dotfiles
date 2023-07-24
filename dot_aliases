@@ -473,7 +473,7 @@ cdf() {
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && ranger "$dir"
 }
 
-alias vf='vim $(fzf)'
+alias vf='cd $HOME && vim $(fzf)'
 
 #-----------------
 # chezmoi
