@@ -68,11 +68,3 @@
 # echo "done"
 # echo "##############################################"
 
-# load source files
-echo "##############################################"
-echo "load dot files"
-echo "##############################################"
-chezmoi -v update
-cd $HOME;
-xrdb ~/.Xresources;
-source ~/.bashrc
