@@ -10,7 +10,7 @@ sudo apt     install -y tmux
 # editor 
 sudo apt     remove  -y nano
 sudo apt-get install -y vim-gtk
-sudo snap install --classic code
+# sudo snap install --classic code
 
 # media
 sudo apt     install -y mpv
