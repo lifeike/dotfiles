@@ -2,8 +2,8 @@
 echo "##############################################"
 echo "update and upgrade"
 echo "##############################################"
-sudo apt             -y update           &> /dev/null
-sudo apt             -y upgrade          &> /dev/null
+sudo apt             -y update           
+sudo apt             -y upgrade          
 echo "##############################################"
 echo "done"
 echo "##############################################"
@@ -12,9 +12,9 @@ echo "##############################################"
 echo "##############################################"
 echo "ranger/git/tmux"
 echo "##############################################"
-sudo apt     install -y ranger           &> /dev/null
-sudo apt     install -y git              &> /dev/null
-sudo apt     install -y tmux             &> /dev/null
+sudo apt     install -y ranger           
+sudo apt     install -y git              
+sudo apt     install -y tmux             
 echo "##############################################"
 echo "done"
 echo "##############################################"
@@ -23,8 +23,8 @@ echo "##############################################"
 echo "##############################################"
 echo "nano/vim"
 echo "##############################################"
-sudo apt     remove  -y nano             &> /dev/null    
-sudo apt-get install -y vim-gtk          &> /dev/null
+sudo apt     remove  -y nano                 
+sudo apt-get install -y vim-gtk          
 # sudo snap install --classic code
 echo "##############################################"
 echo "done"
@@ -34,7 +34,7 @@ echo "##############################################"
 echo "##############################################"
 echo "mpv"
 echo "##############################################"
-sudo apt     install -y mpv              &> /dev/null
+sudo apt     install -y mpv              
 echo "##############################################"
 echo "done"
 echo "##############################################"
@@ -44,7 +44,7 @@ echo "##############################################"
 echo "##############################################"
 echo "zathura"
 echo "##############################################"
-sudo apt     install -y zathura          &> /dev/null
+sudo apt     install -y zathura          
 echo "##############################################"
 echo "done"
 echo "##############################################"
@@ -53,7 +53,7 @@ echo "##############################################"
 echo "##############################################"
 echo "gnome-boxes"
 echo "##############################################"
-sudo apt-get install -y gnome-boxes      &> /dev/null
+sudo apt-get install -y gnome-boxes      
 echo "##############################################"
 echo "done"
 echo "##############################################"
@@ -62,8 +62,8 @@ echo "##############################################"
 echo "##############################################"
 echo "python/glances"
 echo "##############################################"
-sudo apt     install -y python3-pip      &> /dev/null
-sudo pip     install --upgrade glances   &> /dev/null
+sudo apt     install -y python3-pip      
+sudo pip     install --upgrade glances   
 echo "##############################################"
 echo "done"
 echo "##############################################"
