@@ -70,6 +70,8 @@
 
 # load source files
 echo "##############################################"
+echo "load dot files"
+echo "##############################################"
 cd $HOME;
 xrdb ~/.Xresources;
 source ~/.bashrc
