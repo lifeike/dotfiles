@@ -1,3 +1,4 @@
+#!/bin/bash
 cd $HOME;
 xrdb ~/.Xresources;
 source ~/.bashrc;
