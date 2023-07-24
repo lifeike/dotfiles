@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "#############################"
+echo "load dotfiles on every chezmoi update"
+echo "#############################"
 cd $HOME;
 xrdb ~/.Xresources;
 source ~/.bashrc;
