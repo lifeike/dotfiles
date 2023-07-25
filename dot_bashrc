@@ -129,4 +129,3 @@ export NVM_DIR="$HOME/.nvm"
 
 # cursor speed
 xset r rate 330 50
-
