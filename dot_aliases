@@ -479,7 +479,6 @@ alias vf='cd $HOME && vim $(fzf)'
 # chezmoi
 #-----------------
 alias update-dotfiles='chezmoi re-add'
-alias sync-dotfiles='chezmoi update'
+alias sync-dotfiles='chezmoi update && load'
 alias cd-dotfiles='cd ~/.local/share/chezmoi && ranger'
 alias add-dotfiles='chezmoi add'
-
