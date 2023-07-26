@@ -361,6 +361,15 @@ ggb() {
   git checkout $(echo "$target" | awk '{print $2}')
 }
 
+alias gp='pushall'
+function pushall(){
+    #read -p 'commit message: ' commitMessage
+    IFS= read -r -p "commit message: " commitMessage
+    git add -A;
+    git commit -am "$commitMessage";
+    branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+    git push -u origin $branch
+}
 
 #-----------------
 # npm + mongodb
