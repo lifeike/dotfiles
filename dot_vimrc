@@ -19,7 +19,7 @@ syntax on           "turn on syntax highlighting
 map Q gq
 map q ZZ
 map W +
-"map E $
+map E $
 
 " CTRL-C  Copy 
 map <C-c> "+y
