@@ -20,6 +20,8 @@ sudo apt     install -y rxvt-unicode
 sudo apt     install -y wmctrl
 sudo apt     install -y tmux             
 sudo apt     install -y osdclock
+sudo apt     install -y unrar
+
 echo "##############################################"
 echo "done"
 echo "##############################################"
