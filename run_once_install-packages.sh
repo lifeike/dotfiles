@@ -4,6 +4,8 @@
 #echo "##############################################"
 #sudo apt             -y update           
 #sudo apt             -y upgrade          
+#sudo apt-get         -y update          
+#sudo apt-get         -y upgrade          
 #echo "##############################################"
 #echo "done"
 #echo "##############################################"
@@ -84,6 +86,19 @@ echo "##############################################"
 #echo "##############################################"
 #echo "done"
 #echo "##############################################"
+
+echo "##############################################"
+echo "clean updates"
+echo "##############################################"
+sudo apt     -y clean
+sudo apt-get -y clean
+sudo apt     -y autoremove
+sudo apt-get -y autoremove
+sudo apt     -y autoclean
+sudo apt-get -y autoclean
+echo "##############################################"
+echo "done"
+echo "##############################################"
 
 echo "##############################################"
 echo "load source files"
