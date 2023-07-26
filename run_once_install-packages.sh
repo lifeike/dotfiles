@@ -48,6 +48,10 @@ sudo apt     install -y ffmpeg
 #echo "zathura"
 #echo "##############################################"
 #sudo apt     install -y zathura          
+#echo "##############################################"
+#echo "flameshot screenshot"
+#echo "##############################################"
+#sudo apt     install -y flameshot          
 #
 ## boxes
 #echo "##############################################"
