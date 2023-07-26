@@ -163,20 +163,6 @@ alias ni='npm install && npm run start'
 alias nb='npm run build '
 #alias code='code -r -n '
 
-#http prompt
-alias http='http-prompt'
-
-#bypy
-alias baidu='bypy'
-alias baiduhelp='bypy help'
-alias baiduls='bypy list'
-alias baiduclean='bypy cleancache'
-alias baidudownload='cd /home/feeco/Downloads && bypy syncdown --downloader aria2 &'
-alias baiduup='sudo bypy syncup '
-alias baidumkdir='bypy mkdir'
-alias baidudelete='bypy rm \/ && bypy mkdir \/'
-alias baiducompare='bypy compare '
-
 #leetcode-cli
 alias leetcode='nvm use lts\/erbium && leetcode'
 
@@ -236,8 +222,6 @@ function updateall(){
 alias v='vim'
 alias r='ranger'
 alias g='glances --process-short-name --enable-plugin sensors'
-alias sub='aegisub &'
-alias pull='git pull'
 
 ##########################
 #  youtube-dl
@@ -262,14 +246,9 @@ function load_resource_rcfiles(){
     #load keyboard config
 }
 
-#w3m
-alias awesome='w3m https://asmcn.icopy.site/awesome/awesome-cli-apps/'
-alias ricecook='w3m https://www.xiachufang.com/category/51313/?page=1'
-
 #########################
 #   tmux
 #########################
-alias tls='tmux ls'
 alias tnew=createNewSessionInsideTmuxSession
 
 function createNewSessionInsideTmuxSession(){
@@ -382,45 +361,6 @@ ggb() {
   git checkout $(echo "$target" | awk '{print $2}')
 }
 
-#update two git repos
-alias u='update_github_page'
-function update_github_page(){
-	pwd=${PWD};
-	h;
-	cd Documents;
-	cd lifeike;
-	git add -A;
-	git commit -am "feeco";
-	git push origin master;
-
-    h;
-	cd Documents;
-	cd feeco;
-	git add -A;
-	git commit -am "feeco";
-	git push origin master;
-
-    h;
-	cd Documents;
-	cd guo-and-feeco;
-	git add -A;
-	git commit -am "feeco";
-	git push origin master;
-
-	cd $pwd
-	git diff HEAD^ --stat
-
-}
-
-alias gp='pushall'
-function pushall(){
-    #read -p 'commit message: ' commitMessage
-    IFS= read -r -p "commit message: " commitMessage
-    git add -A;
-    git commit -am "$commitMessage";
-    branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
-    git push -u origin $branch
-}
 
 #-----------------
 # npm + mongodb
@@ -479,6 +419,7 @@ alias vf='cd $HOME && vim $(fzf)'
 # chezmoi
 #-----------------
 alias update-dotfiles='chezmoi re-add'
-alias sync-dotfiles='chezmoi update && load'
+alias sync-dotfiles='chezmoi update'
 alias cd-dotfiles='cd ~/.local/share/chezmoi && ranger'
 alias add-dotfiles='chezmoi add'
+
