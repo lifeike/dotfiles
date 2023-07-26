@@ -8,21 +8,21 @@
 #sudo apt-get         -y upgrade          
 #
 ## install packages
-echo "##############################################"
-echo "command line tools"
-echo "##############################################"
-sudo apt     install -y ranger           
-sudo apt     install -y fzf
-sudo apt     install -y fd-find
-sudo apt     install -y git              
-sudo apt     install -y rxvt-unicode
-sudo apt     install -y wmctrl
-sudo apt     install -y tmux             
-sudo apt     install -y osdclock
-sudo apt     install -y unrar
-sudo apt     install -y ffmpeg
-sudo apt     install -y mediainfo
-sudo apt     install -y kazam
+#echo "##############################################"
+#echo "command line tools"
+#echo "##############################################"
+#sudo apt     install -y ranger           
+#sudo apt     install -y fzf
+#sudo apt     install -y fd-find
+#sudo apt     install -y git              
+#sudo apt     install -y rxvt-unicode
+#sudo apt     install -y wmctrl
+#sudo apt     install -y tmux             
+#sudo apt     install -y osdclock
+#sudo apt     install -y unrar
+#sudo apt     install -y ffmpeg
+#sudo apt     install -y mediainfo
+#sudo apt     install -y kazam
 #
 ## editor 
 #echo "##############################################"
@@ -37,12 +37,12 @@ sudo apt     install -y kazam
 #echo "mpv"
 #echo "##############################################"
 #sudo apt     install -y mpv              
-#echo "##############################################"
-#echo "yt-dlp"
-#echo "##############################################"
-#sudo apt     install -y python3-pip              
-#python3 -m pip install -U yt-dlp
-#
+echo "##############################################"
+echo "yt-dlp"
+echo "##############################################"
+sudo apt     install -y python3-pip              
+python3 -m pip install -U yt-dlp
+
 #echo "##############################################"
 #echo "chrome"
 #echo "##############################################"
