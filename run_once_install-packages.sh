@@ -16,6 +16,7 @@ sudo apt     install -y ranger
 sudo apt     install -y fzf
 sudo apt     install -y fd-find
 sudo apt     install -y git              
+sudo apt     install -y rxvt-unicode
 sudo apt     install -y tmux             
 echo "##############################################"
 echo "done"
