@@ -21,6 +21,7 @@ sudo apt     install -y wmctrl
 sudo apt     install -y tmux             
 sudo apt     install -y osdclock
 sudo apt     install -y unrar
+sudo apt     install -y ffmpeg
 
 echo "##############################################"
 echo "done"
