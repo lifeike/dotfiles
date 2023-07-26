@@ -388,20 +388,6 @@ function split_big_video_into_clips_of_10mins(){
 	ffmpeg -i $1 -acodec copy -f segment -segment_time 600 -vcodec copy -reset_timestamps 1 -map 0 $1%d.avi
 }
 
-# stow update dotfiles
-alias stowfolder='stow --adopt -vt ~' # following folder name
-alias stowdelete='stow -vDt ~' # following folder name
-alias stowrestore='stow -vSt ~' # following folder name
-
-# translate-shell
-alias t='save_translation'
-function save_translation(){
-	local input=$1;
-	trans -brief :zh $input -p;
-	$input >> ~/temp.txt
-	trans -brief :zh $input -p >> ~/temp.txt
-}
-
 #-----------------
 # fuzzy finder
 #-----------------
