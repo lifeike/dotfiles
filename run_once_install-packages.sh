@@ -19,7 +19,7 @@ sudo apt     install -y git
 sudo apt     install -y rxvt-unicode
 sudo apt     install -y wmctrl
 sudo apt     install -y tmux             
-sudo apt     install -y osdlock
+sudo apt     install -y osdclock
 echo "##############################################"
 echo "done"
 echo "##############################################"
