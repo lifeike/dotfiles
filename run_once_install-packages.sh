@@ -37,6 +37,11 @@ sudo apt     install -y kazam
 #echo "mpv"
 #echo "##############################################"
 #sudo apt     install -y mpv              
+#echo "##############################################"
+#echo "yt-dlp"
+#echo "##############################################"
+#sudo apt     install -y python3-pip              
+#python3 -m pip install -U yt-dlp
 #
 #echo "##############################################"
 #echo "chrome"
