@@ -21,6 +21,8 @@ sudo apt     install -y tmux
 sudo apt     install -y osdclock
 sudo apt     install -y unrar
 sudo apt     install -y ffmpeg
+sudo apt     install -y mediainfo
+sudo apt     install -y kazam
 #
 ## editor 
 #echo "##############################################"
