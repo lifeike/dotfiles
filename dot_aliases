@@ -78,6 +78,52 @@ alias fullscreen='[[ $TERM == *"rxvt"* ]] && wmctrl -r :ACTIVE: -b add,fullscree
 alias f='fullscreen && tmux a'
           
 #-------------------------------
+# brightness
+#-------------------------------
+#get monitors you're using:     xrandr | grep " connected" | cut -f1 -d " "
+#change the brightness level:   xrandr --output eDP-1 --brightness 0.2
+alias 1="echo 1 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null   && xrandr --output eDP-1 --brightness 1   "
+alias 2="echo 100 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
+alias 3="echo 200 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
+alias 4="echo 300 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
+alias 5="echo 400 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
+alias 6="echo 500 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
+alias 7="echo 600 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
+alias 8="echo 700 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
+alias 9="echo 800 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null  && xrandr --output eDP-1 --brightness 1.2  "
+
+
+#-------------------------------
+# sound volume
+#-------------------------------
+alias 11='amixer sset "Master" 10%'
+alias 22='amixer sset "Master" 20%'
+alias 33='amixer sset "Master" 30%'
+alias 44='amixer sset "Master" 40%'
+alias 55='amixer sset "Master" 50%'
+alias 66='amixer sset "Master" 60%'
+alias 77='amixer sset "Master" 70%'
+alias 88='amixer sset "Master" 80%'
+alias 99='amixer sset "Master" 90%'
+alias 00='amixer sset "Master" 100%'
+alias soundRestart='pulseaudio -k && sudo alsa force-reload'
+
+
+#-------------------------------
+# fzf
+#-------------------------------
+alias pdf='cd $HOME && zathura --mode fullscreen "$(fzf)" '
+
+#find file and navigate to the directory
+ff(){
+
+    cd $HOME
+    file=$(fzf -q "$1")
+    dir=$(dirname "$file")
+    ranger "$dir"
+}
+
+#-------------------------------
 # chrome
 #-------------------------------
 updateChrome(){
