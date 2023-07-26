@@ -9,17 +9,17 @@
 #echo "##############################################"
 #
 ## install packages
-#echo "##############################################"
-#echo "ranger/git/tmux"
-#echo "##############################################"
-#sudo apt     install -y ranger           
-#sudo apt     install -y fzf
-#sudo apt     install -y fd-find
-#sudo apt     install -y git              
-#sudo apt     install -y tmux             
-#echo "##############################################"
-#echo "done"
-#echo "##############################################"
+echo "##############################################"
+echo "ranger/git/tmux"
+echo "##############################################"
+sudo apt     install -y ranger           
+sudo apt     install -y fzf
+sudo apt     install -y fd-find
+sudo apt     install -y git              
+sudo apt     install -y tmux             
+echo "##############################################"
+echo "done"
+echo "##############################################"
 #
 ## editor 
 #echo "##############################################"
@@ -61,11 +61,11 @@
 #echo "##############################################"
 
 # # system tool
-echo "##############################################"
-echo "python/glances"
-echo "##############################################"
-sudo apt     install -y python3-pip      
-sudo pip     install --upgrade glances   
-echo "##############################################"
-echo "done"
-echo "##############################################"
+#echo "##############################################"
+#echo "python/glances"
+#echo "##############################################"
+#sudo apt     install -y python3-pip      
+#sudo pip     install --upgrade glances   
+#echo "##############################################"
+#echo "done"
+#echo "##############################################"
