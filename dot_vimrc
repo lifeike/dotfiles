@@ -12,8 +12,6 @@ set nohls           "dont highlight the previous search term
 set number          "turn on line numbering
 set wrap            "turn on visual word wrapping
 set linebreak       "only break lines on breakat characters
-set clipboard=unnamed
-
 syntax on           "turn on syntax highlighting
 
 map Q gq
@@ -21,12 +19,10 @@ map q ZZ
 map W +
 map E $
 
-" CTRL-C  Copy 
+" CTRL-C  Copy"
 vnoremap <C-c> "+y
-" CTRL-P-P  Paste 
-" vnoremap <C-v> "+p
+" CTRL-P  Paste 
 map <C-v> "*p
-
 
 " set vim english font
 if has('gui_running')
@@ -107,45 +103,3 @@ nmap O o<Esc>
 "enable filetype plugin"
 filetype plugin on
 filetype indent on
-
-
-" Two columns.
-" " 1. Vertically split window
-" " 2. Offset it one screen
-" " 3. Scrollbind
-command! TwoColumns
-         \   exe "normal zR"
-         \ | set noscrollbind
-         \ | vsplit
-         \ | set scrollbind
-         \ | wincmd w
-         \ | exe "normal \<c-f>"
-         \ | set scrollbind
-         \ | wincmd p
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
