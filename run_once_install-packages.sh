@@ -60,6 +60,7 @@
 #echo "flameshot screenshot"
 #echo "##############################################"
 #sudo apt     install -y flameshot          
+#sudo apt     install -y nodejs          
 #
 ## boxes
 #echo "##############################################"
