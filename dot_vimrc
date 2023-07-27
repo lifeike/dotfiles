@@ -22,7 +22,10 @@ map W +
 map E $
 
 " CTRL-C  Copy 
-map <C-c> "+y
+vnoremap <C-c> "+y
+" CTRL-P-P  Paste 
+" vnoremap <C-v> "+p
+map <C-v> "*p
 
 
 " set vim english font
