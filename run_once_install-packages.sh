@@ -23,6 +23,7 @@
 #sudo apt     install -y ffmpeg
 #sudo apt     install -y mediainfo
 #sudo apt     install -y kazam
+#sudo apt     install -y ncdu
 #
 ## editor 
 #echo "##############################################"
