@@ -45,7 +45,7 @@ alias dotfiles='stow --adopt -vt ~ *'
 alias screenoff='gsettings set org.gnome.desktop.session idle-delay'
 alias process='ps -ef | grep'
 alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
-alias du='ncdu ~'
+alias ds='ncdu ~'
 alias datausage='vnstat'
 alias s='cdf'
 
