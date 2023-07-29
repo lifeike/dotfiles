@@ -32,6 +32,13 @@
 #sudo apt     remove  -y nano                 
 #sudo apt-get install -y vim-gtk          
 #sudo snap    install --classic code
+## development environment 
+#echo "##############################################"
+#echo "node/npm/n(version manager)"
+#echo "##############################################"
+#sudo apt     install -y nodejs npm
+#sudo npm     install -g n
+#sudo n       lts           # install long term support node version
 #
 ## media
 #echo "##############################################"
