@@ -69,6 +69,11 @@
 #sudo apt     install -y flameshot          
 #sudo apt     install -y nodejs          
 #
+#echo "##############################################"
+#echo "alacritty/next terminal feeco use"
+#echo "##############################################"
+#sudo add-apt-repository ppa:aslatter/ppa -y
+#sudo apt     install -y alacritty
 ## boxes
 #echo "##############################################"
 #echo "gnome-boxes"
