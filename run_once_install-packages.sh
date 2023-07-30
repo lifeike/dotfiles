@@ -70,7 +70,7 @@
 #sudo apt     install -y nodejs          
 #
 #echo "##############################################"
-#echo "alacritty/next terminal feeco use"
+#echo "alacritty/next terminal feeco use which has better config approach better than xrvt"
 #echo "##############################################"
 #sudo add-apt-repository ppa:aslatter/ppa -y
 #sudo apt     install -y alacritty
