@@ -195,14 +195,41 @@ window:
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
-
-# Colors (Tomorrow Night)
+# XTerm's default colors
+# Campbell (Windows 10 default)
+# Colors (Hyper)
 colors:
   # Default colors
   primary:
-    background: '#000000'
-    foreground: '#FFFFFF'
+    background: '0x000000'
+    foreground: '0xffffff'
+  cursor:
+    text: '0xF81CE5'
+    cursor: '0xffffff'
 
+  # Normal colors
+  normal:
+    black:   '0x000000'
+    red:     '0xfe0100'
+    green:   '0x33ff00'
+    yellow:  '0xfeff00'
+    blue:    '0x0066ff'
+    magenta: '0xcc00ff'
+    cyan:    '0x00ffff'
+    white:   '0xd0d0d0'
+
+  # Bright colors
+  bright:
+    black:   '0x808080'
+    red:     '0xfe0100'
+    green:   '0x33ff00'
+    yellow:  '0xfeff00'
+    blue:    '0x0066ff'
+    magenta: '0xcc00ff'
+    cyan:    '0x00ffff'
+    white:   '0xFFFFFF' 
+
+# Colors (Blood Moon)
     # Bright and dim foreground colors
     #
     # The dimmed foreground color is calculated automatically if it is not
