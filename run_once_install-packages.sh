@@ -97,7 +97,7 @@
 #echo "##############################################"
 #sudo add-apt-repository ppa:aslatter/ppa -y
 #sudo apt     install -y alacritty
-#echo 1 |  sudo update-alternatives --config x-terminal-emulator # switch alacritty to default terminal under gnome env
+#echo 1 |  sudo update-alternatives --config x-terminal-emulator # switch to default 
 #echo "##############################################"
 #echo "load source files"
 #echo "##############################################"
