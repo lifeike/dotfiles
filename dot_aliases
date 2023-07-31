@@ -74,8 +74,8 @@ alias unzipgarbled='unzip -O cp936 '  #unzip and solve garbled issue
 #-------------------------------
 # fullscreen rxvt and must wmctrl installed
 #-------------------------------
-alias fullscreen='[[ $TERM == *"rxvt"* ]] && wmctrl -r :ACTIVE: -b add,fullscreen'
-alias f='fullscreen && tmux a'
+alias fullscreen='[[ $TERM == *"alacritty"* ]] && wmctrl -r :ACTIVE: -b add,fullscreen'
+alias f=' tmux a'
           
 #-------------------------------
 # brightness
