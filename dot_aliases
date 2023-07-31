@@ -238,13 +238,7 @@ alias youtubedownloadmp3='youtube -xiwc --audio-format mp3 '
 alias youtube='yt-dlp -o "%(title)s.%(ext)s"'
 
 # load all source files
-alias load='load_resource_rcfiles'
-function load_resource_rcfiles(){
-    cd $HOME;
-    xrdb ~/.Xresources;
-    source ~/.bashrc;
-    #load keyboard config
-}
+alias load='source ~/.bashrc'
 
 #########################
 #   tmux
