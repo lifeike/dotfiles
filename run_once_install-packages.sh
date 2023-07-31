@@ -2,18 +2,18 @@
 #echo "##############################################"
 #echo "update and upgrade"
 #echo "##############################################"
-#sudo apt             -y update           
-#sudo apt             -y upgrade          
-#sudo apt-get         -y update          
-#sudo apt-get         -y upgrade          
+sudo apt             -y update           
+sudo apt             -y upgrade          
+sudo apt-get         -y update          
+sudo apt-get         -y upgrade          
 #
 ## install packages
 #echo "##############################################"
 #echo "command line tools(alacritty terminal)"
 #echo "##############################################"
-#sudo add-apt-repository ppa:aslatter/ppa -y
-#sudo apt     install -y alacritty
-#echo 1 |     sudo update-alternatives --config x-terminal-emulator # switch to default 
+sudo add-apt-repository ppa:aslatter/ppa -y
+sudo apt     install -y alacritty
+echo 1 |     sudo update-alternatives --config x-terminal-emulator # switch to default 
 #sudo apt     install -y ranger           
 #sudo apt     install -y fzf
 #sudo apt     install -y fd-find
@@ -104,3 +104,4 @@
 #echo "##############################################"
 #echo "done"
 #echo "##############################################"
+bash
