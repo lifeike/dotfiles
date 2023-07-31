@@ -22,7 +22,7 @@ map E $
 " CTRL-C  Copy"
 vnoremap <C-c> "+y
 " CTRL-P  Paste 
-map <C-v> "*p
+inoremap <c-v> <esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia
 
 " set vim english font
 if has('gui_running')
