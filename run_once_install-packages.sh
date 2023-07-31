@@ -98,6 +98,7 @@
 #sudo add-apt-repository ppa:aslatter/ppa -y
 #sudo apt     install -y alacritty
 #echo 1 |  sudo update-alternatives --config x-terminal-emulator # switch to default 
+#
 #echo "##############################################"
 #echo "load source files"
 #echo "##############################################"
