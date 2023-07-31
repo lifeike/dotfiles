@@ -202,7 +202,7 @@ colors:
   # Default colors
   primary:
     background: '0x000000'
-    foreground: '0xffffff'
+    foreground: '0xf2eaca'
   cursor:
     text: '0xF81CE5'
     cursor: '0xffffff'
