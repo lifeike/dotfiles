@@ -69,11 +69,6 @@
 #sudo apt     install -y flameshot          
 #sudo apt     install -y nodejs          
 #
-#echo "##############################################"
-#echo "alacritty/next terminal feeco use which has better config approach better than xrvt"
-#echo "##############################################"
-#sudo add-apt-repository ppa:aslatter/ppa -y
-#sudo apt     install -y alacritty
 ## boxes
 #echo "##############################################"
 #echo "gnome-boxes"
@@ -97,6 +92,12 @@
 #sudo apt     -y autoclean
 #sudo apt-get -y autoclean
 #
+#echo "##############################################"
+#echo "alacritty/next terminal feeco use which has better config approach better than xrvt"
+#echo "##############################################"
+#sudo add-apt-repository ppa:aslatter/ppa -y
+#sudo apt     install -y alacritty
+#echo 1 |  sudo update-alternatives --config x-terminal-emulator # switch alacritty to default terminal under gnome env
 #echo "##############################################"
 #echo "load source files"
 #echo "##############################################"
