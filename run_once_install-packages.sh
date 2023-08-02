@@ -12,8 +12,7 @@
 #echo "command line tools(alacritty terminal)"
 #echo "##############################################"
 #sudo add-apt-repository ppa:aslatter/ppa -y
-#sudo apt     install -y alacritty
-#echo 1 |     sudo update-alternatives --config x-terminal-emulator # switch to default 
+#sudo apt     install -y alacritty ## echo 1 |     sudo update-alternatives --config x-terminal-emulator # switch to default 
 #
 #sudo apt     install -y ranger           
 #sudo apt     install -y fzf
