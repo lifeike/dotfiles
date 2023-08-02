@@ -21,7 +21,7 @@ map E $
 " paste selected text without yanking replaced text"
 vnoremap p "0p
 " go back to beginning of the line"
-vnoremap B 0
+map B 0
 
 " CTRL-C  Copy"
 vnoremap <C-c> "+y
