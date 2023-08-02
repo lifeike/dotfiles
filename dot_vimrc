@@ -18,6 +18,7 @@ map Q gq
 map q ZZ
 map W +
 map E $
+" paste selected text without yanking replaced text"
 vnoremap p "0p
 
 " CTRL-C  Copy"
