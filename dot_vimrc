@@ -18,6 +18,7 @@ map Q gq
 map q ZZ
 map W +
 map E $
+vnoremap p "0p
 
 " CTRL-C  Copy"
 vnoremap <C-c> "+y
