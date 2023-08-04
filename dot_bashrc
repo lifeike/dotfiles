@@ -111,7 +111,7 @@ export LANG=zh_CN.UTF-8
 export PS1='> '
 
 # let mpv can locate libaesni_intel.so.0 dependency
- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu/samba
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu/samba
 
 # fuzzy finder
 export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow'
