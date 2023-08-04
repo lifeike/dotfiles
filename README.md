@@ -1,12 +1,12 @@
 # Feeco Dotfiles
 
 
-# Init Chezmoi on new device
+## Init Chezmoi on new device
 ```
   sudo snap install chezmoi --classic && chezmoi init --apply lifeike 
 ```
 
-# Packages
+## Packages
 
 ```
 root
@@ -50,7 +50,7 @@ root
 ├── run_once_install-packages.sh
 ```
 
-# Commands
+## Commands
 ```
 alias update-dotfiles='chezmoi re-add'
 alias sync-dotfiles='chezmoi update'
