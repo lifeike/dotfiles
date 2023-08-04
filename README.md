@@ -49,3 +49,12 @@ root
 ├── README.md
 ├── run_once_install-packages.sh
 ```
+
+# Commands
+```
+alias update-dotfiles='chezmoi re-add'
+alias sync-dotfiles='chezmoi update'
+alias cd-dotfiles='cd ~/.local/share/chezmoi && ranger'
+alias add-dotfiles='chezmoi add'
+alias cs='chezmoi status'
+```
