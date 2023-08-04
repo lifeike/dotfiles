@@ -6,10 +6,10 @@
   sudo snap install chezmoi --classic && chezmoi init --apply lifeike 
 ```
 
+# Package
 
 ```
-
-.
+root(packages and config files)
 ├── .chezmoiignore
 ├── dot_aliases
 ├── dot_bash_logout
@@ -20,7 +20,7 @@
 ├── dot_selected_editor
 ├── dot_tmux.conf
 ├── dot_vimrc
-├── miscellaneous
+├── miscellaneous(config scripts)
 │   ├── 1.setup_gnome_default_terminal.sh
 │   ├── 2.setup_gnome_wallpaper.sh
 │   └── wallpaper.jpg
