@@ -6,7 +6,7 @@
   sudo snap install chezmoi --classic && chezmoi init --apply lifeike 
 ```
 
-# Package
+# Packages
 
 ```
 root
