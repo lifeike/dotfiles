@@ -9,7 +9,7 @@
 # Package
 
 ```
-root(packages and config files)
+root
 ├── .chezmoiignore
 ├── dot_aliases
 ├── dot_bash_logout
@@ -20,7 +20,7 @@ root(packages and config files)
 ├── dot_selected_editor
 ├── dot_tmux.conf
 ├── dot_vimrc
-├── miscellaneous(config scripts)
+├── miscellaneous
 │   ├── 1.setup_gnome_default_terminal.sh
 │   ├── 2.setup_gnome_wallpaper.sh
 │   └── wallpaper.jpg
@@ -48,5 +48,4 @@ root(packages and config files)
 │       └── zathurarc
 ├── README.md
 ├── run_once_install-packages.sh
-
 ```
