@@ -5,6 +5,10 @@
 ```
   sudo snap install chezmoi --classic && chezmoi init --apply lifeike 
 ```
+
+
+```
+
 .
 ├── .chezmoiignore
 ├── dot_aliases
@@ -45,3 +49,4 @@
 ├── README.md
 ├── run_once_install-packages.sh
 
+```
