@@ -17,6 +17,7 @@
 #----------------------
 alias mm="cd /home/feeco/Documents/fag && ranger "
 alias server="ssh -i ~/Documents/lifeike/7.2022/7.aws/3.windows-server-instance/feeco.pem ubuntu@ec2-100-25-197-123.compute-1.amazonaws.com"
+alias a="alsamixer"
           
 #---------------------
 # system aliases
