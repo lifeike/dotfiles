@@ -134,6 +134,9 @@ updateChrome(){
    rm google-chrome-stable_current_amd64.deb
 }
 
+function alternative(){
+	google-chrome https://alternativeto.net/software/$1/?platform=linux&sort=likes
+}
 
 #-------------------------------
 # file formatting
