@@ -20,8 +20,6 @@
 #sudo apt     install -y fzf
 #sudo apt     install -y fd-find
 #sudo apt     install -y git              
-#sudo apt     install -y w3m
-#sudo apt     install -y w3m-img
 #sudo apt     install -y tmux             
 #sudo apt     install -y osdclock
 #sudo apt     install -y unrar
