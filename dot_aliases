@@ -219,6 +219,9 @@ function updateall(){
 	sudo apt-get upgrade;
 	sudo apt update;
 	sudo apt-get update;
+  updateChrome;
+  sudo snap refresh
+  sudo yt-dlp -U
 }
 
 
