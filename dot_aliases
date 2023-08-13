@@ -220,8 +220,8 @@ function updateall(){
 	sudo apt update;
 	sudo apt-get update;
   updateChrome;
-  sudo snap refresh
-  sudo yt-dlp -U
+  sudo snap refresh;
+  python3 -m pip install -U yt-dlp;
 }
 
 
