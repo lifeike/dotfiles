@@ -384,6 +384,7 @@ function pushall(){
     git commit -am "$commitMessage";
     branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
     git push -u origin $branch
+    clear
 }
 
 #-----------------
