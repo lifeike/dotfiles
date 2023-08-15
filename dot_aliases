@@ -53,6 +53,18 @@ alias s='cdf'
 # port in used.
 alias portinused='lsof -i -P -n'
 alias data='vnstat'
+ip(){
+  echo "==========="
+  echo "signal strength"
+  echo "-67 dBm	Reliable signal strength."
+  echo "-70 dBm	Not a strong signal."
+  echo "-80 dBm	Unreliable signal strength, will not suffice for most services.  "
+  echo "-90 dBm	The chances of even connecting are very low at this level.  "  
+  iwconfig
+  echo "==========="
+  echo "signal information"
+  ifconfig
+}
 
 # explain commands
 alias m='tldr'
