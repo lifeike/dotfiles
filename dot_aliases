@@ -58,11 +58,13 @@ ip(){
   echo "signal strength"
   echo "-67 dBm	Reliable signal strength."
   echo "-70 dBm	Not a strong signal."
-  echo "-80 dBm	Unreliable signal strength, will not suffice for most services.  "
-  echo "-90 dBm	The chances of even connecting are very low at this level.  "  
+  echo "-80 dBm	Unreliable signal strength, will not suffice for most services."
+  echo "-90 dBm	The chances of even connecting are very low at this level."  
+
   iwconfig
   echo "==========="
   echo "signal information"
+
   ifconfig
 }
 
