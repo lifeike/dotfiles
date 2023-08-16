@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/feeco/.config/autostart/focus.py
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=GnomeFocusAutomation
+Comment=Everytime the workspace changes, the focus is corrected to the topmost window
