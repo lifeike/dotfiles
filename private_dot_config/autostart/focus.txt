@@ -1,0 +1,1 @@
+focus.py file is mainly used to always focus on primary display after switching displays
