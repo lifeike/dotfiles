@@ -17,7 +17,7 @@ syntax on           "turn on syntax highlighting
 map Q gq
 map q ZZ
 map W +
-map E $
+map E g_
 " paste selected text without yanking replaced text"
 vnoremap p "0p
 " go back to beginning of the line"
