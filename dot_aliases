@@ -215,17 +215,6 @@ function manually_installed(){
 	comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)
 }
 
-#clean and remove packages
-alias clean=cleanall
-function cleanall(){
-	sudo apt-get clean;
-	sudo apt clean;
-	sudo apt autoremove;
-	sudo apt-get autoremove;
-	sudo apt-get autoclean;
-	sudo apt autoclean;
-}
-
 #update and upgrade packages
 alias update=updateall
 function updateall(){
@@ -236,6 +225,12 @@ function updateall(){
   updateChrome;
   sudo snap refresh;
   python3 -m pip install -U yt-dlp;
+	sudo apt-get clean;
+	sudo apt clean;
+	sudo apt autoremove;
+	sudo apt-get autoremove;
+	sudo apt-get autoclean;
+	sudo apt autoclean;
 }
 
 
