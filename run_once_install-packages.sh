@@ -2,6 +2,7 @@
 #echo "##############################################"
 #echo "update and upgrade"
 #echo "##############################################"
+#echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
 #sudo apt             -y update           
 #sudo apt             -y upgrade          
 #sudo apt-get         -y update          
