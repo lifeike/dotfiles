@@ -84,7 +84,8 @@
 #echo "##############################################"
 #echo "python/glances"
 #echo "##############################################"
-#sudo apt     install -y python3-pip      
+#sudo apt     install -y python-pip  # pip/pip2      
+#sudo apt     install -y python3-pip # pip3  
 #sudo pip     install --upgrade glances   
 #sudo pip3    install tldr   
 #
