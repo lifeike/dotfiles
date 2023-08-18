@@ -5,8 +5,6 @@
 #echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
 #sudo apt             -y update           
 #sudo apt             -y upgrade          
-#sudo apt-get         -y update          
-#sudo apt-get         -y upgrade          
 #
 ## install packages
 #echo "##############################################"
@@ -35,7 +33,7 @@
 #echo "nano/vim"
 #echo "##############################################"
 #sudo apt     remove  -y nano                 
-#sudo apt-get install -y vim-gtk          
+#sudo apt     install -y vim-gtk          
 #sudo snap    install --classic code
 ## development environment 
 #echo "##############################################"
@@ -78,7 +76,7 @@
 #echo "##############################################"
 #echo "gnome-boxes"
 #echo "##############################################"
-#sudo apt-get install -y gnome-boxes      
+#sudo apt     install -y gnome-boxes      
 #
 # # system tool
 #echo "##############################################"
@@ -93,11 +91,8 @@
 #echo "clean updates"
 #echo "##############################################"
 #sudo apt     -y clean
-#sudo apt-get -y clean
 #sudo apt     -y autoremove
-#sudo apt-get -y autoremove
 #sudo apt     -y autoclean
-#sudo apt-get -y autoclean
 #
 #
 #echo "##############################################"
