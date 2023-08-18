@@ -70,7 +70,7 @@ ip(){
 }
 
 # explain commands
-alias m='tldr'
+alias m='tldr -u && tldr'
 
 #mark current directory as mm
 mark(){
