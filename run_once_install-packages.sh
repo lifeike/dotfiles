@@ -12,8 +12,8 @@ sudo apt-get         -y upgrade
 #echo "##############################################"
 #echo "command line tools(alacritty terminal)"
 #echo "##############################################"
-#sudo add-apt-repository ppa:aslatter/ppa -y
-#sudo apt     install -y alacritty 
+sudo add-apt-repository ppa:aslatter/ppa -y
+sudo apt     install -y alacritty 
 #
 #sudo apt     install -y ranger           
 #sudo apt     install -y w3m           
@@ -87,15 +87,15 @@ sudo apt-get         -y upgrade
 #sudo apt     install -y python3-pip      
 #sudo pip     install --upgrade glances   
 #
-#echo "##############################################"
-#echo "clean updates"
-#echo "##############################################"
-#sudo apt     -y clean
-#sudo apt-get -y clean
-#sudo apt     -y autoremove
-#sudo apt-get -y autoremove
-#sudo apt     -y autoclean
-#sudo apt-get -y autoclean
+echo "##############################################"
+echo "clean updates"
+echo "##############################################"
+sudo apt     -y clean
+sudo apt-get -y clean
+sudo apt     -y autoremove
+sudo apt-get -y autoremove
+sudo apt     -y autoclean
+sudo apt-get -y autoclean
 #
 #
 #echo "##############################################"
