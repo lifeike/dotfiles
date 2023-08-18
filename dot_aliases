@@ -221,7 +221,6 @@ function updateall(){
   updateChrome;
   sudo snap refresh;
   python3 -m pip install -U yt-dlp;
-  tldr -u
 	sudo apt-get clean;
 	sudo apt clean;
 	sudo apt autoremove;
