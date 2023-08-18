@@ -28,6 +28,7 @@ sudo apt-get         -y upgrade
 #sudo apt     install -y mediainfo
 #sudo apt     install -y kazam
 #sudo apt     install -y ncdu
+#sudo apt     install -y nvstat
 #
 ## editor 
 #echo "##############################################"
