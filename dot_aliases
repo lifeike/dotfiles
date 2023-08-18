@@ -22,6 +22,7 @@ alias server="ssh -i ~/Documents/lifeike/7.2022/7.aws/3.windows-server-instance/
 # system aliases
 #---------------------
 alias l='ls -lh'
+alias f='tmux a' 
 alias c='clear'
 alias h='cd $HOME && clear'
 alias q='exit'
@@ -86,11 +87,6 @@ mark(){
 alias unrarall='for file in *.rar; do unrar e -p "$file"; done'
 alias unzipgarbled='unzip -O cp936 '  #unzip and solve garbled issue
           
-#-------------------------------
-# fullscreen rxvt and must wmctrl installed
-#-------------------------------
-alias fullscreen='[[ $TERM == *"alacritty"* ]] && wmctrl -r :ACTIVE: -b add,fullscreen'
-alias f=' tmux a'
           
 #-------------------------------
 # brightness
@@ -259,6 +255,7 @@ alias load='source ~/.bashrc'
 #########################
 #   tmux
 #########################
+# open tmux fullscreen with sessions attached
 alias tnew=createNewSessionInsideTmuxSession
 
 function createNewSessionInsideTmuxSession(){
