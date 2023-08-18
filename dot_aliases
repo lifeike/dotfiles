@@ -17,7 +17,6 @@
 #----------------------
 alias mm="cd /home/feeco/Documents/fag && ranger "
 alias server="ssh -i ~/Documents/lifeike/7.2022/7.aws/3.windows-server-instance/feeco.pem ubuntu@ec2-100-25-197-123.compute-1.amazonaws.com"
-alias a="alsamixer"
           
 #---------------------
 # system aliases
@@ -47,8 +46,9 @@ alias screenoff='gsettings set org.gnome.desktop.session idle-delay'
 alias process='ps -ef | grep'
 alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
 alias ds='ncdu ~'
-alias datausage='vnstat'
 alias s='cdf'
+alias a="alsamixer"
+alias download='aria2c'
 
 # port in used.
 alias portinused='lsof -i -P -n'
