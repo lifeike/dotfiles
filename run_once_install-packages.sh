@@ -87,7 +87,7 @@
 #sudo apt     install -y python3-pip      
 #sudo pip     install --upgrade glances   
 #sudo pip     install tldr   
-#sudo tldr    -u
+#     tldr    -u
 #
 #echo "##############################################"
 #echo "clean updates"
