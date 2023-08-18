@@ -12,7 +12,6 @@
 #echo "##############################################"
 #sudo add-apt-repository ppa:aslatter/ppa -y
 #sudo apt     install -y alacritty 
-#
 #sudo apt     install -y ranger           
 #sudo apt     install -y w3m           
 #sudo apt     install -y w3m-img #ranger image preview           
