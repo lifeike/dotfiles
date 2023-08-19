@@ -25,7 +25,7 @@
 #sudo apt     install -y mediainfo
 #sudo apt     install -y kazam
 #sudo apt     install -y ncdu
-#sudo apt     install -y nvstat
+#sudo apt     install -y vnstat
 #
 ## editor 
 #echo "##############################################"
