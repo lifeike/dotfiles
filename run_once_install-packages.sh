@@ -2,7 +2,7 @@
 #echo "##############################################"
 #echo "update and upgrade"
 #echo "##############################################"
-if grep -Fxq "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers
+if sudo grep -Fxq "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers
 then
     echo "Already Grant Access To User"
 else
