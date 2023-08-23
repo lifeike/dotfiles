@@ -4,7 +4,7 @@
 #echo "##############################################"
 if sudo grep -Fxq "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers
 then
-    echo "Already Grant Access To User"
+    echo "Already Grant Access To User, No Password Need For Sudo Command"
 else
     echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
 fi
