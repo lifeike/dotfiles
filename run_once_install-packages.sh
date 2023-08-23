@@ -8,7 +8,6 @@ then
 else
     echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
 fi
-
 #sudo apt             -y update           
 #sudo apt             -y upgrade          
 #
