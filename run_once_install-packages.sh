@@ -2,7 +2,13 @@
 #echo "##############################################"
 #echo "update and upgrade"
 #echo "##############################################"
-#echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
+if grep -Fxq "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers
+then
+    echo "Already Grant Access To User"
+else
+    echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
+fi
+
 #sudo apt             -y update           
 #sudo apt             -y upgrade          
 #
