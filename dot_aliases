@@ -316,6 +316,7 @@ alias feeco='cd /home/feeco/Documents/feeco && gb && gs && ranger'
 alias gb='git branch --sort=committerdate | column'
 alias gs='git status'
 alias gitlastcommit='git diff HEAD^ --stat'
+alias gitcommitscount='git shortlog -sn --all'
 alias gitlistconflicts='git diff --check'
 
 #git tags
