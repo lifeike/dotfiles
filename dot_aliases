@@ -414,7 +414,8 @@ cdf() {
    cd ~
    local file
    local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") # && ranger "$dir"
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+   #file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
 alias vf='cd $HOME && vim $(fzf)'
