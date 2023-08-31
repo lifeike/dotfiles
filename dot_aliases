@@ -131,7 +131,7 @@ ff(){
     cd $HOME
     file=$(fzf -q "$1")
     dir=$(dirname "$file")
-    ranger "$dir"
+    #ranger "$dir"
 }
 
 #-------------------------------
