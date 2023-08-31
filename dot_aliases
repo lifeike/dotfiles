@@ -131,7 +131,7 @@ ff(){
     cd $HOME
     file=$(fzf -q "$1")
     dir=$(dirname "$file")
-    #ranger "$dir"
+    ranger "$dir"
 }
 
 #-------------------------------
@@ -414,7 +414,7 @@ cdf() {
    cd ~
    local file
    local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && ranger "$dir"
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") # && ranger "$dir"
 }
 
 alias vf='cd $HOME && vim $(fzf)'
