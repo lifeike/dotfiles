@@ -61,6 +61,7 @@ echo "##############################################"
 echo "kde-connect"
 echo "##############################################"
 sudo apt install kdeconnect
+sudo apt install scrcpy
 
 echo "##############################################"
 echo "chrome"
