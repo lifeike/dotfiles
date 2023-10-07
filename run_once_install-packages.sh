@@ -57,6 +57,10 @@ echo "yt-dlp"
 echo "##############################################"
 sudo apt     install -y python3-pip              
 python3 -m pip install -U yt-dlp
+echo "##############################################"
+echo "kde-connect"
+echo "##############################################"
+sudo apt install kdeconnect
 
 echo "##############################################"
 echo "chrome"
