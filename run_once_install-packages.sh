@@ -58,10 +58,16 @@ echo "##############################################"
 sudo apt     install -y python3-pip              
 python3 -m pip install -U yt-dlp
 echo "##############################################"
-echo "kde-connect(sync phone notifications and screen between linux and android, also for use wechat on pc)"
+echo "kde-connect"
 echo "##############################################"
 sudo apt install kdeconnect
-sudo apt install scrcpy
+echo "##############################################"
+echo "微信"
+echo "##############################################"
+sudo wget https://github.com/brighill/singularity-deepin/releases/download/stable/wechat.sif -O /opt/wechat.sif
+sudo add-apt-repository -y ppa:apptainer/ppa
+sudo apt update
+sudo apt install apptainer-suid -y
 
 echo "##############################################"
 echo "chrome"
