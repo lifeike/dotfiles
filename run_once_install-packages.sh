@@ -60,14 +60,13 @@ python3 -m pip install -U yt-dlp
 echo "##############################################"
 echo "kde-connect"
 echo "##############################################"
-sudo apt install kdeconnect
+sudo apt install     -y kdeconnect
 echo "##############################################"
 echo "微信"
 echo "##############################################"
 sudo wget https://github.com/brighill/singularity-deepin/releases/download/stable/wechat.sif -O /opt/wechat.sif
 sudo add-apt-repository -y ppa:apptainer/ppa
-sudo apt update
-sudo apt install apptainer-suid -y
+sudo apt     install -y apptainer-suid 
 
 echo "##############################################"
 echo "chrome"
