@@ -85,6 +85,19 @@ mark(){
 #-------------------------------
 alias unrarall='for file in *.rar; do unrar e -p "$file"; done'
 alias unzipgarbled='unzip -O cp936 '  #unzip and solve garbled issue
+
+
+#-------------------------------
+# wechat 微信
+#-------------------------------
+## 运行微信
+alias wechat-start='singularity exec -B /run /opt/wechat.sif /opt/apps/com.qq.weixin.deepin/files/run.sh'
+# 唤出已运行的WeChat窗口
+alias wechat='singularity exec /opt/wechat.sif /opt/deepinwine/tools/sendkeys.sh w wechat 4'
+# 微信截图
+alias wechat-screenshot='singularity exec /opt/wechat.sif /opt/deepinwine/tools/sendkeys.sh a wechat 3'
+# 退出微信
+alias wechat-quit="singularity exec /opt/wechat.sif /opt/deepinwine/tools/kill.sh wechat"
           
           
 #-------------------------------
