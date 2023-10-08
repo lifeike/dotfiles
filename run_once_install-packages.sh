@@ -66,7 +66,7 @@ echo "微信"
 echo "##############################################"
 sudo wget https://github.com/brighill/singularity-deepin/releases/download/stable/wechat.sif -O /opt/wechat.sif
 sudo add-apt-repository -y ppa:apptainer/ppa
-sudo apt     install -y apptainer-suid 
+sudo apt     install    -y apptainer-suid 
 
 echo "##############################################"
 echo "chrome"
