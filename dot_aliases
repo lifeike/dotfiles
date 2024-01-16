@@ -265,6 +265,11 @@ alias g='glances --process-short-name --enable-plugin sensors'
 alias youtubesubtitle='youtube-dl --sub-lang en --convert-subs srt --write-sub'
 
 ##########################
+#  mpv
+###########################
+alias mp3='mpv --no-video '
+
+##########################
 #  yt-dlp
 ###########################
 alias youtubedownloadmp3='youtube -xiwc --audio-format mp3 '
