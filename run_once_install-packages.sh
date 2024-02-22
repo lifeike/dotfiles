@@ -32,6 +32,7 @@ sudo apt     install -y kazam
 sudo apt     install -y ncdu
 sudo apt     install -y vnstat
 sudo apt     install -y neofetch
+sudo apt     install -y fcitx5 fcitx5-chinese-addons fcitx5-frontend-gtk3 #input method for 22.04 plain pinyin
 
 # editor 
 echo "##############################################"
