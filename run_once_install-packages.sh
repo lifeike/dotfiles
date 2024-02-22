@@ -31,6 +31,7 @@ sudo apt     install -y mediainfo
 sudo apt     install -y kazam
 sudo apt     install -y ncdu
 sudo apt     install -y vnstat
+sudo apt     install -y neofetch
 
 # editor 
 echo "##############################################"
