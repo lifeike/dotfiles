@@ -66,9 +66,9 @@ sudo apt install     -y kdeconnect
 echo "##############################################"
 echo "微信"
 echo "##############################################"
-sudo wget https://github.com/brighill/singularity-deepin/releases/download/stable/wechat.sif -O /opt/wechat.sif
-sudo add-apt-repository -y ppa:apptainer/ppa
-sudo apt     install    -y apptainer-suid 
+wget    https://github.com/web1n/wechat-universal-flatpak/releases/download/2403140839/com.tencent.WeChat.flatpak
+sudo flatpak install com.tencent.WeChat.flatpak
+rm com.tencent.WeChat.flatpak
 
 echo "##############################################"
 echo "chrome"
