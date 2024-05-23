@@ -49,6 +49,7 @@ alias ds='ncdu ~'
 alias s='cdf'
 alias a="alsamixer"
 alias download='aria2c'
+alias t='tgpt'
 
 # port in used.
 alias portinused='lsof -i -P -n'
@@ -159,7 +160,6 @@ updateChrome(){
 function alternative(){
 	google-chrome https://alternativeto.net/software/$1/?platform=linux&sort=likes
 }
-
 #-------------------------------
 # file formatting
 #-------------------------------
