@@ -49,7 +49,24 @@ alias ds='ncdu ~'
 alias s='cdf'
 alias a="alsamixer"
 alias download='aria2c'
-alias t='tgpt'
+alias t='phind_chat'
+# use phind
+function phind_chat(){
+  echo "Press enter to exit..."
+  # loop until the user presses enter
+  while true; do
+  echo "======================================================================================================================================"
+  echo "======================================================================================================================================"
+  read -p "Search with phind: " userInput
+  tgpt "$userInput"  
+  # check if the user pressed enter without typing anything else
+  if [ -z "$userInput" ]; then
+    break
+  fi
+  done
+
+  echo "Exiting..."
+}
 
 # port in used.
 alias portinused='lsof -i -P -n'
