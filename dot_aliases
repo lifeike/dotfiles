@@ -52,6 +52,7 @@ alias download='aria2c'
 alias t='phind_chat'
 # use phind
 function phind_chat(){
+  clear
   echo "Press enter to exit..."
   # loop until the user presses enter
   while true; do
