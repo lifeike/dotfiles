@@ -58,6 +58,7 @@ function phind_chat(){
   echo "======================================================================================================================================"
   echo "======================================================================================================================================"
   read -p "Search with phind: " userInput
+  clear
   tgpt "$userInput"  
   # check if the user pressed enter without typing anything else
   if [ -z "$userInput" ]; then
