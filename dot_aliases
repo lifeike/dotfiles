@@ -361,6 +361,8 @@ alias gs='git status'
 alias gitlastcommit='git diff HEAD^ '
 alias gitcommitscount='git shortlog -sn --all'
 alias gitlistconflicts='git diff --check'
+alias gittodolist='gh issue list'
+alias gittodo='gh issue create'
 
 #git tags
 alias gt='echo "local tags: " && git tag -n && echo "" && echo "" && echo "remote tags: " && git ls-remote --tags'
