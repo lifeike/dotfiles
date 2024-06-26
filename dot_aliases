@@ -150,6 +150,15 @@ alias 99='amixer sset "Master" 90%'
 alias 00='amixer sset "Master" 100%'
 alias soundRestart='pulseaudio -k && sudo alsa force-reload'
 
+#-------------------------------
+# add color to command output
+#-------------------------------
+execute_command_green(){
+  #execute the passed command and capture its output  
+  local output=$(eval "$1")
+  #print output in red color
+  echo -e "\033[36m$output\033[0m"
+}
 
 #-------------------------------
 # fzf
@@ -357,7 +366,7 @@ function projectLayout(){
 #----------------------------
 alias lifeike='cd /home/feeco/Documents/feeco && gb && gs && ranger'
 alias gb='git branch --sort=committerdate | column'
-alias gs='git status'
+alias gs='git status && execute_command_green pwd '
 alias gitlastcommit='git diff HEAD^ '
 alias gitcommitscount='git shortlog -sn --all'
 alias gitlistconflicts='git diff --check'
