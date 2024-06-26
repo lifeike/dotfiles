@@ -366,12 +366,19 @@ function projectLayout(){
 #----------------------------
 alias lifeike='cd /home/feeco/Documents/feeco && gb && gs && ranger'
 alias gb='git branch --sort=committerdate | column'
-alias gs='git status && execute_command_cyan pwd '
 alias gitlastcommit='git diff HEAD^ '
 alias gitcommitscount='git shortlog -sn --all'
 alias gitlistconflicts='git diff --check'
 alias gittodolist='gh issue list'
 alias gittodo='gh issue create'
+
+# git status
+function gs(){
+  echo "==========================================================="
+  git status
+  # echo -e "\n" # empty line
+  execute_command_cyan pwd
+}
 
 #git tags
 alias gt='echo "local tags: " && git tag -n && echo "" && echo "" && echo "remote tags: " && git ls-remote --tags'
