@@ -50,6 +50,11 @@ alias s='cdf'
 alias a="alsamixer"
 alias download='aria2c'
 alias t='phind_chat'
+
+
+# generate types based on swagger
+alias generateTypes='npx openapi-typescript@5.4.1 https://api.stagingv3.karbon-x.com/swagger/v3/swagger.json --output types.v3.ts'
+
 # use phind
 function phind_chat(){
   echo "Press enter to exit..."
