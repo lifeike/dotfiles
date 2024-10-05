@@ -119,7 +119,10 @@ look() {
     
     local domain="$1"
     
-    whois "$domain" | less
+    # whois "$domain" | less
+    whois "$domain" | \
+    awk '/^Creation Date:/ {print "\033[31m" $0 "\033[0m"; next} {print}' | \
+    less -R
 }
 
 
