@@ -121,7 +121,7 @@ look() {
     
     # whois "$domain" | less
     whois "$domain" | \
-    awk '/^Creation Date:/ {print "\033[31m" $0 "\033[0m"; next} {print}' | \
+    awk '/Creation Date/ {print "\033[31m" $0 "\033[0m"} {print}' | \
     less -R
 }
 
