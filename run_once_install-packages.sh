@@ -23,6 +23,7 @@ sudo apt     install -y w3m-img #ranger image preview
 sudo apt     install -y fzf
 sudo apt     install -y fd-find
 sudo apt     install -y git              
+sudo apt     install -y whois              
 sudo apt     install -y gh #github cli             
 sudo apt     install -y tmux             
 sudo apt     install -y osdclock

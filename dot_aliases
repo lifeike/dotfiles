@@ -111,6 +111,19 @@ alias unrarall='for file in *.rar; do unrar e -p "$file"; done'
 alias unzipgarbled='unzip -O cp936 '  #unzip and solve garbled issue
 
 
+look() {
+    if [ $# -eq 0 ]; then
+        echo "Please provide a domain name."
+        return 1
+    fi
+    
+    local domain="$1"
+    
+    whois "$domain" | less
+}
+
+
+
 #-------------------------------
 # wechat 微信
 #-------------------------------
