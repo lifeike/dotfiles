@@ -302,7 +302,7 @@ function clean(){
 # apps
 alias v='vim'
 alias r='ranger'
-alias g='glances --process-short-name --enable-plugin sensors'
+alias glances='glances --process-short-name --enable-plugin sensors'
 
 ##########################
 #  youtube-dl
