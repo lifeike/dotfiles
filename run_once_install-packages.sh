@@ -95,6 +95,12 @@ echo "gnome-boxes"
 echo "##############################################"
 sudo apt     install -y gnome-boxes      
 
+# games
+echo "##############################################"
+echo "hero3"
+echo "##############################################"
+sudo apt     install -y vcmi      
+
  # system tool
 echo "##############################################"
 echo "python/glances"
