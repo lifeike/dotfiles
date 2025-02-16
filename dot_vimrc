@@ -90,7 +90,9 @@ inoremap [ []<ESC>i
 inoremap { {<CR>}<ESC>O
 inoremap <Esc> <Esc>:w<CR>
 
-
+"ignore cases when search with /"
+set ignorecase     " Ignore case when searching
+set smartcase      " Override ignorecase if search includes uppercase letters
 
 :inoremap <expr> <Tab> search('\%#[]>)}''"`]', 'n') ? '<Right>' : '<Tab>'
 
