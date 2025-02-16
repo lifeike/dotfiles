@@ -41,7 +41,11 @@ echo "##############################################"
 echo "nano/vim"
 echo "##############################################"
 sudo apt     remove  -y nano                 
-sudo apt     install -y vim-gtk          
+sudo apt     remove  -y neovim
+sudo add-apt-repository -y ppa:neovim-ppa/unstable
+sudo apt     update
+sudo apt     install -y neovim
+
 sudo snap    install --classic code
 # development environment 
 echo "##############################################"
