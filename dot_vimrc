@@ -18,6 +18,9 @@ map Q gq
 map q ZZ
 map W +
 map E g_
+nnoremap  J 10j
+nnoremap  K 10k
+
 " paste selected text without yanking replaced text"
 vnoremap p "0p
 " go back to beginning of the line"
