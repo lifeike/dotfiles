@@ -50,6 +50,7 @@ alias s='cdf'
 alias a="alsamixer"
 alias download='aria2c'
 alias t='phind_chat'
+alias clear='clear && tmux clear-history'
 
 
 # generate types based on swagger
