@@ -520,3 +520,11 @@ alias sync-dotfiles='chezmoi update'
 alias cd-dotfiles='cd ~/.local/share/chezmoi && ranger'
 alias add-dotfiles='chezmoi add'
 alias cs='chezmoi status'
+
+##########################
+#  node prisma
+###########################
+function updatePrismaSchema(){
+ npx prisma db pull
+ npx prisma generate
+}
