@@ -324,7 +324,7 @@ alias youtubedownloadmp3='youtube -xiwc --audio-format mp3 '
 alias youtube='yt-dlp -o "%(title)s.%(ext)s"'
 
 # load all source files
-alias load='source ~/.bashrc'
+alias load='source ~/.bashrc && source ~/.profile'
 
 #########################
 #   tmux
