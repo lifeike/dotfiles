@@ -94,11 +94,10 @@ echo "flameshot screenshot"
 echo "##############################################"
 sudo apt     install -y flameshot          
 
-# boxes
 echo "##############################################"
-echo "gnome-boxes"
+echo "gnome"
 echo "##############################################"
-sudo apt     install -y gnome-boxes      
+gsettings set org.gnome.desktop.interface enable-animations false 
 
 # games
 echo "##############################################"
