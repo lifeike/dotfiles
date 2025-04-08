@@ -80,8 +80,8 @@ echo "##############################################"
 echo "wechat"
 echo "##############################################"
 wget https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb
-sudo apt install WeChatLinux_x86_64.deb
-rm   WeChatLinux_x86_64.deb
+sudo apt install ./WeChatLinux_x86_64.deb
+rm   ./WeChatLinux_x86_64.deb
 
 # pdf
 echo "##############################################"
