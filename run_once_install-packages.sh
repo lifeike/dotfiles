@@ -42,7 +42,7 @@ echo "nano/vim"
 echo "##############################################"
 sudo apt     remove  -y nano                 
 sudo apt     remove  -y vim
-sudo apt     install -y vim
+sudo apt     install -y vim-gtk3
 
 sudo snap    install --classic code
 # development environment 
@@ -58,6 +58,7 @@ echo "##############################################"
 echo "mpv"
 echo "##############################################"
 sudo apt     install -y mpv              
+
 echo "##############################################"
 echo "yt-dlp"
 echo "##############################################"
@@ -121,11 +122,12 @@ sudo apt     -y clean
 sudo apt     -y autoremove
 sudo apt     -y autoclean
 
-
 echo "##############################################"
 echo "load source files"
 echo "##############################################"
 source ~/.bashrc;
+source ~/.profile;
+
 echo "##############################################"
 echo "done"
 echo "##############################################"
