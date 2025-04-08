@@ -41,10 +41,8 @@ echo "##############################################"
 echo "nano/vim"
 echo "##############################################"
 sudo apt     remove  -y nano                 
-sudo apt     remove  -y neovim
-sudo add-apt-repository -y ppa:neovim-ppa/unstable
-sudo apt     update
-sudo apt     install -y neovim
+sudo apt     remove  -y vim
+sudo apt     install -y vim
 
 sudo snap    install --classic code
 # development environment 
@@ -65,16 +63,11 @@ echo "yt-dlp"
 echo "##############################################"
 sudo apt     install -y python3-pip              
 python3 -m pip install -U yt-dlp
+
 echo "##############################################"
-echo "kde-connect"
+echo "git"
 echo "##############################################"
-sudo apt install     -y kdeconnect
-echo "##############################################"
-echo "微信"
-echo "##############################################"
-wget https://github.com/web1n/wechat-universal-flatpak/releases/download/2403140839/com.tencent.WeChat.flatpak
-sudo flatpak install -y com.tencent.WeChat.flatpak
-rm   com.tencent.WeChat.flatpak
+git config --global credential.helper store # save git credentials on input on next pull or push
 
 echo "##############################################"
 echo "chrome"
@@ -82,6 +75,13 @@ echo "##############################################"
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt install google-chrome-stable_current_amd64.deb
 rm   google-chrome-stable_current_amd64.deb
+
+echo "##############################################"
+echo "wechat"
+echo "##############################################"
+wget https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb
+sudo apt install WeChatLinux_x86_64.deb
+rm   WeChatLinux_x86_64.deb
 
 # pdf
 echo "##############################################"
