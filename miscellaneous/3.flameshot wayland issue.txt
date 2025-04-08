@@ -1,3 +1,0 @@
-sudo vim /etc/gdm3/custom.conf
-
-uncomment #wayland=false
