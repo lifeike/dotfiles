@@ -236,7 +236,7 @@ alias convertjpgtopdf='convert *.jpg output.pdf'
 #nodejs npm
 alias ni='npm install && npm run start'
 alias nb='npm run build '
-#alias code='code -r -n '
+alias code='nvim .'
 
 #leetcode-cli
 alias leetcode='nvm use lts\/erbium && leetcode'
