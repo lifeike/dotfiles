@@ -20,3 +20,6 @@ map({"n","i","v"}, "<A-w>", "<cmd>bd<CR>", { desc = "close current tab" })
 map({ "n", "t","i","v" }, "<A-Space>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "terminal toggle floating term" })
+-- Navigation
+map("n", "<C-j>", "10j",{ desc = "alt+j jump 10 lines down" })
+map("n", "<C-k>", "10k",{ desc = "alt+k jump 10 lines up" })
