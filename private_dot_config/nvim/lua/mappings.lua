@@ -11,7 +11,7 @@ map("i", "jk", "<ESC>")
 -- Telescope
 map({"n","i","v"}, "<A-c>", "<cmd>Telescope<CR>", { desc = "show all commands in telescope" })
 -- Telescope Find Files
-map({"n","i","v"}, "<A-f>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
+map({"n","i","v"}, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
 -- General Find Files
 map({"n","i","v"}, "<A-s>", "<cmd>w<CR>", { desc = "general save file" })
 -- close tabe
