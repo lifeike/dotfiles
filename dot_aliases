@@ -21,7 +21,6 @@ alias server="ssh -i ~/Documents/lifeike/7.2022/7.aws/3.windows-server-instance/
 #---------------------
 # system aliases
 #---------------------
-alias l='ls -lh'
 alias f='tmux a' 
 alias c='clear'
 alias h='cd $HOME && clear'
@@ -324,7 +323,7 @@ alias youtubedownloadmp3='youtube -xiwc --audio-format mp3 '
 alias youtube='yt-dlp -o "%(title)s.%(ext)s"'
 
 # load all source files
-alias load='source ~/.bashrc && source ~/.profile'
+alias load='source ~/.bashrc && source ~/.profile && tmux source-file ~/.tmux.conf'
 
 #########################
 #   tmux
@@ -383,6 +382,8 @@ function projectLayout(){
 
 #rename the current window
 alias twindowname='tmux rename-window '
+#rename the current window
+alias l='tmux choose-window '
 
 #----------------------------
 # application github
