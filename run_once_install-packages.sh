@@ -117,6 +117,7 @@ sudo pip3    install tldr
 echo "##############################################"
 echo "clean updates"
 echo "##############################################"
+sudo fc-cache -fv  # load all fonts for neovim editor
 sudo apt     -y clean
 sudo apt     -y autoremove
 sudo apt     -y autoclean
