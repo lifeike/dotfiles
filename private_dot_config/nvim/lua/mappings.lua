@@ -18,6 +18,8 @@ map({"n","i","v"}, "<A-f>", "<cmd>Telescope live_grep<CR>", { desc = "search a t
 map({"n","i","v"}, "<A-s>", "<cmd>w<CR>", { desc = "general save file" })
 -- close tabe
 map({"n","i","v"}, "<A-w>", "<cmd>bd<CR>", { desc = "close current tab" })
+-- General Save Files
+map({"n"}, "q", "<cmd>q<CR>", { desc = "quit" })
 -- Termninal
 map({ "n", "t","i","v" }, "<A-Space>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
