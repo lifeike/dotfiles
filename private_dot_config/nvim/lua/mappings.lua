@@ -12,7 +12,9 @@ map("i", "jk", "<ESC>")
 map({"n","i","v"}, "<A-c>", "<cmd>Telescope<CR>", { desc = "show all commands in telescope" })
 -- Telescope Find Files
 map({"n","i","v"}, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
--- General Find Files
+-- Telescope Find Occurrence
+map({"n","i","v"}, "<A-f>", "<cmd>Telescope live_grep<CR>", { desc = "search a text globally inside a project" })
+-- General Save Files
 map({"n","i","v"}, "<A-s>", "<cmd>w<CR>", { desc = "general save file" })
 -- close tabe
 map({"n","i","v"}, "<A-w>", "<cmd>bd<CR>", { desc = "close current tab" })

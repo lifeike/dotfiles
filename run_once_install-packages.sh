@@ -42,7 +42,8 @@ echo "nano/vim"
 echo "##############################################"
 sudo apt     remove  -y nano                 
 sudo apt     remove  -y vim
-sudo apt     install -y vim-gtk3
+sudo apt     remove  -y neovim
+sudo apt     remove  -y ripgrep
 
 sudo snap    install --classic code
 # development environment 
