@@ -381,6 +381,8 @@ function projectLayout(){
   tmux selectp -t 0;
 }
 
+#rename the current window
+alias twindowname='tmux rename-window '
 
 #----------------------------
 # application github
