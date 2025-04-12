@@ -9,7 +9,7 @@ map("i", "jk", "<ESC>")
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 -- Feeco's custom mappings
 -- Telescope
-map({"n","i","v"}, "<A-c>", "<cmd>Telescope<CR>", { desc = "show all commands in telescope" })
+map({"n","i","v"}, "<A-t>", "<cmd>Telescope<CR>", { desc = "show all commands in telescope" })
 -- Telescope Find Files
 map({"n","i","v"}, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
 -- Telescope Find Occurrence
@@ -25,3 +25,7 @@ end, { desc = "terminal toggle floating term" })
 -- Navigation
 map("n", "<C-j>", "10j",{ desc = "alt+j jump 10 lines down" })
 map("n", "<C-k>", "10k",{ desc = "alt+k jump 10 lines up" })
+-- toggle comments
+map("n", "<A-c>", "gcc", { desc = "toggle comment", remap = true })
+map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
+
