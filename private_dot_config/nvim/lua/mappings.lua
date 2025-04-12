@@ -14,6 +14,8 @@ map({"n","i","v"}, "<A-c>", "<cmd>Telescope<CR>", { desc = "show all commands in
 map({"n","i","v"}, "<A-f>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
 -- General Find Files
 map({"n","i","v"}, "<A-s>", "<cmd>w<CR>", { desc = "general save file" })
+-- close tabe
+map({"n","i","v"}, "<A-w>", "<cmd>bd<CR>", { desc = "close current tab" })
 -- Termninal
 map({ "n", "t","i","v" }, "<A-Space>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
