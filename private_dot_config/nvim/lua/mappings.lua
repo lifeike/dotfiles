@@ -14,11 +14,15 @@ map({"n","i","v"}, "<C-o>", "<cmd>Telescope<CR>", { desc = "show all commands in
 map({"n","i","v"}, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
 -- Telescope Find Occurrence
 map({"n","i","v"}, "<A-f>", "<cmd>Telescope live_grep<CR>", { desc = "search a text globally inside a project" })
--- General Save Files
+-- Save Files
 map({"n","i","v"}, "<A-s>", "<cmd>w<CR>", { desc = "general save file" })
+-- Format Files
+map("n", "<A-m>", function()
+  require("conform").format { lsp_fallback = true }
+end, { desc = "general format file" })
 -- close tabe
 map({"n","i","v"}, "<A-w>", "<cmd>bd<CR>", { desc = "close current tab" })
--- General Save Files
+-- quit
 map({"n"}, "q", "<cmd>bd<CR>", { desc = "close current tab" })
 -- Termninal
 map({ "n", "t","i","v" }, "<A-Space>", function()
