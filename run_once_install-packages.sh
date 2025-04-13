@@ -41,11 +41,10 @@ echo "##############################################"
 echo "nano/vim"
 echo "##############################################"
 sudo apt     remove  -y nano                 
-sudo apt     remove  -y vim
-sudo apt     remove  -y neovim
-sudo apt     remove  -y ripgrep
+sudo apt     install  -y vim
+sudo apt     install  -y neovim
+sudo apt     install  -y ripgrep # a neovim plugin or dependency
 
-sudo snap    install --classic code
 # development environment 
 echo "##############################################"
 echo "node/npm/n(version manager)"
@@ -53,6 +52,7 @@ echo "##############################################"
 sudo apt     install -y nodejs npm
 sudo npm     install -g n
 sudo n       lts           # install long term support node version
+sudo npm     install -g prettier # a neovim plugin or dependency
 
 # media
 echo "##############################################"
