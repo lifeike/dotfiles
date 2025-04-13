@@ -19,7 +19,7 @@ map({"n","i","v"}, "<A-s>", "<cmd>w<CR>", { desc = "general save file" })
 -- close tabe
 map({"n","i","v"}, "<A-w>", "<cmd>bd<CR>", { desc = "close current tab" })
 -- General Save Files
-map({"n"}, "q", "<cmd>q<CR>", { desc = "quit" })
+map({"n"}, "q", "<cmd>bd<CR>", { desc = "close current tab" })
 -- Termninal
 map({ "n", "t","i","v" }, "<A-Space>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
