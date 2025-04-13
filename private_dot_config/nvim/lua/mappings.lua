@@ -42,4 +42,3 @@ map("n", "<C-k>", "10k",{ desc = "alt+k jump 10 lines up" })
 -- toggle comments
 map("n", "<A-c>", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
-
