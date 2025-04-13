@@ -26,6 +26,7 @@ return {
 
 
   -- feeco's plugins
+  -- file auto save
   {
    "Pocco81/auto-save.nvim",
    lazy=false,
@@ -36,5 +37,4 @@ return {
 		 }
 	  end,
   },
-
 }
