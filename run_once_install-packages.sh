@@ -129,7 +129,7 @@ echo "load source files"
 echo "##############################################"
 source ~/.bashrc;
 source ~/.profile;
-tmux source-file ~/.tmux.conf
+tmux   source-file ~/.tmux.conf
 
 
 echo "##############################################"
