@@ -1,5 +1,5 @@
 return {
- s("hello", {
+ s("page", {
     t({ "'use client'", "", "" }),
     t({ "import React, { useState, useEffect } from 'react'", "", "" }),
     t({ "export default () => {", "", "  return (" }),
