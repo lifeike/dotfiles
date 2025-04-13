@@ -14,10 +14,9 @@ map({"n","i","v"}, "<C-o>", "<cmd>Telescope<CR>", { desc = "show all commands in
 map({"n","i","v"}, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
 -- Telescope Find Occurrence
 map({"n","i","v"}, "<A-f>", "<cmd>Telescope live_grep<CR>", { desc = "search a text globally inside a project" })
--- Save Files
-map({"n","i","v"}, "<A-s>", "<cmd>w<CR>", { desc = "general save file" })
--- Format Files
-map("n", "<A-m>", function()
+-- Save and Format Files
+map("n", "<A-s>", function()
+  vim.cmd("w")
   require("conform").format { lsp_fallback = true }
 end, { desc = "general format file" })
 -- close tabe
