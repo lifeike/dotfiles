@@ -235,7 +235,6 @@ alias convertjpgtopdf='convert *.jpg output.pdf'
 #nodejs npm
 alias ni='npm install && npm run start'
 alias nb='npm run build '
-alias code='nvim .'
 
 #leetcode-cli
 alias leetcode='nvm use lts\/erbium && leetcode'
@@ -380,9 +379,11 @@ function projectLayout(){
   tmux selectp -t 0;
 }
 
+#create new window
+alias tnewwindow='tmux new-window -n ' 
 #rename the current window
 alias twindowname='tmux rename-window '
-#rename the current window
+#list all session and windows
 alias l='tmux choose-window '
 
 #----------------------------
