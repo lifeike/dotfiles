@@ -7,6 +7,7 @@ map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 map("n", "O", "o<ESC>")
 map("n", "E", "g_")
+map("n", "W", "+")
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 -- Feeco's custom mappings
