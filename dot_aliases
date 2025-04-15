@@ -400,9 +400,9 @@ alias gittodo='gh issue create'
 # git status
 function gs(){
   echo "==========================================================="
-  git status
+  execute_command_cyan "git diff --name-status"
   # echo -e "\n" # empty line
-  execute_command_cyan pwd
+  execute_command_cyan "pwd"
 }
 
 #git tags
