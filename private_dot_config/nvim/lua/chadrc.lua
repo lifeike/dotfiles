@@ -21,4 +21,8 @@ M.base46 = {
 --      }
 --}
 
+
+-- Load the custom feeco commands
+require("feeco_custom_commands.git_reset").setup()
+
 return M
