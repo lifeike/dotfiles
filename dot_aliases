@@ -401,8 +401,9 @@ alias gittodo='gh issue create'
 function gs(){
   echo "==========================================================="
   execute_command_cyan "git diff --name-status"
-  # echo -e "\n" # empty line
-  execute_command_cyan "pwd"
+  echo -e "\n" # empty line
+  pwd
+  git branch --sort=committerdate | column
 }
 
 #git tags
