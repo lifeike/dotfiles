@@ -399,7 +399,7 @@ alias gittodo='gh issue create'
 
 # git status
 function gs(){
-  echo "==========================================================="
+  echo "======================Diffing================================"
   execute_command_cyan "git diff --name-status"
   echo -e "\n" # empty line
   pwd
