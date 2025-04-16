@@ -4,4 +4,4 @@ require "nvchad.options"
 
 local o = vim.o
 o.cursorlineopt ='both' -- to enable cursorline and row number!
-o.cursorcolumn =true    -- to enable vertical cursorline!
+o.cursorcolumn =false    -- to enable vertical cursorline!
