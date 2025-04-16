@@ -8,10 +8,10 @@ local M = {}
 M.base46 = {
 	theme = "ayu_dark",
   transparency = true,
-	-- hl_override = {
-	-- 	Comment = { italic = true },
-	-- 	["@comment"] = { italic = true },
-	-- },
+	hl_override = {
+		CursorLine = { bg = '#4D4D4D' },
+		CursorColumn = { bg = '#4D4D4D' },
+	},
 }
 
 -- M.nvdash = { load_on_startup = true }
