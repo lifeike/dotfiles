@@ -1,14 +1,14 @@
-local options = {
+require("conform").setup({
   formatters_by_ft = {
-    lua = { "stylua" },
     javascript = { "prettier" },
-    javascriptreact = { "prettier" },
     typescript = { "prettier" },
+    javascriptreact = { "prettier" },
     typescriptreact = { "prettier" },
-    json = { "prettier" },
-    html = { "prettier" },
-    css = { "prettier" },
   },
-}
+  formatters = {
+    prettier = {
+      prepend_args = { "--print-width", "200" },
+    },
+  },
+})
 
-return options
