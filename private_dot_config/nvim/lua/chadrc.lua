@@ -15,12 +15,13 @@ M.base46 = {
 }
 
 -- M.nvdash = { load_on_startup = true }
--- M.ui = {
---       tabufline = {
---          lazyload = false
---      }
---}
-
+M.ui = {
+  statusline = {
+    theme = "default",
+    order = { "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd" },
+    modules = { f = "%F" },
+  },
+}
 
 -- Load the custom feeco commands
 require("feeco_custom_commands.git_reset").setup()
