@@ -10,7 +10,7 @@ M.base46 = {
   transparency = true,
 	hl_override = {
 		CursorLine = { bg = '#4D4D4D' },
-		CursorColumn = { bg = '#4D4D4D' },
+		CursorColumn = { bg = '#333333' },
 	},
 }
 
