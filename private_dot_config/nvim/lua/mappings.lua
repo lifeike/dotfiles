@@ -39,8 +39,8 @@ map({ "n", "t" }, "<A-S-v>", function()
 end, { desc = "terminal toggleable vertical term" })
 
 -- Navigation
-map("n", "<J>", "10j",{ desc = "shift+j jump 10 lines down" })
-map("n", "<K>", "10k",{ desc = "shift+k jump 10 lines up" })
+map("n", "J", "10j",{ desc = "shift+j jump 10 lines down" })
+map("n", "K", "10k",{ desc = "shift+k jump 10 lines up" })
 -- toggle comments
 map("n", "<A-c>", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
