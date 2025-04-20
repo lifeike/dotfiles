@@ -36,16 +36,6 @@ sudo apt     install -y vnstat
 sudo apt     install -y neofetch
 sudo apt     install -y fcitx5 fcitx5-chinese-addons fcitx5-frontend-gtk3 #input method for 22.04 plain pinyin
 
-# editor 
-echo "##############################################"
-echo "nano/vim"
-echo "##############################################"
-sudo apt     remove  -y nano                 
-sudo apt     remove  -y vim                 
-sudo apt     install  -y vim-gtk3
-sudo apt     install  -y neovim
-sudo apt     install  -y ripgrep # a neovim plugin or dependency
-
 # development environment 
 echo "##############################################"
 echo "node/npm/n(version manager)"
@@ -53,6 +43,16 @@ echo "##############################################"
 sudo apt     install -y nodejs npm
 sudo npm     install -g n
 sudo n       lts           # install long term support node version
+
+
+# editor 
+echo "##############################################"
+echo "nano/vim"
+echo "##############################################"
+sudo apt     remove  -y nano                 
+sudo apt     remove  -y vim                 
+sudo apt     install  -y neovim
+sudo apt     install  -y ripgrep # a neovim plugin or dependency
 sudo npm     install -g prettier # a neovim plugin or dependency
 
 # media
