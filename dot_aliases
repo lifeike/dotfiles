@@ -15,8 +15,6 @@
 #----------------------
 # temp alias
 #----------------------
-alias mm="cd /home/feeco/Documents/fag && ranger "
-alias server="ssh -i ~/Documents/lifeike/7.2022/7.aws/3.windows-server-instance/feeco.pem ubuntu@ec2-100-25-197-123.compute-1.amazonaws.com"
           
 #---------------------
 # system aliases
@@ -32,11 +30,9 @@ alias e='gedit '
 alias p='vim ~/Documents/feeco/1.lifeike/password.txt'
 alias d='cd /home/feeco/Downloads && ranger'
 alias document='cd /home/feeco/Documents && ranger'
-alias gg='cd /home/feeco/ZGoogleDrive && ranger'
 alias desktop='cd /home/feeco/Desktop && ranger'
 alias music='cd /home/feeco/Music && ranger'
 alias video='cd /home/feeco/Videos && ranger'
-alias pan='cd /home/feeco/ZcloudDisk && ranger'
 alias picture='cd /home/feeco/Pictures && ranger'
 alias install='sudo apt install -y'
 alias remove='sudo apt purge -y'
@@ -46,8 +42,6 @@ alias process='ps -ef | grep'
 alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
 alias ds='ncdu ~'
 alias s='cdf'
-alias a="alsamixer"
-alias download='aria2c'
 alias t='phind_chat'
 alias clear='clear && tmux clear-history'
 
