@@ -299,7 +299,7 @@ function clean(){
 
 
 # apps
-alias v='vim'
+alias v='nvim'
 alias r='ranger'
 
 ##########################
