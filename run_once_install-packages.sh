@@ -56,6 +56,7 @@ sudo apt     install  -y neovim
 sudo apt     install  -y ripgrep # a neovim plugin or dependency
 sudo npm     install  -g prettier # a neovim plugin or dependency
 sudo npm     install  -g typescript # a neovim plugin or dependency
+sudo npm     install  -g pyright # a neovim plugin or dependency for python
 
 # media
 echo "##############################################"
