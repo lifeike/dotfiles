@@ -21,6 +21,7 @@ M.base46 = {
 
 -- M.nvdash = { load_on_startup = true }
 M.ui = {
+  theme = "ayu_dark",
   statusline = {
     theme = "default",
     order = { "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd" },
