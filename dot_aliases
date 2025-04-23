@@ -169,11 +169,17 @@ alias soundRestart='pulseaudio -k && sudo alsa force-reload'
 # add color to command output
 #-------------------------------
 execute_command_cyan(){
-  #execute the passed command and capture its output  
-  local output=$(eval "$1")
-  #print output in red color
-  echo -e "\033[36m$output\033[0m"
+  local line_num=0
+  while IFS= read -r line; do
+    ((line_num++))
+    if (( line_num >= 4 )); then
+      echo -e "\033[36m$line\033[0m"
+    else
+      echo "$line"
+    fi
+  done < <(eval "$1")
 }
+
 
 #-------------------------------
 # fzf
