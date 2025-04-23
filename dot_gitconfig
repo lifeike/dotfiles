@@ -4,6 +4,7 @@
 [core]
 	quotepath = false
 	ignorecase = false
+	editor = nvim
 [credential]
 	helper = store
 	UseHttpPath = true
