@@ -50,8 +50,8 @@ echo "##############################################"
 echo "nano/vim"
 echo "##############################################"
 sudo apt     remove   -y nano                 
-sudo apt     remove   -y vim                 
 sudo apt     remove   -y vim-gtk3                 
+sudo apt     install  -y vim                 
 sudo apt     install  -y neovim
 sudo apt     install  -y ripgrep # a neovim plugin or dependency
 sudo npm     install  -g prettier # a neovim plugin or dependency
