@@ -11,6 +11,8 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 vim.opt.swapfile = false
+vim.opt.scrolloff = 999
+
 
 local lazy_config = require "configs.lazy"
 
