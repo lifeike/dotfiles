@@ -510,9 +510,8 @@ cdf() {
    local file
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") 
-   nvim "$dir"
-   pwd
-   #file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+   cd "$dir"
+   nvim .
 }
 
 alias vf='cd $HOME && vim $(fzf)'
