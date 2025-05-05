@@ -510,7 +510,7 @@ cdf() {
    local file
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") 
-   ranger "$dir"
+   nvim "$dir"
    pwd
    #file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
