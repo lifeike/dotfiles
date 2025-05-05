@@ -6,6 +6,7 @@ local map = vim.keymap.set
 map("i", "jk", "<ESC>")
 map("n", "O", "o<ESC>")
 map("n", "E", "g_")
+map("o", "E", "g_")
 map("n", "W", "+")
 map("n", "B", "0")
 
