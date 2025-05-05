@@ -358,12 +358,11 @@ gs() {
   while IFS= read -r line; do
     status="${line:0:2}"
     file="${line:3}"
-
     case "$status" in
-      " M") echo -e "\033[36m$line\033[0m" ;;  # Yellow for Modified
+      " M") echo -e "\033[36m$line\033[0m" ;;  # Cyan for Modified
       "A ") echo -e "\033[32m$line\033[0m" ;;  # Green for Added
-      "D ") echo -e "\033[31m$line\033[0m" ;;  # Red for Deleted
-      "??") echo -e "\033[33m$line\033[0m" ;;  # Cyan for Untracked
+      " D") echo -e "\033[34m$line\033[0m" ;;  # Red for Deleted
+      "??") echo -e "\033[33m$line\033[0m" ;;  # Yellow for Untracked
       *) echo "$line" ;;
     esac
   done < <(git status --short)
