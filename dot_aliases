@@ -166,22 +166,6 @@ alias 00='amixer sset "Master" 100%'
 alias soundRestart='pulseaudio -k && sudo alsa force-reload'
 
 #-------------------------------
-# add color to command output
-#-------------------------------
-execute_command_cyan(){
-  local line_num=0
-  while IFS= read -r line; do
-    ((line_num++))
-    if (( line_num >= 4 )); then
-      echo -e "\033[36m$line\033[0m"
-    else
-      echo "$line"
-    fi
-  done < <(eval "$1")
-}
-
-
-#-------------------------------
 # fzf
 #-------------------------------
 alias pdf='cd $HOME && zathura --mode fullscreen "$(fzf)" '
@@ -235,34 +219,6 @@ alias convertjpgtopdf='convert *.jpg output.pdf'
 #nodejs npm
 alias ni='npm install && npm run start'
 alias nb='npm run build '
-
-#leetcode-cli
-alias leetcode='nvm use lts\/erbium && leetcode'
-
-#generate source file and put description in the source and select language as javascript
-alias generate=leetcode_generate
-function leetcode_generate(){
-	local input=$1;
-	cd /home/feeco/Documents/lifeike/0.leetcode;
-	nvm use lts/erbium;
-	leetcode show $input  -gxe -l javascript;
-}
-
-alias submit=leetcode_submit
-function leetcode_submit(){
-	local input=$1;
-	cd /home/feeco/Documents/lifeike/0.leetcode;
-	nvm use lts/erbium;
-	leetcode submit $input ;
-}
-
-alias status=leetcode_status
-function leetcode_status(){
-	cd /home/feeco/Documents/lifeike/0.leetcode;
-	nvm use lts/erbium;
-	leetcode list -s;
-	leetcode stat;
-}
 
 #list all app installed manually
 alias installed=manually_installed
@@ -398,12 +354,20 @@ alias gittodolist='gh issue list'
 alias gittodo='gh issue create'
 
 # git status
-function gs(){
-  echo "======================Diffing================================"
-  execute_command_cyan "git status"
-  echo "============================================================="
-  pwd
-  git branch --sort=committerdate | column
+gs() {
+  while IFS= read -r line; do
+    status="${line:0:2}"
+    file="${line:3}"
+
+    case "$status" in
+      " M") echo -e "\033[36m$line\033[0m" ;;  # Yellow for Modified
+      "A ") echo -e "\033[32m$line\033[0m" ;;  # Green for Added
+      "D ") echo -e "\033[31m$line\033[0m" ;;  # Red for Deleted
+      "??") echo -e "\033[33m$line\033[0m" ;;  # Cyan for Untracked
+      *) echo "$line" ;;
+    esac
+  done < <(git status --short)
+  echo "$(basename "$PWD")  $(git branch --show-current)"
 }
 
 #git tags
