@@ -64,11 +64,6 @@ echo "mpv"
 echo "##############################################"
 sudo apt     install -y mpv              
 
-echo "##############################################"
-echo "yt-dlp"
-echo "##############################################"
-sudo apt     install -y python3-pip              
-python3 -m pip install -U yt-dlp
 
 echo "##############################################"
 echo "git"
@@ -114,10 +109,17 @@ sudo apt     install -y vcmi
 echo "##############################################"
 echo "python/glances"
 echo "##############################################"
+sudo apt     install -y python   # install python2      
+sudo apt     install -y python3  # install python3 
 sudo apt     install -y python-pip  # pip/pip2      
 sudo apt     install -y python3-pip # pip3  
 sudo pip     install --upgrade glances   
 sudo pip3    install tldr   
+
+echo "##############################################"
+echo "yt-dlp"
+echo "##############################################"
+python3 -m pip install -U yt-dlp
 
 echo "##############################################"
 echo "clean updates"
