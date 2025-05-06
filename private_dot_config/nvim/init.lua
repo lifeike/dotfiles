@@ -12,6 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.opt.swapfile = false
 vim.opt.scrolloff = 999
+vim.opt.number = true
 
 
 local lazy_config = require "configs.lazy"
