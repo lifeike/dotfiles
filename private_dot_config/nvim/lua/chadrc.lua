@@ -2,6 +2,9 @@
 -- https://github.com/NvChad/ui/blob/v3.0/lua/nvconfig.lua
 -- Please read that file to know all available options :(
 
+vim.opt.swapfile = false
+vim.opt.scrolloff = 999
+vim.opt.number = true
 ---@type ChadrcConfig
 local M = {}
 
