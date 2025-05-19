@@ -16,6 +16,8 @@ map("n", "B", "0")
 map({"n","i","v"}, "<C-o>", "<cmd>Telescope<CR>", { desc = "show all commands in telescope" })
 -- Telescope Find Files
 map({"n","i","v"}, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
+-- Telescope Find Current Tabs
+map({"n"}, "t", "<cmd>Telescope buffers<CR>", { desc = "find current tabs",noremap=true,silent=true })
 -- Telescope Find Occurrence
 map({"n","i","v"}, "<A-f>", "<cmd>Telescope live_grep<CR>", { desc = "search a text globally inside a project" })
 -- Save and Format Files
