@@ -47,7 +47,6 @@ alias s='cdf'
 alias t='phind_chat'
 alias clear='clear && tmux clear-history'
 
-
 # generate types based on swagger
 alias generateTypes='npx openapi-typescript@5.4.1 https://api.uat.pulsepointsoftware.com/swagger/v1/swagger.json --output types.v3.ts'
 
