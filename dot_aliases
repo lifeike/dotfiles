@@ -46,7 +46,6 @@ alias ds='ncdu ~'
 alias s='cdf'
 alias t='phind_chat'
 alias clear='clear && tmux clear-history'
-alias again='!!'
 
 
 # generate types based on swagger
