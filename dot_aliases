@@ -15,7 +15,8 @@
 #----------------------
 # temp alias
 #----------------------
-          
+alias aws='aws --cli-auto-prompt'          
+
 #---------------------
 # system aliases
 #---------------------
@@ -46,28 +47,6 @@ alias ds='ncdu ~'
 alias s='cdf'
 alias t='phind_chat'
 alias clear='clear && tmux clear-history'
-
-# generate types based on swagger
-alias generateTypes='npx openapi-typescript@5.4.1 https://api.uat.pulsepointsoftware.com/swagger/v1/swagger.json --output types.v3.ts'
-
-# use phind
-function phind_chat(){
-  echo "Press enter to exit..."
-  # loop until the user presses enter
-  while true; do
-  echo "======================================================================================================================================"
-  echo "======================================================================================================================================"
-  read -p "Search with phind: " userInput
-  clear
-  tgpt "$userInput"  
-  # check if the user pressed enter without typing anything else
-  if [ -z "$userInput" ]; then
-    break
-  fi
-  done
-
-  echo "Exiting..."
-}
 
 # port in used.
 alias portinused='lsof -i -P -n'
