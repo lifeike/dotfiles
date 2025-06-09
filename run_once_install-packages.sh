@@ -51,6 +51,7 @@ echo "##############################################"
 echo "database"
 echo "##############################################"
 sudo apt     install -y postgresql postgresql-contrib
+sudo -u      postgres createuser --superuser $USER
 echo "##############################################"
 echo "docker management tool"
 echo "##############################################"
