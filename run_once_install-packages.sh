@@ -50,9 +50,9 @@ sudo n       lts           # install long term support node version
 echo "##############################################"
 echo "database"
 echo "##############################################"
-sudo apt     install -y postgresql postgresql-contrib
-sudo -u      postgres createuser --superuser $USER
-CREATE DATABASE feeco OWNER feeco;  # by default when we run 'psql',it will connect to database same as your username 'feeco'
+sudo apt    install -y postgresql postgresql-contrib
+sudo -u     postgres createuser --superuser $USER
+sudo -u     postgres createdb -O $USER $USER  # by default when we run 'psql',it will connect to database same as your username 'feeco'
 
 echo "##############################################"
 echo "docker management tool"
