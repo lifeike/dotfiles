@@ -52,6 +52,8 @@ echo "database"
 echo "##############################################"
 sudo apt     install -y postgresql postgresql-contrib
 sudo -u      postgres createuser --superuser $USER
+CREATE DATABASE feeco OWNER feeco;  # by default when we run 'psql',it will connect to database same as your username 'feeco'
+
 echo "##############################################"
 echo "docker management tool"
 echo "##############################################"
