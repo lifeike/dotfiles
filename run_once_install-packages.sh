@@ -45,6 +45,9 @@ sudo apt     install -y nodejs npm
 sudo npm     install -g n
 sudo n       lts           # install long term support node version
 
+# backend
+sudo apt     install -y postgresql postgresql-contrib
+
 
 # editor 
 echo "##############################################"
