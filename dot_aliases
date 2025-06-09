@@ -48,6 +48,8 @@ alias ds='ncdu ~'
 alias s='cdf'
 alias t='phind_chat'
 alias clear='clear && tmux clear-history'
+alias m='tldr -u && tldr'
+
 
 # port in used.
 alias portinused='lsof -i -P -n'
@@ -66,9 +68,6 @@ ip(){
 
   ifconfig
 }
-
-# explain commands
-alias m='tldr -u && tldr'
 
 #mark current directory as mm
 mark(){
@@ -478,3 +477,27 @@ function updatePrismaSchema(){
  npx prisma db pull
  npx prisma generate
 }
+
+
+#------------------------------------
+# postgresql database running locally
+#------------------------------------
+# PostgreSQL Alias Cheatsheet (MongoDB-like Syntax)
+# Database & Connection
+alias showdbs='psql -c "\l"'                    #	\l	List all databases
+alias usedb='psql -d '                          #	\c  dbname	Switch database
+alias currentdb='psql -c "\conninfo"'	          # \conninfo	Show current DB connection
+# Tables & Schemas
+alias showtables='psql -c "\dt"'	              # \dt	List tables in current DB
+alias showalltables='psql -c "\dt *.*"'	        # \dt *.*	List all tables (including system schemas)
+alias desc='psql -c "\d+"'	                    # \d+ table	Describe a table (structure, indexes, etc.)
+# User & Roles
+alias showusers='psql -c "\du"'	                # \du	List all users/roles
+alias showgrants='psql -c "\dp"'                #	\dp	Show table permissions
+# Query & Admin Shortcuts
+alias query='psql -c'	                          # SELECT ...	Run a quick SQL query
+alias explain='psql -c "EXPLAIN ANALYZE"'	      # EXPLAIN ANALYZE ...	Analyze query performance
+alias killconn='psql -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE ..."'	   # pg_terminate_backend()	Kill a stuck connection
+# Export & Import
+alias exportdb='pg_dump -U user -d dbname -f output.sql'	# pg_dump	Export DB to SQL file
+alias importdb='psql -U user -d dbname -f input.sql'	# psql -f	Import SQL file into DB
