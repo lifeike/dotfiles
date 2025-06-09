@@ -68,6 +68,10 @@ echo \
 sudo apt-get update
 # Add docker
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+# add docker to sudo user group
+sudo usermod -aG docker $USER
+# restart docker
+newgrp docker
 # Add aws copilot
 curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x copilot && sudo mv copilot /usr/local/bin/copilot && copilot --help
 
