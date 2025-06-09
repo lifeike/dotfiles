@@ -34,6 +34,7 @@ sudo apt     install -y kazam
 sudo apt     install -y ncdu
 sudo apt     install -y vnstat
 sudo apt     install -y neofetch
+sudo apt     install -y curl
 sudo apt     install -y fcitx5 fcitx5-chinese-addons fcitx5-frontend-gtk3 #input method for 22.04 plain pinyin
 sudo snap    install -y aws-cli --classic
 
@@ -46,8 +47,27 @@ sudo npm     install -g n
 sudo n       lts           # install long term support node version
 
 # backend
+echo "##############################################"
+echo "database"
+echo "##############################################"
 sudo apt     install -y postgresql postgresql-contrib
-
+echo "##############################################"
+echo "docker management tool"
+echo "##############################################"
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+# Add aws copilot
+curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x copilot && sudo mv copilot /usr/local/bin/copilot && copilot --help
 
 # editor 
 echo "##############################################"
