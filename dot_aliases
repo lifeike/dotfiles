@@ -15,7 +15,6 @@
 #----------------------
 # temp alias
 #----------------------
-alias aws='aws --cli-auto-prompt'          
 alias co='copilot '          
 
 #---------------------
