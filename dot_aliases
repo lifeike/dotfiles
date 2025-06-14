@@ -455,7 +455,7 @@ cdf() {
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") 
    cd "$dir"
-   nvim .
+   pwd
 }
 
 alias vf='cd $HOME && vim $(fzf)'
