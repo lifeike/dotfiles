@@ -18,6 +18,7 @@
 alias co='copilot '          
 alias p='pwd '          
 alias t3='npm create t3-app@latest'          
+alias dockerBuild='docker build . '          
 
 #---------------------
 # system aliases
@@ -47,7 +48,6 @@ alias process='ps -ef | grep'
 alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
 alias ds='ncdu ~'
 alias s='cdf'
-alias t='phind_chat'
 alias clear='clear && tmux clear-history'
 alias m='tldr -u && tldr'
 
