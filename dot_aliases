@@ -337,7 +337,7 @@ alias gittodo='gh issue create'
 
 # git status
 gs() {
-  echo "=====================$(git branch --show-current)=========================="
+  echo "===================== Current Branch : $(git branch --show-current)=========================="
   while IFS= read -r line; do
     status="${line:0:2}"
     file="${line:3}"
@@ -349,7 +349,7 @@ gs() {
       *) echo "$line" ;;
     esac
   done < <(git status --short)
-  echo "==================$(basename "$PWD")----================================="
+  echo "================== Current Directory : $(basename "$PWD")====================================="
 }
 
 #git tags
