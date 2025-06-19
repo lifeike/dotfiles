@@ -45,6 +45,8 @@ echo "##############################################"
 sudo apt     install -y nodejs npm
 sudo npm     install -g n
 sudo n       lts           # install long term support node version
+sudo apt     install -y postgresql-common
+sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
 
 # backend
 echo "##############################################"
