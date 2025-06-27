@@ -48,6 +48,18 @@ sudo n       lts           # install long term support node version
 sudo apt     install -y postgresql-common
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
 
+echo "##############################################"
+echo "git"
+echo "##############################################"
+git config --global credential.helper store # save git credentials on input on next pull or push
+
+echo "##############################################"
+echo "aws"
+echo "##############################################"
+sudo snap    install -y aws-cli --classic # aws-cli
+sudo npm     install -g aws-cdk           # cdk
+sudo curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x copilot && sudo mv copilot /usr/local/bin/copilot # copilot
+
 # backend
 echo "##############################################"
 echo "database"
@@ -77,8 +89,6 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo usermod -aG docker $USER
 # restart docker
 newgrp docker
-# Add aws copilot
-curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x copilot && sudo mv copilot /usr/local/bin/copilot && copilot --help
 
 # editor 
 echo "##############################################"
@@ -98,12 +108,6 @@ echo "##############################################"
 echo "mpv"
 echo "##############################################"
 sudo apt     install -y mpv              
-
-
-echo "##############################################"
-echo "git"
-echo "##############################################"
-git config --global credential.helper store # save git credentials on input on next pull or push
 
 echo "##############################################"
 echo "chrome"
@@ -134,20 +138,14 @@ echo "gnome"
 echo "##############################################"
 gsettings set org.gnome.desktop.interface enable-animations false 
 
-# games
-echo "##############################################"
-echo "hero3"
-echo "##############################################"
-sudo apt     install -y vcmi      
-
- # system tool
+# system tool
 echo "##############################################"
 echo "python/glances"
 echo "##############################################"
-sudo apt     install -y python   # install python2      
-sudo apt     install -y python3  # install python3 
-sudo apt     install -y python-pip  # pip/pip2      
-sudo apt     install -y python3-pip # pip3  
+sudo apt     install -y python          # install python2      
+sudo apt     install -y python3         # install python3 
+sudo apt     install -y python-pip      # pip/pip2      
+sudo apt     install -y python3-pip     # pip3  
 sudo pip     install --upgrade glances   
 sudo pip3    install tldr   
 
