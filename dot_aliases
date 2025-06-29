@@ -150,9 +150,16 @@ alias soundRestart='pulseaudio -k && sudo alsa force-reload'
 #-------------------------------
 # fzf
 #-------------------------------
-alias pdf='cd $HOME && zathura --mode fullscreen "$(fzf)" '
+cdf() {
+   cd ~
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") 
+   cd "$dir"
+   pwd
+}
 
-# Vim-Style Interactive CLI Help with fzf (Telescope-like experience)
+
 helpfzf() {
     local cmd="$1"
     shift
@@ -168,53 +175,158 @@ helpfzf() {
         return 1
     fi
     
-    echo "🔍 Loading help for: $cmd"
+    echo "🔍 Loading help for: $cmd (smart detection)"
     
-    # Get the best available help (avoid duplicates)
+    # Smart help detection - try all methods and pick the longest
     local help_content=""
     local help_source=""
+    local best_length=0
     
-    # Try different help methods in order of preference
-    local methods=("--help" "-h" "help")
-    for method in "${methods[@]}"; do
-        local temp_help
-        temp_help=$("$cmd" "$method" 2>&1 || true)
+    # Array of help methods to try
+    local help_methods=(
+        "--help"
+        "-h"
+        "help"
+        "-help"
+        "--usage"
+        "-usage"
+        "usage"
+        "-?"
+        "/?"
+    )
+    
+    echo "🔎 Scanning help methods..."
+    
+    # Try each method and track the longest output
+    for method in "${help_methods[@]}"; do
+        local temp_help=""
+        local temp_length=0
         
-        # Check if we got useful help (not error messages)
+        # Try the help method with timeout to avoid hanging
+        temp_help=$(timeout 5s "$cmd" "$method" 2>&1 || true)
+        
+        # Skip if it's clearly an error message
         if [[ -n "$temp_help" ]] && 
            [[ ! "$temp_help" =~ "unknown option" ]] && 
            [[ ! "$temp_help" =~ "invalid option" ]] && 
            [[ ! "$temp_help" =~ "unrecognized option" ]] &&
-           [[ ${#temp_help} -gt 50 ]]; then
-            help_content="$temp_help"
-            help_source="$cmd $method"
-            break
+           [[ ! "$temp_help" =~ "illegal option" ]] &&
+           [[ ! "$temp_help" =~ "bad option" ]] &&
+           [[ ! "$temp_help" =~ "command not found" ]] &&
+           [[ ! "$temp_help" =~ "No such file" ]]; then
+            
+            temp_length=${#temp_help}
+            
+            echo "   📊 $method: ${temp_length} chars"
+            
+            # Keep track of the longest valid help output
+            if [[ $temp_length -gt $best_length ]] && [[ $temp_length -gt 100 ]]; then
+                help_content="$temp_help"
+                help_source="$cmd $method"
+                best_length=$temp_length
+            fi
+        else
+            echo "   ❌ $method: failed or error"
         fi
     done
     
-    # Fall back to man page if no help found
-    if [[ -z "$help_content" ]]; then
+    # Try "cmd help" pattern (different from "cmd --help")
+    echo "🔎 Trying 'help' as subcommand..."
+    local help_subcmd=""
+    help_subcmd=$(timeout 5s "$cmd" help 2>&1 || true)
+    
+    if [[ -n "$help_subcmd" ]] && 
+       [[ ! "$help_subcmd" =~ "unknown" ]] && 
+       [[ ! "$help_subcmd" =~ "invalid" ]] &&
+       [[ ${#help_subcmd} -gt $best_length ]] &&
+       [[ ${#help_subcmd} -gt 100 ]]; then
+        help_content="$help_subcmd"
+        help_source="$cmd help"
+        best_length=${#help_subcmd}
+        echo "   📊 help subcommand: ${best_length} chars"
+    fi
+    
+    # Try man page as fallback
+    if [[ $best_length -lt 200 ]]; then
+        echo "🔎 Trying man page..."
         if man "$cmd" >/dev/null 2>&1; then
-            help_content=$(man "$cmd" 2>/dev/null)
-            help_source="man $cmd"
+            local man_content
+            man_content=$(man "$cmd" 2>/dev/null)
+            if [[ -n "$man_content" ]] && [[ ${#man_content} -gt $best_length ]]; then
+                help_content="$man_content"
+                help_source="man $cmd"
+                best_length=${#man_content}
+                echo "   📊 man page: ${best_length} chars"
+            fi
         else
-            # Try running with no args as last resort
-            help_content=$("$cmd" 2>&1 || true)
-            help_source="$cmd (no args)"
+            echo "   ❌ man page: not available"
         fi
     fi
     
-    if [[ -z "$help_content" ]]; then
-        echo "❌ No help available for $cmd"
+    # Try running with no args as last resort
+    if [[ $best_length -lt 100 ]]; then
+        echo "🔎 Trying no arguments..."
+        local no_args_help
+        no_args_help=$(timeout 3s "$cmd" 2>&1 || true)
+        if [[ -n "$no_args_help" ]] && [[ ${#no_args_help} -gt $best_length ]]; then
+            help_content="$no_args_help"
+            help_source="$cmd (no args)"
+            best_length=${#no_args_help}
+            echo "   📊 no args: ${best_length} chars"
+        fi
+    fi
+    
+    # Special handling for certain command patterns
+    case "$cmd" in
+        "git"|"docker"|"kubectl"|"aws"|"gcloud")
+            # These often have comprehensive help with specific patterns
+            echo "🔎 Trying comprehensive help for $cmd..."
+            local comprehensive_help=""
+            
+            case "$cmd" in
+                "git")
+                    comprehensive_help=$(git help 2>/dev/null || git --help 2>/dev/null || true)
+                    ;;
+                "docker")
+                    comprehensive_help=$(docker help 2>/dev/null || docker --help 2>/dev/null || true)
+                    ;;
+                "kubectl")
+                    comprehensive_help=$(kubectl help 2>/dev/null || kubectl --help 2>/dev/null || true)
+                    ;;
+                "aws")
+                    comprehensive_help=$(aws help 2>/dev/null || aws --help 2>/dev/null || true)
+                    ;;
+                "gcloud")
+                    comprehensive_help=$(gcloud help 2>/dev/null || gcloud --help 2>/dev/null || true)
+                    ;;
+            esac
+            
+            if [[ -n "$comprehensive_help" ]] && [[ ${#comprehensive_help} -gt $best_length ]]; then
+                help_content="$comprehensive_help"
+                help_source="$cmd (comprehensive)"
+                best_length=${#comprehensive_help}
+                echo "   📊 comprehensive: ${best_length} chars"
+            fi
+            ;;
+    esac
+    
+    # Final validation
+    if [[ -z "$help_content" ]] || [[ $best_length -lt 50 ]]; then
+        echo "❌ No substantial help content found for $cmd"
+        echo "🔍 Tried: ${help_methods[*]}, help subcommand, man page, no args"
         return 1
     fi
+    
+    echo "✅ Best help source: $help_source (${best_length} characters)"
+    echo ""
     
     # Parse help content to extract actionable items
     local temp_file=$(mktemp)
     
     {
         echo "══════════════════════════════════════════════════════════════════════"
-        echo "📚 Help Source: $help_source"
+        echo "📚 Best Help Source: $help_source"
+        echo "📊 Content Length: $best_length characters"
         echo "🎯 Command: $cmd"
         [[ -n "$extra_args" ]] && echo "📝 Extra Args: $extra_args"
         echo "══════════════════════════════════════════════════════════════════════"
@@ -224,44 +336,113 @@ helpfzf() {
         echo "🚀 QUICK ACTIONS:"
         echo "────────────────────────────────────────────────────────────────────"
         
-        # Extract subcommands (common patterns)
-        local subcommands
-        subcommands=$(echo "$help_content" | \
-            grep -E "^[[:space:]]*[a-z][a-z0-9_-]{2,}[[:space:]]" | \
+        # Enhanced subcommand detection with multiple patterns
+        local subcommands=""
+        
+        # Pattern 1: Standard "command description" format
+        local pattern1
+        pattern1=$(echo "$help_content" | \
+            grep -E "^[[:space:]]*[a-z][a-z0-9_-]{2,}[[:space:]]+" | \
             grep -v "^[[:space:]]*-" | \
             awk '{print $1}' | \
+            sort -u)
+        
+        # Pattern 2: Commands in "Available commands:" sections
+        local pattern2
+        pattern2=$(echo "$help_content" | \
+            sed -n '/[Aa]vailable.*[Cc]ommands/,/^$/p' | \
+            grep -E "^[[:space:]]*[a-z][a-z0-9_-]{2,}" | \
+            awk '{print $1}' | \
+            sort -u)
+        
+        # Pattern 3: Commands in "Commands:" sections
+        local pattern3
+        pattern3=$(echo "$help_content" | \
+            sed -n '/^[[:space:]]*[Cc]ommands:/,/^$/p' | \
+            grep -E "^[[:space:]]*[a-z][a-z0-9_-]{2,}" | \
+            awk '{print $1}' | \
+            sort -u)
+        
+        # Pattern 4: Indented commands (common in many CLIs)
+        local pattern4
+        pattern4=$(echo "$help_content" | \
+            grep -E "^[[:space:]]{2,}[a-z][a-z0-9_-]{2,}[[:space:]]" | \
+            awk '{print $1}' | \
+            sort -u)
+        
+        # Combine all patterns and deduplicate
+        subcommands=$(echo -e "$pattern1\n$pattern2\n$pattern3\n$pattern4" | \
+            grep -v "^$" | \
             sort -u | \
-            head -15)
+            head -20)
         
         if [[ -n "$subcommands" ]]; then
             echo "$subcommands" | while IFS= read -r subcmd; do
-                local desc
-                desc=$(echo "$help_content" | grep -E "^[[:space:]]*$subcmd[[:space:]]" | head -1 | sed "s/^[[:space:]]*$subcmd[[:space:]]*//" | cut -c1-70)
+                # Try to find description for this subcommand
+                local desc=""
+                
+                # Look for description in various formats
+                desc=$(echo "$help_content" | \
+                    grep -E "^[[:space:]]*$subcmd[[:space:]]+" | \
+                    head -1 | \
+                    sed "s/^[[:space:]]*$subcmd[[:space:]]*//" | \
+                    cut -c1-70)
+                
+                # If no description found, try other patterns
+                if [[ -z "$desc" || "$desc" == "$subcmd" ]]; then
+                    desc=$(echo "$help_content" | \
+                        grep -E "[[:space:]]$subcmd[[:space:]]" | \
+                        head -1 | \
+                        sed "s/.*$subcmd[[:space:]]*//" | \
+                        cut -c1-70)
+                fi
+                
+                # Fallback to generic description
+                [[ -z "$desc" ]] && desc="Available subcommand"
+                
                 printf "▶️  RUN: %-15s │ %s\n" "$subcmd" "$desc"
             done
             echo ""
+        else
+            echo "No subcommands detected"
+            echo ""
         fi
         
-        # Extract common options
+        # Enhanced option detection
         echo "⚙️  COMMON OPTIONS:"
         echo "────────────────────────────────────────────────────────────────────"
-        echo "$help_content" | \
+        
+        # Look for options in multiple formats
+        local options
+        options=$(echo "$help_content" | \
             grep -E "^[[:space:]]*(-[a-zA-Z]|--[a-zA-Z])" | \
-            head -12 | \
-            while IFS= read -r line; do
+            head -15)
+        
+        if [[ -n "$options" ]]; then
+            echo "$options" | while IFS= read -r line; do
                 local option=$(echo "$line" | awk '{print $1}')
                 local desc=$(echo "$line" | sed 's/^[[:space:]]*[^[:space:]]*[[:space:]]*//' | cut -c1-65)
                 printf "🔧 USE: %-20s │ %s\n" "$option" "$desc"
             done
+        else
+            echo "No standard options found"
+        fi
         echo ""
         
-        # Show usage patterns
+        # Enhanced usage pattern detection
         echo "📖 USAGE PATTERNS:"
         echo "────────────────────────────────────────────────────────────────────"
-        echo "$help_content" | \
-            grep -i -E "(usage|synopsis):" -A 3 | \
+        local usage_patterns
+        usage_patterns=$(echo "$help_content" | \
+            grep -i -E "(usage|synopsis|example):" -A 5 | \
             grep -v "^--$" | \
-            sed 's/^[[:space:]]*/📋 /'
+            head -10)
+        
+        if [[ -n "$usage_patterns" ]]; then
+            echo "$usage_patterns" | sed 's/^[[:space:]]*/📋 /'
+        else
+            echo "📋 No usage patterns found"
+        fi
         echo ""
         
         echo "📄 FULL HELP CONTENT:"
@@ -270,15 +451,18 @@ helpfzf() {
         
     } > "$temp_file"
     
-    # Vim-style fzf with Telescope-like bindings (maximum compatibility)
+    # Use fzf with the same interface as before
+    echo "🎮 Navigation: j/k (move) | type to search | Tab (preview) | Esc (exit)"
+    echo ""
+    
     local selection
     selection=$(cat "$temp_file" | \
         fzf --ansi \
             --height=90% \
             --layout=reverse \
             --border \
-            --prompt="🔍 $cmd ❯ " \
-            --header="j/k: navigate │ i: search │ Enter: select │ Tab: preview │ Esc: exit" \
+            --prompt="🔍 $cmd (${best_length} chars) ❯ " \
+            --header="Smart help detection active │ j/k: navigate │ type: search │ Tab: preview" \
             --preview-window="right:50%" \
             --preview="echo 'Selected: {}' | fold -w 45" \
             --bind="j:down" \
@@ -294,21 +478,16 @@ helpfzf() {
     # Clean up temp file
     rm -f "$temp_file"
     
-    # Process the selection
+    # Process the selection (same logic as before)
     if [[ -n "$selection" ]]; then
-        # Check if it's a runnable action
         if [[ "$selection" =~ ^▶️[[:space:]]*RUN:[[:space:]]*([^[:space:]│]+) ]]; then
             local subcmd="${BASH_REMATCH[1]}"
             local full_command="$cmd $subcmd $extra_args"
             
             echo ""
             echo "🚀 Detected subcommand: $subcmd"
-            
-            # Vim-style argument input with completion
-            echo "💬 Additional arguments for '$cmd $subcmd':"
-            echo "   Press Tab for suggestions, Ctrl+C to cancel"
-            echo -n "❯ "
-            read -e -r additional_args  # -e enables readline editing
+            echo -n "💬 Additional arguments for '$cmd $subcmd': "
+            read -e -r additional_args
             
             [[ -n "$additional_args" ]] && full_command="$cmd $subcmd $additional_args $extra_args"
             
@@ -345,25 +524,15 @@ helpfzf() {
             eval "$full_command"
             
         else
-            # Just show what was selected (for learning)
             echo ""
             echo "📋 Selected:"
             echo "$selection"
             echo ""
-            echo "💡 This was informational. To run a command, select lines starting with ▶️  or 🔧"
+            echo "💡 To run commands, select lines starting with ▶️  or 🔧"
         fi
     fi
 }
 
-
-#find file and navigate to the directory
-ff(){
-
-    cd $HOME
-    file=$(fzf -q "$1")
-    dir=$(dirname "$file")
-    ranger "$dir"
-}
 
 #-------------------------------
 # chrome
@@ -650,21 +819,6 @@ function split_big_video_into_clips_of_10mins(){
 	local input=$1;
 	ffmpeg -i $1 -acodec copy -f segment -segment_time 600 -vcodec copy -reset_timestamps 1 -map 0 $1%d.avi
 }
-
-#-----------------
-# fuzzy finder
-#-----------------
-# cdf - cd into the directory of the selected file
-cdf() {
-   cd ~
-   local file
-   local dir
-   file=$(fzf +m -q "$1") && dir=$(dirname "$file") 
-   cd "$dir"
-   pwd
-}
-
-alias vf='cd $HOME && vim $(fzf)'
 
 #-----------------
 # chezmoi
