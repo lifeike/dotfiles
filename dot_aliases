@@ -152,22 +152,482 @@ alias soundRestart='pulseaudio -k && sudo alsa force-reload'
 #-------------------------------
 alias pdf='cd $HOME && zathura --mode fullscreen "$(fzf)" '
 # Add this function to your shell config
+#!/bin/bash
+
+# Optimized Interactive CLI Help with fzf
+#!/bin/bash
+
+# Optimized Interactive CLI Help with fzf
 helpfzf() {
     local cmd="$1"
+    shift
+    local extra_args="$*"
+    
     if ! command -v "$cmd" &> /dev/null; then
-        echo "Command not found: $cmd"
+        echo "❌ Command not found: $cmd"
         return 1
     fi
     
-    # Try different help methods and show in fzf
+    if ! command -v fzf &> /dev/null; then
+        echo "❌ fzf not found. Install with: brew install fzf"
+        return 1
+    fi
+    
+    echo "🔍 Loading help for: $cmd"
+    
+    # Get the best available help (avoid duplicates)
+    local help_content=""
+    local help_source=""
+    
+    # Try different help methods in order of preference
+    local methods=("--help" "-h" "help")
+    for method in "${methods[@]}"; do
+        local temp_help
+        temp_help=$("$cmd" "$method" 2>&1 || true)
+        
+        # Check if we got useful help (not error messages)
+        if [[ -n "$temp_help" ]] && 
+           [[ ! "$temp_help" =~ "unknown option" ]] && 
+           [[ ! "$temp_help" =~ "invalid option" ]] && 
+           [[ ! "$temp_help" =~ "unrecognized option" ]] &&
+           [[ ${#temp_help} -gt 50 ]]; then
+            help_content="$temp_help"
+            help_source="$cmd $method"
+            break
+        fi
+    done
+    
+    # Fall back to man page if no help found
+    if [[ -z "$help_content" ]]; then
+        if man "$cmd" >/dev/null 2>&1; then
+            help_content=$(man "$cmd" 2>/dev/null)
+            help_source="man $cmd"
+        else
+            # Try running with no args as last resort
+            help_content=$("$cmd" 2>&1 || true)
+            help_source="$cmd (no args)"
+        fi
+    fi
+    
+    if [[ -z "$help_content" ]]; then
+        echo "❌ No help available for $cmd"
+        return 1
+    fi
+    
+    # Parse help content to extract actionable items
+    local temp_file=$(mktemp)
+    
     {
-        echo "=== $cmd --help ==="
-        "$cmd" --help 2>/dev/null || true
-        echo -e "\n=== $cmd -h ==="
-        "$cmd" -h 2>/dev/null || true
-        echo -e "\n=== man $cmd ==="
-        man "$cmd" 2>/dev/null | head -50 || true
-    } | fzf --ansi --preview-window=wrap
+        echo "══════════════════════════════════════════════════════════════════════"
+        echo "📚 Help Source: $help_source"
+        echo "🎯 Command: $cmd"
+        [[ -n "$extra_args" ]] && echo "📝 Extra Args: $extra_args"
+        echo "══════════════════════════════════════════════════════════════════════"
+        echo ""
+        
+        # Extract and categorize content
+        echo "🚀 QUICK ACTIONS:"
+        echo "────────────────────────────────────────────────────────────────────"
+        
+        # Extract subcommands (common patterns)
+        local subcommands
+        subcommands=$(echo "$help_content" | \
+            grep -E "^[[:space:]]*[a-z][a-z0-9_-]{2,}[[:space:]]" | \
+            grep -v "^[[:space:]]*-" | \
+            awk '{print $1}' | \
+            sort -u | \
+            head -15)
+        
+        if [[ -n "$subcommands" ]]; then
+            echo "$subcommands" | while IFS= read -r subcmd; do
+                local desc
+                desc=$(echo "$help_content" | grep -E "^[[:space:]]*$subcmd[[:space:]]" | head -1 | sed "s/^[[:space:]]*$subcmd[[:space:]]*//" | cut -c1-70)
+                printf "▶️  RUN: %-15s │ %s\n" "$subcmd" "$desc"
+            done
+            echo ""
+        fi
+        
+        # Extract common options
+        echo "⚙️  COMMON OPTIONS:"
+        echo "────────────────────────────────────────────────────────────────────"
+        echo "$help_content" | \
+            grep -E "^[[:space:]]*(-[a-zA-Z]|--[a-zA-Z])" | \
+            head -12 | \
+            while IFS= read -r line; do
+                local option=$(echo "$line" | awk '{print $1}')
+                local desc=$(echo "$line" | sed 's/^[[:space:]]*[^[:space:]]*[[:space:]]*//' | cut -c1-65)
+                printf "🔧 USE: %-20s │ %s\n" "$option" "$desc"
+            done
+        echo ""
+        
+        # Show usage patterns
+        echo "📖 USAGE PATTERNS:"
+        echo "────────────────────────────────────────────────────────────────────"
+        echo "$help_content" | \
+            grep -i -E "(usage|synopsis):" -A 3 | \
+            grep -v "^--$" | \
+            sed 's/^[[:space:]]*/📋 /'
+        echo ""
+        
+        echo "📄 FULL HELP CONTENT:"
+        echo "────────────────────────────────────────────────────────────────────"
+        echo "$help_content"
+        
+    } > "$temp_file"
+    
+    # Use fzf with enhanced preview and binding
+    local selection
+    selection=$(cat "$temp_file" | \
+        fzf --ansi \
+            --height=90% \
+            --layout=reverse \
+            --border=rounded \
+            --info=inline \
+            --prompt="🔍 $cmd ❯ " \
+            --header="Press ENTER to run selection, ESC to exit, CTRL-Y to copy" \
+            --preview-window="right:50%:wrap" \
+            --preview="echo 'Selected: {}' | fold -w 50" \
+            --bind="ctrl-y:execute-silent(echo {} | pbcopy)+abort" \
+            --bind="ctrl-r:reload(cat $temp_file)" \
+            --color="header:italic:underline" \
+    )
+    
+    # Clean up temp file
+    rm -f "$temp_file"
+    
+    # Process the selection
+    if [[ -n "$selection" ]]; then
+        # Check if it's a runnable action
+        if [[ "$selection" =~ ^▶️[[:space:]]*RUN:[[:space:]]*([^[:space:]│]+) ]]; then
+            local subcmd="${BASH_REMATCH[1]}"
+            local full_command="$cmd $subcmd $extra_args"
+            
+            echo ""
+            echo "🚀 Detected subcommand: $subcmd"
+            
+            # Ask for additional arguments
+            echo -n "💬 Additional arguments for '$cmd $subcmd' (press Enter to run as-is): "
+            read -r additional_args
+            
+            [[ -n "$additional_args" ]] && full_command="$cmd $subcmd $additional_args $extra_args"
+            
+            echo "🔥 Running: $full_command"
+            echo "────────────────────────────────────────────────────────────"
+            
+            # Safety check for destructive commands
+            case "$cmd $subcmd" in
+                *"rm "*|*"delete "*|*"destroy "*|*"drop "*|*"remove "*)
+                    echo "⚠️  This command might be destructive!"
+                    echo -n "Are you sure? [y/N]: "
+                    read -r confirm
+                    [[ "$confirm" != "y" && "$confirm" != "Y" ]] && return 0
+                    ;;
+            esac
+            
+            eval "$full_command"
+            
+        elif [[ "$selection" =~ ^🔧[[:space:]]*USE:[[:space:]]*([^[:space:]│]+) ]]; then
+            local option="${BASH_REMATCH[1]}"
+            local full_command="$cmd $option $extra_args"
+            
+            echo ""
+            echo "🔧 Selected option: $option"
+            echo -n "💬 Additional arguments (press Enter to run as-is): "
+            read -r additional_args
+            
+            [[ -n "$additional_args" ]] && full_command="$cmd $option $additional_args $extra_args"
+            
+            echo "🔥 Running: $full_command"
+            echo "────────────────────────────────────────────────────────────"
+            eval "$full_command"
+            
+        else
+            # Just show what was selected (for learning)
+            echo ""
+            echo "📋 Selected:"
+            echo "$selection"
+            echo ""
+            echo "💡 This was informational. To run a command, select lines starting with ▶️  or 🔧"
+        fi
+    fi
+}
+
+# Enhanced version with subcommand support
+helpfzf_sub() {
+    local cmd="$1"
+    local subcmd="$2"
+    shift 2
+    local extra_args="$*"
+    
+    if [[ -z "$subcmd" ]]; then
+        echo "Usage: helpfzf_sub <command> <subcommand> [args...]"
+        echo "Example: helpfzf_sub git commit"
+        return 1
+    fi
+    
+    echo "🔍 Getting help for: $cmd $subcmd"
+    
+    # Try to get specific help for the subcommand
+    local help_content=""
+    local help_source=""
+    
+    for method in "--help" "-h" "help"; do
+        local temp_help
+        temp_help=$("$cmd" "$subcmd" "$method" 2>&1 || true)
+        
+        if [[ -n "$temp_help" ]] && 
+           [[ ! "$temp_help" =~ "unknown option" ]] && 
+           [[ ${#temp_help} -gt 30 ]]; then
+            help_content="$temp_help"
+            help_source="$cmd $subcmd $method"
+            break
+        fi
+    done
+    
+    if [[ -z "$help_content" ]]; then
+        echo "❌ No specific help found for $cmd $subcmd"
+        echo "💡 Falling back to main command help"
+        helpfzf "$cmd" "$subcmd" "$extra_args"
+        return
+    fi
+    
+    # Create formatted output
+    local temp_file=$(mktemp)
+    
+    {
+        echo "══════════════════════════════════════════════════════════════════════"
+        echo "📚 Help Source: $help_source"
+        echo "🎯 Command: $cmd $subcmd"
+        [[ -n "$extra_args" ]] && echo "📝 Extra Args: $extra_args"
+        echo "══════════════════════════════════════════════════════════════════════"
+        echo ""
+        
+        echo "⚙️  OPTIONS FOR: $cmd $subcmd"
+        echo "────────────────────────────────────────────────────────────────────"
+        echo "$help_content" | \
+            grep -E "^[[:space:]]*(-[a-zA-Z]|--[a-zA-Z])" | \
+            while IFS= read -r line; do
+                local option=$(echo "$line" | awk '{print $1}')
+                local desc=$(echo "$line" | sed 's/^[[:space:]]*[^[:space:]]*[[:space:]]*//' | cut -c1-65)
+                printf "🔧 USE: %-20s │ %s\n" "$option" "$desc"
+            done
+        echo ""
+        
+        echo "📄 FULL HELP:"
+        echo "────────────────────────────────────────────────────────────────────"
+        echo "$help_content"
+        
+    } > "$temp_file"
+    
+    # Show with fzf
+    local selection
+    selection=$(cat "$temp_file" | \
+        fzf --ansi \
+            --height=90% \
+            --layout=reverse \
+            --border=rounded \
+            --prompt="🔍 $cmd $subcmd ❯ " \
+            --header="Select option to use with $cmd $subcmd" \
+    )
+    
+    rm -f "$temp_file"
+    
+    if [[ -n "$selection" && "$selection" =~ ^🔧[[:space:]]*USE:[[:space:]]*([^[:space:]│]+) ]]; then
+        local option="${BASH_REMATCH[1]}"
+        local full_command="$cmd $subcmd $option $extra_args"
+        
+        echo -n "💬 Additional arguments for '$cmd $subcmd $option': "
+        read -r additional_args
+        
+        [[ -n "$additional_args" ]] && full_command="$cmd $subcmd $option $additional_args $extra_args"
+        
+        echo "🔥 Running: $full_command"
+        echo "────────────────────────────────────────────────────────────"
+        eval "$full_command"
+    fi
+}
+
+# Quick launcher - combines exploration with execution
+qrun() {
+    local cmd="$1"
+    
+    if [[ -z "$cmd" ]]; then
+        echo "Usage: qrun <command>"
+        echo "Quick run with interactive help"
+        return 1
+    fi
+    
+    # Show brief help and let user decide
+    echo "🚀 Quick Runner for: $cmd"
+    
+    local options=(
+        "🔍 Explore with helpfzf"
+        "⚡ Run directly"
+        "📖 Show brief help"
+        "❌ Cancel"
+    )
+    
+    if command -v fzf &> /dev/null; then
+        local choice
+        choice=$(printf '%s\n' "${options[@]}" | fzf --height=40% --prompt="What to do with $cmd? ")
+        
+        case "$choice" in
+            "🔍 Explore with helpfzf")
+                helpfzf "$cmd"
+                ;;
+            "⚡ Run directly")
+                echo -n "Arguments for $cmd: "
+                read -r args
+                echo "Running: $cmd $args"
+                eval "$cmd $args"
+                ;;
+            "📖 Show brief help")
+                "$cmd" --help 2>/dev/null || "$cmd" -h 2>/dev/null || man "$cmd"
+                ;;
+        esac
+    else
+        echo "Install fzf for better experience: brew install fzf"
+        helpfzf "$cmd"
+    fi
+}
+
+# Enhanced version with subcommand support
+helpfzf_sub() {
+    local cmd="$1"
+    local subcmd="$2"
+    shift 2
+    local extra_args="$*"
+    
+    if [[ -z "$subcmd" ]]; then
+        echo "Usage: helpfzf_sub <command> <subcommand> [args...]"
+        echo "Example: helpfzf_sub git commit"
+        return 1
+    fi
+    
+    echo "🔍 Getting help for: $cmd $subcmd"
+    
+    # Try to get specific help for the subcommand
+    local help_content=""
+    local help_source=""
+    
+    for method in "--help" "-h" "help"; do
+        local temp_help
+        temp_help=$("$cmd" "$subcmd" "$method" 2>&1 || true)
+        
+        if [[ -n "$temp_help" ]] && 
+           [[ ! "$temp_help" =~ "unknown option" ]] && 
+           [[ ${#temp_help} -gt 30 ]]; then
+            help_content="$temp_help"
+            help_source="$cmd $subcmd $method"
+            break
+        fi
+    done
+    
+    if [[ -z "$help_content" ]]; then
+        echo "❌ No specific help found for $cmd $subcmd"
+        echo "💡 Falling back to main command help"
+        helpfzf "$cmd" "$subcmd" "$extra_args"
+        return
+    fi
+    
+    # Create formatted output
+    local temp_file=$(mktemp)
+    
+    {
+        echo "══════════════════════════════════════════════════════════════════════"
+        echo "📚 Help Source: $help_source"
+        echo "🎯 Command: $cmd $subcmd"
+        [[ -n "$extra_args" ]] && echo "📝 Extra Args: $extra_args"
+        echo "══════════════════════════════════════════════════════════════════════"
+        echo ""
+        
+        echo "⚙️  OPTIONS FOR: $cmd $subcmd"
+        echo "────────────────────────────────────────────────────────────────────"
+        echo "$help_content" | \
+            grep -E "^[[:space:]]*(-[a-zA-Z]|--[a-zA-Z])" | \
+            while IFS= read -r line; do
+                local option=$(echo "$line" | awk '{print $1}')
+                local desc=$(echo "$line" | sed 's/^[[:space:]]*[^[:space:]]*[[:space:]]*//' | cut -c1-65)
+                printf "🔧 USE: %-20s │ %s\n" "$option" "$desc"
+            done
+        echo ""
+        
+        echo "📄 FULL HELP:"
+        echo "────────────────────────────────────────────────────────────────────"
+        echo "$help_content"
+        
+    } > "$temp_file"
+    
+    # Show with fzf
+    local selection
+    selection=$(cat "$temp_file" | \
+        fzf --ansi \
+            --height=90% \
+            --layout=reverse \
+            --border=rounded \
+            --prompt="🔍 $cmd $subcmd ❯ " \
+            --header="Select option to use with $cmd $subcmd" \
+    )
+    
+    rm -f "$temp_file"
+    
+    if [[ -n "$selection" && "$selection" =~ ^🔧[[:space:]]*USE:[[:space:]]*([^[:space:]│]+) ]]; then
+        local option="${BASH_REMATCH[1]}"
+        local full_command="$cmd $subcmd $option $extra_args"
+        
+        echo -n "💬 Additional arguments for '$cmd $subcmd $option': "
+        read -r additional_args
+        
+        [[ -n "$additional_args" ]] && full_command="$cmd $subcmd $option $additional_args $extra_args"
+        
+        echo "🔥 Running: $full_command"
+        echo "────────────────────────────────────────────────────────────"
+        eval "$full_command"
+    fi
+}
+
+# Quick launcher - combines exploration with execution
+qrun() {
+    local cmd="$1"
+    
+    if [[ -z "$cmd" ]]; then
+        echo "Usage: qrun <command>"
+        echo "Quick run with interactive help"
+        return 1
+    fi
+    
+    # Show brief help and let user decide
+    echo "🚀 Quick Runner for: $cmd"
+    
+    local options=(
+        "🔍 Explore with helpfzf"
+        "⚡ Run directly"
+        "📖 Show brief help"
+        "❌ Cancel"
+    )
+    
+    if command -v fzf &> /dev/null; then
+        local choice
+        choice=$(printf '%s\n' "${options[@]}" | fzf --height=40% --prompt="What to do with $cmd? ")
+        
+        case "$choice" in
+            "🔍 Explore with helpfzf")
+                helpfzf "$cmd"
+                ;;
+            "⚡ Run directly")
+                echo -n "Arguments for $cmd: "
+                read -r args
+                echo "Running: $cmd $args"
+                eval "$cmd $args"
+                ;;
+            "📖 Show brief help")
+                "$cmd" --help 2>/dev/null || "$cmd" -h 2>/dev/null || man "$cmd"
+                ;;
+        esac
+    else
+        echo "Install fzf for better experience: brew install fzf"
+        helpfzf "$cmd"
+    fi
 }
 
 #find file and navigate to the directory
