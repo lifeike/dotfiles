@@ -50,7 +50,7 @@ alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
 alias ds='ncdu ~'
 alias s='cdf'
 alias clear='clear && tmux clear-history'
-alias m='tldr -u && tldr'
+alias m='helpfzf'
 
 
 # port in used.
@@ -151,6 +151,24 @@ alias soundRestart='pulseaudio -k && sudo alsa force-reload'
 # fzf
 #-------------------------------
 alias pdf='cd $HOME && zathura --mode fullscreen "$(fzf)" '
+# Add this function to your shell config
+helpfzf() {
+    local cmd="$1"
+    if ! command -v "$cmd" &> /dev/null; then
+        echo "Command not found: $cmd"
+        return 1
+    fi
+    
+    # Try different help methods and show in fzf
+    {
+        echo "=== $cmd --help ==="
+        "$cmd" --help 2>/dev/null || true
+        echo -e "\n=== $cmd -h ==="
+        "$cmd" -h 2>/dev/null || true
+        echo -e "\n=== man $cmd ==="
+        man "$cmd" 2>/dev/null | head -50 || true
+    } | fzf --ansi --preview-window=wrap
+}
 
 #find file and navigate to the directory
 ff(){
@@ -502,3 +520,5 @@ alias killconn='psql -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity 
 # Export & Import
 alias exportdb='pg_dump -U user -d dbname -f output.sql'	# pg_dump	Export DB to SQL file
 alias importdb='psql -U user -d dbname -f input.sql'	# psql -f	Import SQL file into DB
+
+
