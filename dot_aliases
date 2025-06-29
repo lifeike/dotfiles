@@ -176,7 +176,7 @@ helpfzf() {
     local help_source=""
     
     # Try different help methods in order of preference
-    local methods=("--help" "-h" "help")
+    local methods=("help" "--help" "-h")
     for method in "${methods[@]}"; do
         local temp_help
         temp_help=$("$cmd" "$method" 2>&1 || true)
