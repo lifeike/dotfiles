@@ -152,7 +152,6 @@ alias soundRestart='pulseaudio -k && sudo alsa force-reload'
 #-------------------------------
 alias pdf='cd $HOME && zathura --mode fullscreen "$(fzf)" '
 
-# Optimized Interactive CLI Help with fzf
 # Vim-Style Interactive CLI Help with fzf (Telescope-like experience)
 helpfzf() {
     local cmd="$1"
@@ -176,7 +175,7 @@ helpfzf() {
     local help_source=""
     
     # Try different help methods in order of preference
-    local methods=("help" "--help" "-h")
+    local methods=("--help" "-h" "help")
     for method in "${methods[@]}"; do
         local temp_help
         temp_help=$("$cmd" "$method" 2>&1 || true)
