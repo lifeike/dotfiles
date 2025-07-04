@@ -46,7 +46,7 @@ sudo apt     install -y nodejs npm
 sudo npm     install -g n
 sudo n       lts           # install long term support node version
 sudo apt     install -y postgresql-common
-sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+yes  | sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
 
 echo "##############################################"
 echo "git"
@@ -58,7 +58,9 @@ echo "aws"
 echo "##############################################"
 sudo snap    install -y aws-cli --classic # aws-cli
 sudo npm     install -g aws-cdk           # cdk
-sudo curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x copilot && sudo mv copilot /usr/local/bin/copilot # copilot
+sudo curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux 
+sudo chmod +x copilot  
+sudo mv copilot /usr/local/bin/copilot # copilot
 
 # backend
 echo "##############################################"
