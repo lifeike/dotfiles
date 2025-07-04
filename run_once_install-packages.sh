@@ -88,7 +88,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 # add docker to sudo user group
 sudo usermod -aG docker $USER
 # restart docker
-newgrp docker
+# newgrp docker  # this will create new shell session, not working
 
 # editor 
 echo "##############################################"
