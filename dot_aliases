@@ -18,7 +18,7 @@
 alias co='copilot '          
 alias p='pwd '          
 alias t3='npm create t3-app@latest'          
-alias moveToGoogleDrive='cp -r . /run/user/$(id -u)/gvfs/google-drive:host=gmail.com,user=lifeike67/'
+alias ziptest='zip -r test.zip '
 
 #---------------------
 # system aliases
