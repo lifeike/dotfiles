@@ -631,7 +631,7 @@ alias mp3='mpv --no-video '
 ###########################
 alias youtubedownloadmp3='youtube -xiwc --audio-format mp3 '
 alias youtube='yt-dlp -o "%(title)s.%(ext)s"'
-alias youtubechannelrelease='yt-dlp -x --audio-format mp3 -o "%(uploader)s/[%(upload_date>%Y)s] %(album,playlist_title)s/%(track_number,playlist_index)02d - %(title)s.%(ext)s" --add-metadata --embed-thumbnail --write-info-json --yes-playlist '
+alias youtubechannelrelease='yt-dlp -x --audio-format mp3 -o "%(uploader)s/[%(upload_date>%Y)s] %(album,playlist_title)s/%(track_number,playlist_index)02d - %(title)s.%(ext)s" --add-metadata --embed-thumbnail --download-archive --yes-playlist '
 
 # load all source files
 alias load='source ~/.bashrc && source ~/.profile && tmux source-file ~/.tmux.conf'
