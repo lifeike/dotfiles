@@ -703,6 +703,7 @@ alias l='tmux choose-window '
 #----------------------------
 alias lifeike='cd /home/feeco/Documents/feeco && gb && gs && ranger'
 alias gb='git branch --sort=committerdate | column'
+alias pull='current_branch=$(git branch --show-current); echo "🔄 Fetching latest changes from all remotes..."; git fetch --all; echo ""; for branch in $(git branch | grep -v "^\*" | sed "s/^  //"); do echo "📝 Switching to branch: $branch"; git checkout "$branch"; if ! git merge "origin/$branch"; then echo ""; echo "❌ MERGE CONFLICT DETECTED"; echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"; echo "   Branch: $branch"; echo "   Status: Merge conflict needs manual resolution"; echo ""; echo "   Next steps:"; echo "   1. Resolve conflicts in your editor"; echo "   2. Stage resolved files: git add ."; echo "   3. Commit the merge: git commit"; echo "   4. Run the alias again to continue"; echo ""; echo "   Your original branch: $current_branch"; echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"; exit 1; fi; echo "   ✅ Successfully updated $branch"; echo ""; done; git checkout "$current_branch"; echo "🎉 All branches updated successfully!"; echo "📍 Returned to your original branch: $current_branch"'
 alias gitlastcommit='git diff HEAD^ '
 alias gitcommitscount='git shortlog -sn --all'
 alias gitlistconflicts='git diff --check'
