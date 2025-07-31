@@ -139,8 +139,8 @@ echo "##############################################"
 echo "gnome"
 echo "##############################################"
 gsettings set org.gnome.desktop.interface enable-animations false 
-sudo      apt remove update-notifier update-notifier-common
-sudo      apt remove gnome-software packagekit
+sudo      apt -y  remove update-notifier update-notifier-common
+sudo      apt -y  remove gnome-software 
 
 # system tool
 echo "##############################################"
