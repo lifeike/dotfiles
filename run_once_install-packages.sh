@@ -141,6 +141,8 @@ echo "##############################################"
 gsettings set org.gnome.desktop.interface enable-animations false 
 sudo      apt -y  remove update-notifier update-notifier-common
 sudo      apt -y  remove gnome-software 
+sudo      snap remove snap-store -y
+
 
 # system tool
 echo "##############################################"
