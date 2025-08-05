@@ -4,7 +4,7 @@ unmap [fullscreen] d
 map [fullscreen] d scroll half-down 
 map f toggle_fullscreen
 map [fullscreen] f toggle_fullscreen
-set pages-per-row 3
+# set pages-per-row 3
 set first-page-column 1
 set window-height 3000
 set window-width 3000
