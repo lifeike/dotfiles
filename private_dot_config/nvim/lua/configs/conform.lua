@@ -7,7 +7,7 @@ require("conform").setup({
   },
   formatters = {
     prettier = {
-      prepend_args = { "--print-width", "200" },
+      prepend_args = { "--print-width", "100" },
     },
   },
   format_one_save = {
