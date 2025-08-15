@@ -136,3 +136,5 @@ fi
 unset __mamba_setup
 # <<< mamba initialize <<<
 export PATH="$HOME/miniconda3/bin:$PATH"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
