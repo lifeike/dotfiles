@@ -13,7 +13,9 @@ map("n", "B", "0")
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 -- Feeco's custom mappings
 -- Telescope
-map({"n","i","v"}, "<C-o>", "<cmd>Telescope<CR>", { desc = "show all commands in telescope" })
+map({"n","i","v"}, "<A-,>", "<cmd>Telescope<CR>", { desc = "show all list pickers" })
+-- Telescope Commands
+map({"n","i","v"}, "<A-.>", "<cmd>Telescope commands<CR>", { desc = "show all commands in telescope" })
 -- Telescope Find Files
 map({"n","i","v"}, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
 -- Telescope Find Current Tabs
