@@ -6,5 +6,4 @@
 	ignorecase = false
 	editor = nvim
 [credential]
-	helper = !aws codecommit credential-helper $@
-	UseHttpPath = true
+	helper = store
