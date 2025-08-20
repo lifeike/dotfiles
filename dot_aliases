@@ -50,6 +50,7 @@ alias ds='ncdu ~'
 alias s='cdf'
 alias clear='clear && tmux clear-history'
 alias m='helpfzf'
+alias cd-ssh='cd ~/.ssh'
 
 
 # port in used.
