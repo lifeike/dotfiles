@@ -747,20 +747,24 @@ function git-open-project(){
 }
 
 # clone a git repo with all remote branches
-alias gc=git-clone-all-branches
-function git-clone-all-branches(){
-    #go to source code folder
-    git clone $1
-    basename=$(basename $1)
-    filename=${basename%.*}
-    cd $filename
+function git-clone-all-branches() {
+    local repo_url="$1"
 
-    #clone all remote branches from remote
-for branch in `git branch -a | grep remotes | grep -v HEAD | grep -v master`; do
-        #rename remote branches to local branch( remotes/origin/hello --> hello )
-        git branch --track ${branch##remotes/origin/} $branch
-            done
-        }
+    # get repo name from URL
+    local basename=$(basename "$repo_url")
+    local repo_name=${basename%.*}
+
+    git clone "$repo_url"
+    cd "$repo_name" || return
+
+    # fetch all remote branches
+    git fetch --all
+    for branch in $(git branch -r | grep -v HEAD); do
+        git branch --track "${branch#origin/}" "$branch" 2>/dev/null
+    done
+}
+alias gc=git-clone-all-branches
+
 
 
 # gcot - git checkout branch/tag
