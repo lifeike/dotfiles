@@ -19,7 +19,6 @@ alias co='copilot '
 alias p='pwd '          
 alias t3='npm create t3-app@latest'          
 alias zip='zip -r test.zip '
-alias tts='f(){ edge-tts --voice zh-CN-YunyangNeural --rate=-10% --file "$1" --write-media "${1%.*}.mp3"; unset -f f; }; f'
 
 #---------------------
 # system aliases
@@ -865,3 +864,10 @@ alias exportdb='pg_dump -U user -d dbname -f output.sql'	# pg_dump	Export DB to 
 alias importdb='psql -U user -d dbname -f input.sql'	# psql -f	Import SQL file into DB
 
 
+
+#------------------------------------
+# tts
+#------------------------------------
+tts() {
+    edge-tts --voice zh-CN-YunyangNeural --rate=-10% --file "$1" --write-media "${1%.*}.mp3"
+}
