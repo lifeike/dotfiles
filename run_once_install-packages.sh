@@ -24,7 +24,7 @@ sudo apt     install -y fzf
 sudo apt     install -y fd-find
 sudo apt     install -y git              
 sudo apt     install -y whois              
-sudo apt     install -y gh #github cli             
+sudo apt     install -y openssh-client #generate ssh key             
 sudo apt     install -y tmux             
 sudo apt     install -y osdclock
 sudo apt     install -y unrar
