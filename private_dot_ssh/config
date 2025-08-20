@@ -1,0 +1,17 @@
+Host git-codecommit.*.amazonaws.com
+    User APKAZZDCEIPEVNWOFVHQ
+    IdentityFile ~/.ssh/id_ed25519
+
+Host lifeike
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    IdentitiesOnly yes
+    AddKeysToAgent yes
+
+Host hankAndfeeco
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github_pulse_point
+    IdentitiesOnly yes
+    AddKeysToAgent yes
