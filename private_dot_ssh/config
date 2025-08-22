@@ -9,9 +9,3 @@ Host lifeike
     IdentitiesOnly yes
     AddKeysToAgent yes
 
-Host hankAndfeeco
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/github_pulse_point
-    IdentitiesOnly yes
-    AddKeysToAgent yes
