@@ -5,7 +5,7 @@ Host git-codecommit.*.amazonaws.com
 Host lifeike
     HostName github.com
     User git
-    IdentityFile ~/.ssh/id_ed25519
+    IdentityFile ~/.ssh/primary
     IdentitiesOnly yes
     AddKeysToAgent yes
 
