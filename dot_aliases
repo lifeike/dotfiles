@@ -567,6 +567,53 @@ alias convertdocxtotxt='libreoffice --headless --convert-to txt'
 # convert images to pdf
 alias convertjpgtopdf='convert *.jpg output.pdf'
 
+# convert markdown to pdf
+md2pdf_batch() {
+    local tmp_css="__temp_style.css"
+
+    # Write the CSS content into a temp file
+    cat > "$tmp_css" <<'EOF'
+body {
+  margin: 5mm;
+  font-family: sans-serif;
+}
+pre {
+  background-color: #eaeaea;
+  color: #000000;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  border: 1px solid #cccccc;
+}
+code {
+  font-family: monospace;
+}
+code span.kw { font-weight: bold; }
+code span.st { font-style: italic; }
+code span.co { color: #555555; }
+code span.fu { text-decoration: underline; }
+h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+table { border-collapse: collapse; }
+table, th, td { border: 1px solid #ccc; padding: 4px; }
+EOF
+
+    for f in *.md; do
+        [[ -f "$f" ]] || continue
+        echo "Converting $f → ${f%.md}.pdf"
+        pandoc "$f" -o "${f%.md}.pdf" \
+            --pdf-engine=wkhtmltopdf \
+            -V margin-top=5mm \
+            -V margin-bottom=5mm \
+            -V margin-left=5mm \
+            -V margin-right=5mm \
+            --css="$tmp_css" \
+            --pdf-engine-opt=--enable-local-file-access
+    done
+
+    # Remove temporary CSS file
+    rm -f "$tmp_css"
+    echo "✅ All Markdown files converted."
+}
 
 #---------------------
 # applications
