@@ -5,8 +5,10 @@
 	quotepath = false
 	ignorecase = false
 	editor = nvim
-[credential]
-    helper = store   
+[credential "https://github.com/hankAndfeeco"]
+    helper = store
+[credential "https://github.com/lifeike"]
+    helper = store
 [credential "https://git-codecommit.*.amazonaws.com"]
     helper = "!aws codecommit credential-helper $@"
     UseHttpPath = true
