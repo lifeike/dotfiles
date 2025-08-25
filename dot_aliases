@@ -801,12 +801,24 @@ declare -A GH_ALIAS_MAP=(
 )
 
 gc() {
-  git clone --origin=origin "$1" || return 1
-  cd "$(basename "$1" .git)" || return 1
-  git fetch --all
-  for br in $(git branch -r | grep -vE "->|HEAD"); do
-    git branch --track "${br#origin/}" "$br" 2>/dev/null
-  done
+    if [ $# -eq 0 ]; then
+        echo "Usage: gc <repository-url> [directory-name]"
+        return 1
+    fi
+    
+    local repo_url="$1"
+    local dir_name="${2:-$(basename "$repo_url" .git)}"
+    
+    git clone "$repo_url" "$dir_name"
+    cd "$dir_name"
+    
+    # Fetch all remote branches and create local tracking branches
+    for branch in $(git branch -r | grep -v HEAD | sed 's/origin\///'); do
+        git checkout -b "$branch" "origin/$branch" 2>/dev/null || true
+    done
+    
+    # Switch back to main/master branch
+    git checkout main 2>/dev/null || git checkout master 2>/dev/null
 }
 
 
