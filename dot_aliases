@@ -793,13 +793,13 @@ function git-open-project(){
     git-clone-all-branches $1 && code -r . && npm install &&  npm run start
 }
 
-# clone a git repo with all remote branches
 # Map GitHub usernames to SSH aliases (from ~/.ssh/config)
 declare -A GH_ALIAS_MAP=(
     [hankAndfeeco]=hankAndfeeco
     [lifeike]=lifeike
 )
 
+# clone a git repo with all remote branches
 gc() {
     if [ $# -eq 0 ]; then
         echo "Usage: gc <repository-url> [directory-name]"
