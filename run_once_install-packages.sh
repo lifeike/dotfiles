@@ -51,7 +51,15 @@ yes  | sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
 echo "##############################################"
 echo "git"
 echo "##############################################"
-git config --global credential.helper store # save git credentials on input on next pull or push
+# install git credentail manager
+LATEST_URL=$(curl -s https://api.github.com/repos/git-ecosystem/git-credential-manager/releases/latest | grep "browser_download_url.*gcm-linux_amd64.*\.deb" | cut -d '"' -f 4) && \
+FILENAME=$(basename "$LATEST_URL") && \
+curl -LO "$LATEST_URL" && \
+sudo dpkg -i "$FILENAME" && \
+rm "$FILENAME"
+
+# Verify config was applied
+git config --global --get-regexp credential
 
 echo "##############################################"
 echo "aws"
