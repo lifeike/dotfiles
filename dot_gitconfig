@@ -18,3 +18,7 @@
 	gitHubAuthModes = oauth,pat,devicecode
 [credential "https://gitlab.com"]
 	gitLabAuthModes = oauth,pat
+[credential "https://github.com/hankAndfeeco"]
+	username = hankAndfeeco
+[credential "https://github.com/lifeike"]
+	username = lifeike
