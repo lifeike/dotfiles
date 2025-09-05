@@ -56,6 +56,4 @@ map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
 -- focus file explorer
 -- Map Ctrl+E to NvimTreeFocus in normal mode
 map("n", "<C-e>", "<cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
-
--- Optionally, in insert mode (press Esc first)
 map("i", "<C-e>", "<Esc><cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
