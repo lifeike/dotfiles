@@ -28,7 +28,7 @@ map("n", "<A-s>", function()
   require("conform").format { lsp_fallback = true }
 end, { desc = "general format file" })
 -- close tabe
-map({ "n", "i", "v" }, "<A-w>", "<cmd>bd<CR>", { desc = "close current tab" })
+map({"n","i","v"}, "<A-w>", "<cmd>bp<bar>bd#<CR>", { desc = "close current buffer safely" })
 -- quit
 map({ "n" }, "q", "<cmd>q<CR>", { desc = "quit neovim" })
 -- Termninal
