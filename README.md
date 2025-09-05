@@ -5,6 +5,7 @@
 ```
 sudo snap install chezmoi --classic && chezmoi init --apply lifeike 
 ```
+
 ## Commands
 ```
 alias update-dotfiles='chezmoi re-add'
