@@ -22,3 +22,11 @@
 	username = hankAndfeeco
 [credential "https://github.com/lifeike"]
 	username = lifeike
+[credential "https://github.com/karbonXFrontend2023"]
+	username = karbonXFrontend2023
+[credential "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dmrv-cdk"]
+	provider = generic
+[pull]
+	rebase = false
+[credential "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dmrv"]
+	provider = generic
