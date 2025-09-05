@@ -21,15 +21,7 @@ lspconfig.pyright.setup {
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
-  settings = {
-    python = {
-      analysis = {
-        typeCheckingMode = "basic",
-        autoSearchPaths = true,
-        useLibraryCodeForTypes = true,
-      },
-    },
-  },
+  settings = { python = { analysis = { typeCheckingMode = "basic", autoSearchPaths = true, useLibraryCodeForTypes = true, }, }, },
 }
 
 -- Optional: Custom TypeScript/JavaScript settings
@@ -38,11 +30,6 @@ lspconfig.ts_ls.setup {
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
   settings = {
-    typescript = {
-      format = { enable = true },
-    },
-    javascript = {
-      format = { enable = true },
-    },
-  },
+    typescript = { format = { enable = true }, },
+    javascript = { format = { enable = true }, }, },
 }
