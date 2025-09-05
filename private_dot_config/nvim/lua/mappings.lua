@@ -52,3 +52,9 @@ map("n", "M", "J", { desc = "join current line with the next" })
 -- toggle comments
 map("n", "<A-c>", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
+
+-- focus file explorer
+-- Map Ctrl+E to <leader>e
+vim.api.nvim_set_keymap('n', '<C-e>', '<leader>e', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-e>', '<leader>e', { noremap = true, silent = true })
+
