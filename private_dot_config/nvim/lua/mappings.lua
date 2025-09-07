@@ -28,7 +28,7 @@ map("n", "<A-s>", function()
   require("conform").format { lsp_fallback = true }
 end, { desc = "general format file" })
 -- close tabe
-map({"n","i","v"}, "<A-w>", "<cmd>bp<bar>bd#<CR>", { desc = "close current buffer safely" })
+map({ "n", "i", "v" }, "<A-w>", "<cmd>bp<bar>bd#<CR>", { desc = "close current buffer safely" })
 -- quit
 map({ "n" }, "q", "<cmd>q<CR>", { desc = "quit neovim" })
 -- Termninal
@@ -57,3 +57,6 @@ map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
 -- Map Ctrl+E to NvimTreeFocus in normal mode
 map("n", "<C-e>", "<cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
 map("i", "<C-e>", "<Esc><cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
+
+-- Switch windows with Ctrl+s (instead of <C-w>w)
+map("n", "<C-s>", "<C-w>w", { desc = "switch window" })
