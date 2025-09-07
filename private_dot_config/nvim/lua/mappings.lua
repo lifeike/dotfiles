@@ -58,5 +58,5 @@ map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
 map("n", "<C-f>", "<cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
 map("i", "<C-f>", "<Esc><cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
 
--- Switch windows with Ctrl+s (instead of <C-w>w)
-map("n", "<C-s>", "<C-w>w", { desc = "switch window" })
+-- Switch windows with Ctrl+e (instead of <C-w>w)
+map("n", "<C-e>", "<C-w>w", { desc = "switch window" })
