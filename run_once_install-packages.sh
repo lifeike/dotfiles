@@ -100,6 +100,9 @@ sudo usermod -aG docker $USER
 # restart docker
 # newgrp docker  # this will create new shell session, not working
 
+# docker manager
+curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
 # editor 
 echo "##############################################"
 echo "nano/vim"
