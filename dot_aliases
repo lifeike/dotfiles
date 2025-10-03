@@ -935,3 +935,60 @@ alias importdb='psql -U user -d dbname -f input.sql'	# psql -f	Import SQL file i
 tts() {
     edge-tts --voice zh-CN-YunyangNeural --rate=-10% --file "$1" --write-media "${1%.*}.mp3"
 }
+
+
+#------------------------------------
+# disk
+#------------------------------------
+diskreport() {
+  # Colors
+  RED="\e[31m"
+  GREEN="\e[32m"
+  CYAN="\e[36m"
+  YELLOW="\e[33m"
+  BOLD="\e[1m"
+  RESET="\e[0m"
+
+  echo -e "${BOLD}${CYAN}=== 🔎 Disk and OS Information Report ===${RESET}\n"
+
+  # 1. Show physical block devices only
+  echo -e "${YELLOW}👉 Physical Disks and Partitions:${RESET}"
+  lsblk -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT,TYPE \
+    | grep -E "disk|part" \
+    | grep -v "loop"
+  echo
+
+  # 2. Show detailed partition info
+  echo -e "${YELLOW}👉 Detailed Partition Layout (fdisk):${RESET}"
+  sudo fdisk -l | grep -E "Disk /dev/(sd|nvme)"
+  echo
+
+  # 3. Show mounted filesystems (only real devices)
+  echo -e "${YELLOW}👉 Currently Mounted Filesystems:${RESET}"
+  mount | grep '^/dev/' | grep -v "loop"
+  echo
+
+  # 4. Show UEFI boot entries
+  echo -e "${YELLOW}👉 UEFI Boot Entries (Bootloaders in firmware):${RESET}"
+  sudo efibootmgr -v
+  echo
+
+  # 5. Show Linux distribution info
+  echo -e "${YELLOW}👉 Current Linux Distribution:${RESET}"
+  grep -E 'PRETTY_NAME|VERSION=' /etc/os-release
+  echo
+
+  # 6. Show kernel and architecture
+  echo -e "${YELLOW}👉 Kernel and System Architecture:${RESET}"
+  uname -a
+  echo
+
+  # 7. Check for Windows partitions (NTFS)
+  echo -e "${YELLOW}👉 Checking for Windows Partitions (NTFS):${RESET}"
+  lsblk -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT,TYPE \
+    | grep ntfs || echo -e "${RED}No Windows partitions found.${RESET}"
+  echo
+
+  echo -e "${GREEN}${BOLD}=== ✅ Report Complete ===${RESET}"
+}
+
