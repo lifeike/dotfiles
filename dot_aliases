@@ -992,3 +992,9 @@ diskreport() {
   echo -e "${GREEN}${BOLD}=== ✅ Report Complete ===${RESET}"
 }
 
+burnUSB(){
+  echo "run diskrepot command and find the mounted usb device, usually /dev/sda or /dev/sdb"
+  echo "install wousb"
+  echo 'sudo woeusb --target-filesystem NTFS --device "path/to/windows.iso" "/dev/sdX"'
+  echo "takes about 1-2 hours to burn to usb"
+}
