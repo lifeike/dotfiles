@@ -45,8 +45,6 @@ echo "##############################################"
 sudo apt     install -y nodejs npm
 sudo npm     install -g n
 sudo n       lts           # install long term support node version
-sudo apt     install -y postgresql-common
-yes  | sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
 
 echo "##############################################"
 echo "git"
@@ -69,14 +67,6 @@ sudo npm     install -g aws-cdk           # cdk
 sudo curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux 
 sudo chmod +x copilot  
 sudo mv copilot /usr/local/bin/copilot # copilot
-
-# backend
-echo "##############################################"
-echo "database"
-echo "##############################################"
-sudo apt    install -y postgresql postgresql-contrib
-sudo -u     postgres createuser --superuser $USER
-sudo -u     postgres createdb -O $USER $USER  # by default when we run 'psql',it will connect to database same as your username 'feeco'
 
 echo "##############################################"
 echo "docker management tool"
@@ -102,6 +92,13 @@ sudo usermod -aG docker $USER
 
 # docker manager
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+
+# backend
+echo "##############################################"
+echo "database"
+echo "##############################################"
+docker pull postgres:lastest
 
 # editor 
 echo "##############################################"
