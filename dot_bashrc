@@ -138,3 +138,4 @@ unset __mamba_setup
 export PATH="$HOME/miniconda3/bin:$PATH"
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
+export PATH=$PATH:$HOME/go/bin
