@@ -16,9 +16,7 @@
 # temp alias
 #----------------------
 alias co='copilot '          
-alias p='pwd '          
 alias t3='npm create t3-app@latest'          
-alias zip='zip -r test.zip '
 
 #---------------------
 # system aliases
@@ -51,7 +49,9 @@ alias s='cdf'
 alias clear='clear && tmux clear-history'
 alias m='helpfzf'
 alias cd-ssh='cd ~/.ssh && ranger'
-
+alias zip='zip -r test.zip '
+alias p='pwd '          
+alias top='btop'
 
 # port in used.
 alias portinused='lsof -i -P -n'
