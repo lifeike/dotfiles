@@ -114,14 +114,18 @@ else
     echo "Or run: newgrp docker"
 fi
 
-# Install/Update lazydocker
-echo "Installing/Updating lazydocker..."
-if command -v lazydocker &> /dev/null; then
-    echo "lazydocker is already installed. Updating..."
+# Install/Update dry
+echo "Installing/Updating dry..."
+if command -v dry &> /dev/null; then
+    echo "dry is already installed. Updating..."
 else
-    echo "Installing lazydocker..."
+    echo "Installing dry..."
+    curl -sSf https://moncho.github.io/dry/dryup.sh | sudo sh
 fi
-curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+# Ensure proper permissions
+sudo chmod 755 /usr/local/bin/dry
+
 
 # backend
 echo "##############################################"
