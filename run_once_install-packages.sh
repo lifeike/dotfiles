@@ -4,12 +4,17 @@
 #echo "##############################################"
 if sudo grep -Fxq "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers
 then
-    echo "Already Grant Access To User, No Password Need For Sudo Command"
+    echo "==================================================================="
+    echo "Already grant access to user, no password required for sudo command"
+    echo "==================================================================="
 else
     echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
 fi
+
 sudo apt             -y update           
 sudo apt             -y upgrade          
+sudo apt-get         -y update
+sudo apt-get         -y upgrade          
 
 # install packages
 echo "##############################################"
@@ -65,35 +70,58 @@ echo "aws"
 echo "##############################################"
 sudo snap    install -y aws-cli --classic # aws-cli
 sudo npm     install -g aws-cdk           # cdk
-sudo curl -Lo copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux 
-sudo chmod +x copilot  
-sudo mv copilot /usr/local/bin/copilot # copilot
 
 echo "##############################################"
 echo "docker management tool"
 echo "##############################################"
-# Add Docker's official GPG key:
-sudo apt-get update
-sudo apt-get install -y ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-# Add docker
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-# add docker to sudo user group
-sudo usermod -aG docker $USER
-# restart docker
-# newgrp docker  # this will create new shell session, not working
 
-# docker manager
+# Check if Docker is already installed
+if command -v docker &> /dev/null; then
+    DOCKER_VERSION=$(docker --version)
+    echo "Docker is already installed: $DOCKER_VERSION"
+    echo "Skipping Docker installation..."
+else
+    echo "Docker not found. Installing Docker..."
+    
+    # Add Docker's official GPG key:
+    sudo apt-get update
+    sudo apt-get install -y ca-certificates curl
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+    
+    # Add the repository to Apt sources:
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    
+    sudo apt-get update
+    
+    # Install Docker
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    
+    echo "Docker installed successfully!"
+fi
+
+# Check if user is already in docker group
+if groups $USER | grep -q '\bdocker\b'; then
+    echo "User $USER is already in the docker group."
+else
+    echo "Adding user $USER to docker group..."
+    sudo usermod -aG docker $USER
+    echo "User added to docker group. You'll need to log out and back in for this to take effect."
+    echo "Or run: newgrp docker"
+fi
+
+# Install/Update lazydocker
+echo "Installing/Updating lazydocker..."
+if command -v lazydocker &> /dev/null; then
+    echo "lazydocker is already installed. Updating..."
+else
+    echo "Installing lazydocker..."
+fi
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
-
 
 # backend
 echo "##############################################"
