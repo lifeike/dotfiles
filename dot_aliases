@@ -53,6 +53,7 @@ alias zip='zip -r test.zip '
 alias p='pwd '          
 alias top='btop'
 alias t='btop'
+alias config='cd ~/.config'
 
 # port in used.
 alias portinused='lsof -i -P -n'
