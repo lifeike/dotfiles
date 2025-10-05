@@ -123,16 +123,26 @@ sudo apt     install -y mpv
 echo "##############################################"
 echo "chrome"
 echo "##############################################"
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
-rm   ./google-chrome-stable_current_amd64.deb
+if command -v google-chrome >/dev/null 2>&1; then
+    echo "✅ Google Chrome is already installed. Skipping installation."
+else
+    echo "⬇️  Downloading and installing Google Chrome..."
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo apt install ./google-chrome-stable_current_amd64.deb
+    rm   ./google-chrome-stable_current_amd64.deb
+fi
 
 echo "##############################################"
 echo "wechat"
 echo "##############################################"
-wget https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb
-sudo apt install ./WeChatLinux_x86_64.deb
-rm   ./WeChatLinux_x86_64.deb
+if command -v wechat >/dev/null 2>&1; then
+    echo "✅ WeChat is already installed. Skipping installation."
+else
+    echo "⬇️  Downloading and installing WeChat for Linux..."
+    wget https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb
+    sudo apt install ./WeChatLinux_x86_64.deb
+    rm   ./WeChatLinux_x86_64.deb
+fi
 
 # pdf
 echo "##############################################"
@@ -152,16 +162,14 @@ sudo      apt -y  remove update-notifier update-notifier-common
 sudo      apt -y  remove gnome-software 
 sudo      snap remove snap-store -y
 
-
 # system tool
 echo "##############################################"
-echo "python/glances"
+echo "python"
 echo "##############################################"
 sudo apt     install -y python          # install python2      
 sudo apt     install -y python3         # install python3 
 sudo apt     install -y python-pip      # pip/pip2      
 sudo apt     install -y python3-pip     # pip3  
-sudo pip     install --upgrade glances   
 sudo pip3    install tldr   
 
 echo "##############################################"
@@ -183,7 +191,6 @@ echo "##############################################"
 source ~/.bashrc;
 source ~/.profile;
 tmux   source-file ~/.tmux.conf
-
 
 echo "##############################################"
 echo "done"
