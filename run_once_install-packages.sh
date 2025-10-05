@@ -114,9 +114,14 @@ else
     echo "Or run: newgrp docker"
 fi
 
-# Install pocker
-sudo apt install -y pipx
-pipx install pocker-tui
+# Install/Update lazydocker
+echo "Installing/Updating lazydocker..."
+if command -v lazydocker &> /dev/null; then
+    echo "lazydocker is already installed. Updating..."
+else
+    echo "Installing lazydocker..."
+    curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+fi
 
 # backend
 echo "##############################################"
