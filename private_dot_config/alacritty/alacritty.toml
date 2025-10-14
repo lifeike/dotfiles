@@ -36,7 +36,3 @@ bold = { family = "FiraCode Nerd Font", style = "Bold" }
 italic = { family = "FiraCode Nerd Font", style = "Italic" }
 bold_italic = { family = "FiraCode Nerd Font", style = "Bold Italic" }
 
-[env]
-XMODIFIERS = "@im=none"
-GTK_IM_MODULE = "gtk-im-context-simple"
-QT_IM_MODULE = "simple"
