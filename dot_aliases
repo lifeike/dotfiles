@@ -15,7 +15,6 @@
 #----------------------
 # temp alias
 #----------------------
-alias co='copilot '          
 alias t3='npm create t3-app@latest'          
 
 #---------------------
@@ -25,8 +24,6 @@ alias f='tmux a'
 alias c='clear'
 alias h='cd $HOME && clear'
 alias q='exit'
-alias k='sudo killall '
-alias w='curl wttr.in/calgary?1'
 alias n='sudo n'
 alias e='gedit '
 alias password='nvim ~/Documents/feeco/1.lifeike/password.txt'
@@ -41,7 +38,6 @@ alias picture='cd /home/feeco/Pictures && ranger'
 alias install='sudo apt install -y'
 alias remove='sudo apt purge -y'
 alias tree='tree -a'
-alias screenoff='gsettings set org.gnome.desktop.session idle-delay'
 alias process='ps -ef | grep'
 alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
 alias ds='ncdu ~'
