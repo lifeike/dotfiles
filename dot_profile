@@ -33,5 +33,5 @@ echo 'set completion-ignore-case On' >> ~/.inputrc
 
 # osd_clock
 if ! pgrep -x "osd_clock" > /dev/null; then
-    osd_clock -t -s 0 -r -F %k:%M -f -*-*-*-*-*-*-18-*-*-*-*-*-*-* &
+    osd_clock -s 0 -r -F %k:%M -f -*-*-*-*-*-*-18-*-*-*-*-*-*-* &
 fi
