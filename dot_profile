@@ -31,4 +31,7 @@ if [ ! -a ~/.inputrc ]; then echo '$include /etc/inputrc' > ~/.inputrc; fi
 # Add shell-option to ~/.inputrc to enable case-insensitive tab completion
 echo 'set completion-ignore-case On' >> ~/.inputrc
 
-osd_clock -t  -s 0 -r -F %k:%M -f -*-*-*-*-*-*-18-*-*-*-*-*-*-* &
+# osd_clock
+if ! pgrep -x "osd_clock" > /dev/null; then
+    osd_clock -t -s 0 -r -F %k:%M -f -*-*-*-*-*-*-18-*-*-*-*-*-*-* &
+fi
