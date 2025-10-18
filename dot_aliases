@@ -55,7 +55,7 @@ alias config='cd ~/.config && ranger'
 # Add these functions to your .alias file
 
 # Beautiful netstat formatter with search and filter
-netports() {
+portinused() {
     local search_term="${1:-}"
     
     # Color codes
@@ -140,7 +140,7 @@ netports() {
 }
 
 # Show only listening ports (compact view)
-netlistening() {
+portlistening() {
     local CYAN='\033[1;36m'
     local GREEN='\033[0;32m'
     local NC='\033[0m'
