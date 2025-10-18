@@ -1103,12 +1103,17 @@ function gitdeploy(){
    git checkout staging
 }
 
+# github account gh 
+alias githublogin='gh auth login'
+alias githublist='gh auth status'
+alias githubswitch='gh auth switch'
+alias githubopenrepo='gh repo view --web'
+alias githubbrowser='gh browse'
+
 #-----------------
 # npm + mongodb
 #-----------------
 alias npminstalled='npm list --global --depth=0'
-alias mongo='mongosh "mongodb+srv://cluster0.de2gw.mongodb.net/myFirstDatabase" --username feeco --password Test@1234'
-
 
 #-----------------
 # ffmpeg
