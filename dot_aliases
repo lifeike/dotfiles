@@ -931,7 +931,89 @@ alias l='tmux choose-window '
 #----------------------------
 alias lifeike='cd /home/feeco/Documents/feeco && gb && gs && ranger'
 alias gb='git branch --sort=committerdate | column'
-alias pull='current_branch=$(git branch --show-current); echo "🔄 Fetching latest changes from all remotes..."; git fetch --all; echo ""; for branch in $(git branch | grep -v "^\*" | sed "s/^  //"); do echo "📝 Switching to branch: $branch"; git checkout "$branch"; if ! git merge "origin/$branch"; then echo ""; echo "❌ MERGE CONFLICT DETECTED"; echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"; echo "   Branch: $branch"; echo "   Status: Merge conflict needs manual resolution"; echo ""; echo "   Next steps:"; echo "   1. Resolve conflicts in your editor"; echo "   2. Stage resolved files: git add ."; echo "   3. Commit the merge: git commit"; echo "   4. Run the alias again to continue"; echo ""; echo "   Your original branch: $current_branch"; echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"; exit 1; fi; echo "   ✅ Successfully updated $branch"; echo ""; done; git checkout "$current_branch"; echo "🎉 All branches updated successfully!"; echo "📍 Returned to your original branch: $current_branch"'
+
+alias pull=pullAllBranches
+pullAllBranches() {
+    local current_branch=$(git branch --show-current)
+    local failed_branches=()
+    local conflict_branches=()
+    
+    echo "🔄 Fetching latest changes from all remotes..."
+    git fetch --all
+    echo ""
+    
+    for branch in $(git branch --format="%(refname:short)"); do
+        echo "📝 Processing branch: $branch"
+        
+        # Check if branch has upstream
+        local upstream=$(git rev-parse --abbrev-ref "$branch@{upstream}" 2>/dev/null)
+        
+        if [ -z "$upstream" ]; then
+            echo "   ⚠️  No upstream configured, skipping"
+            echo ""
+            continue
+        fi
+        
+        # Switch to branch
+        if ! git checkout "$branch" 2>/dev/null; then
+            echo "   ❌ Failed to checkout, skipping"
+            failed_branches+=("$branch")
+            echo ""
+            continue
+        fi
+        
+        # Try to merge
+        if git merge "$upstream" --no-edit; then
+            echo "   ✅ Successfully updated $branch"
+        else
+            echo ""
+            echo "   ❌ MERGE CONFLICT DETECTED"
+            conflict_branches+=("$branch")
+            
+            # Abort the merge
+            git merge --abort
+            echo "   🔙 Merge aborted, branch unchanged"
+        fi
+        echo ""
+    done
+    
+    # Return to original branch
+    git checkout "$current_branch" 2>/dev/null
+    
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    
+    if [ ${#conflict_branches[@]} -eq 0 ] && [ ${#failed_branches[@]} -eq 0 ]; then
+        echo "🎉 All branches updated successfully!"
+    else
+        echo "⚠️  Update completed with issues:"
+        echo ""
+        
+        if [ ${#conflict_branches[@]} -gt 0 ]; then
+            echo "   Branches with conflicts (not updated):"
+            for b in "${conflict_branches[@]}"; do
+                echo "   • $b"
+            done
+            echo ""
+        fi
+        
+        if [ ${#failed_branches[@]} -gt 0 ]; then
+            echo "   Branches that failed to checkout:"
+            for b in "${failed_branches[@]}"; do
+                echo "   • $b"
+            done
+            echo ""
+        fi
+        
+        echo "   💡 To resolve conflicts manually:"
+        echo "   1. git checkout <branch-name>"
+        echo "   2. git merge origin/<branch-name>"
+        echo "   3. Resolve conflicts and commit"
+    fi
+    
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "📍 You are on branch: $current_branch"
+}
+
 alias gitlastcommit='git diff HEAD^ '
 alias gitcommitscount='git shortlog -sn --all'
 alias gitlistconflicts='git diff --check'
@@ -1001,25 +1083,6 @@ gc() {
     git checkout main 2>/dev/null || git checkout master 2>/dev/null
 }
 
-
-
-
-
-
-# gcot - git checkout branch/tag
-ggb() {
-  local tags branches target
-  tags=$(
-    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
-  branches=$(
-    git branch --all | grep -v HEAD             |
-    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
-    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
-  target=$(
-    (echo "$tags"; echo "$branches") |
-    fzf-tmux -- --no-hscroll --ansi +m -d "\t" -n 2) || return
-  git checkout $(echo "$target" | awk '{print $2}')
-}
 
 alias gp='pushall'
 function pushall(){
