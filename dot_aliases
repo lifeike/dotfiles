@@ -51,22 +51,113 @@ alias top='btop'
 alias t='btop'
 alias config='cd ~/.config && ranger'
 
-# port in used.
-alias portinused='lsof -i -P -n'
-alias data='vnstat'
-ip(){
-  echo "==========="
-  echo "signal strength"
-  echo "-67 dBm	Reliable signal strength."
-  echo "-70 dBm	Not a strong signal."
-  echo "-80 dBm	Unreliable signal strength, will not suffice for most services."
-  echo "-90 dBm	The chances of even connecting are very low at this level."  
+#!/bin/bash
+# Add these functions to your .alias file
 
-  iwconfig
-  echo "==========="
-  echo "signal information"
+# Beautiful netstat formatter with search and filter
+netports() {
+    local search_term="${1:-}"
+    
+    # Color codes
+    local GREEN='\033[0;32m'
+    local BLUE='\033[0;34m'
+    local YELLOW='\033[1;33m'
+    local CYAN='\033[1;36m'
+    local NC='\033[0m'
+    
+    echo -e "\n╔════════════════════════════════════════════════════════════════════════════╗"
+    echo -e "║                        NETWORK PORTS & CONNECTIONS                         ║"
+    echo -e "╚════════════════════════════════════════════════════════════════════════════╝\n"
+    
+    printf "%-10s %-25s %-10s %-15s %-12s %s\n" "PROTO" "LOCAL ADDRESS" "PORT" "STATE" "PID" "PROGRAM"
+    echo "────────────────────────────────────────────────────────────────────────────────────────"
+    
+    sudo netstat -tulpn 2>/dev/null | grep -v "^Active\|^Proto" | while read -r line; do
+        [ -z "$line" ] && continue
+        
+        proto=$(echo "$line" | awk '{print $1}')
+        local_addr=$(echo "$line" | awk '{print $4}')
+        
+        # For UDP, there's no state column
+        if [[ $proto == udp* ]]; then
+            state="-"
+            pid_program=$(echo "$line" | awk '{print $6}')
+        else
+            state=$(echo "$line" | awk '{print $6}')
+            pid_program=$(echo "$line" | awk '{print $7}')
+        fi
+        
+        if [[ $local_addr == *":"* ]]; then
+            ip=$(echo "$local_addr" | rev | cut -d: -f2- | rev)
+            port=$(echo "$local_addr" | rev | cut -d: -f1 | rev)
+        else
+            ip="N/A"
+            port="N/A"
+        fi
+        
+        if [[ $pid_program == *"/"* ]]; then
+            pid=$(echo "$pid_program" | cut -d/ -f1)
+            program=$(echo "$pid_program" | cut -d/ -f2-)
+        elif [[ $pid_program == "-" ]]; then
+            pid="-"
+            program="-"
+        else
+            pid="${pid_program:-N/A}"
+            program="N/A"
+        fi
+        
+        [ -n "$search_term" ] && ! echo "$line $program $port" | grep -qi "$search_term" && continue
+        
+        # Apply colors to protocol
+        case $proto in
+            tcp*) proto_colored="${GREEN}${proto}${NC}" ;;
+            udp*) proto_colored="${BLUE}${proto}${NC}" ;;
+            *) proto_colored="$proto" ;;
+        esac
+        
+        # Apply colors to state
+        case $state in
+            LISTEN) state_colored="${YELLOW}${state}${NC}" ;;
+            ESTABLISHED) state_colored="${GREEN}${state}${NC}" ;;
+            *) state_colored="$state" ;;
+        esac
+        
+        # Apply color to port
+        port_colored="${CYAN}${port}${NC}"
+        
+        # Print with proper alignment - use plain text for printf, then colorize with sed
+        printf "%-10s %-25s %-10s %-15s %-12s %s\n" "$proto" "$ip" "$port" "$state" "$pid" "$program" | \
+        sed -E "s/^(tcp[^ ]*)/$(echo -e ${GREEN})\1$(echo -e ${NC})/" | \
+        sed -E "s/^(udp[^ ]*)/$(echo -e ${BLUE})\1$(echo -e ${NC})/" | \
+        sed -E "s/([0-9]+)( +LISTEN)/$(echo -e ${CYAN})\1$(echo -e ${NC})\2/" | \
+        sed -E "s/([0-9]+)( +-)/$(echo -e ${CYAN})\1$(echo -e ${NC})\2/" | \
+        sed -E "s/LISTEN/$(echo -e ${YELLOW})LISTEN$(echo -e ${NC})/" | \
+        sed -E "s/ESTABLISHED/$(echo -e ${GREEN})ESTABLISHED$(echo -e ${NC})/"
+    done
+    
+    echo "────────────────────────────────────────────────────────────────────────────────────────"
+    echo -e "\n💡 Usage: netports [search_term] | Examples: netports nginx | netports 80\n"
+}
 
-  ifconfig
+# Show only listening ports (compact view)
+netlistening() {
+    local CYAN='\033[1;36m'
+    local GREEN='\033[0;32m'
+    local NC='\033[0m'
+    
+    echo -e "\n🔊 LISTENING PORTS\n"
+    printf "%-10s %-12s %-25s\n" "PROTO" "PORT" "PROGRAM"
+    echo "───────────────────────────────────────────────────────"
+    sudo netstat -tulpn 2>/dev/null | grep LISTEN | awk '{print $1, $4, $7}' | \
+    while read proto addr pidprog; do
+        port=$(echo "$addr" | rev | cut -d: -f1 | rev)
+        prog=$(echo "$pidprog" | cut -d/ -f2-)
+        printf "%-10s %-12s %-25s\n" "$proto" "$port" "$prog"
+    done | sort -k2 -n | while IFS= read -r line; do
+        echo "$line" | sed -E "s/^(tcp[^ ]*)/\\$(echo -e '\033[0;32m')\1\\$(echo -e '\033[0m')/" | \
+        sed -E "s/([0-9]+)/\\$(echo -e '\033[1;36m')\1\\$(echo -e '\033[0m')/"
+    done
+    echo ""
 }
 
 #mark current directory as mm
