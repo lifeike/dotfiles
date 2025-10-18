@@ -136,7 +136,7 @@ port() {
     done
     
     echo "────────────────────────────────────────────────────────────────────────────────────────"
-    echo -e "\n💡 Usage: netports [search_term] | Examples: netports nginx | netports 80\n"
+    echo -e "\n💡 Usage: port [search_term] | Examples: port nginx | ports 80\n"
 }
 
 # Show only listening ports (compact view)
