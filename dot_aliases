@@ -1107,7 +1107,8 @@ function gitdeploy(){
 alias githublogin='gh auth login'
 alias githublist='gh auth status'
 alias githubswitch='gh auth switch'
-alias githubopenrepo='gh repo view --web'
+alias githubrepos='gh repo list'
+alias githubclonerepo='gh repo clone '
 alias githubbrowser='gh browse'
 
 #-----------------
