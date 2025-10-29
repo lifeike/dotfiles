@@ -20,6 +20,8 @@ alias t3='npm create t3-app@latest'
 #---------------------
 # system aliases
 #---------------------
+alias v='nvim'
+alias r='ranger'
 alias f='tmux a' 
 alias c='clear'
 alias h='cd $HOME && clear'
@@ -45,7 +47,6 @@ alias s='cdf'
 alias clear='clear && tmux clear-history'
 alias m='helpfzf'
 alias cd-ssh='cd ~/.ssh && ranger'
-alias zip='zip -r test.zip '
 alias p='pwd '          
 alias top='btop'
 alias t='btop'
@@ -836,10 +837,6 @@ function clean(){
 	sudo apt autoclean;
 }
 
-
-# apps
-alias v='nvim'
-alias r='ranger'
 
 ##########################
 #  youtube-dl
