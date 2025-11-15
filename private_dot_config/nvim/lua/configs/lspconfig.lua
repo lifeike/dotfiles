@@ -1,48 +1,47 @@
--- load NvChad defaults (lua_ls etc)
-require("nvchad.configs.lspconfig").defaults()
+-- Load NvChad's default LSP behavior (on_attach, capabilities, lua_ls, etc.)
+local nvlsp = require("nvchad.configs.lspconfig")
 
--- NEW: compatibility shim for Neovim 0.11+
--- makes lspconfig.setup still work without errors
-local lspconfig = vim.lsp.config
+-- Apply NvChad's defaults (must run)
+nvlsp.defaults()
 
-local nvlsp = require "nvchad.configs.lspconfig"
+-- Export servers + per-server config overrides
+local M = {}
 
--- List of servers to enable
-local servers = { "html", "cssls", "pyright", "ts_ls" }
+-- Servers you want enabled
+M.servers = {
+  "html",
+  "cssls",
+  "pyright",
+  "ts_ls",
+}
 
--- Setup each server with defaults
-for _, server in ipairs(servers) do
-  lspconfig[server].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  }
-end
+-- Per-server custom settings
+M.config = {
 
--- Optional: Custom Pyright settings
-lspconfig.pyright.setup {
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
-  settings = {
-    python = {
-      analysis = {
-        typeCheckingMode = "basic",
-        autoSearchPaths = true,
-        useLibraryCodeForTypes = true,
+  pyright = {
+    settings = {
+      python = {
+        analysis = {
+          typeCheckingMode = "basic",
+          autoSearchPaths = true,
+          useLibraryCodeForTypes = true,
+        },
       },
     },
   },
+
+  ts_ls = {
+    settings = {
+      typescript = {
+        format = { enable = true },
+      },
+      javascript = {
+        format = { enable = true },
+      },
+    },
+  },
+
 }
 
--- Optional: Custom TypeScript/JavaScript settings
-lspconfig.ts_ls.setup {
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
-  settings = {
-    typescript = { format = { enable = true } },
-    javascript = { format = { enable = true } },
-  },
-}
+return M
 
