@@ -19,6 +19,10 @@ wallpaperplugin=org.kde.image
 [Containments][1][Configuration]
 PreloadWeight=34
 
+[Containments][1][General]
+ToolBoxButtonState=topcenter
+ToolBoxButtonX=559
+
 [Containments][1][Wallpaper][org.kde.image][General]
 Image=file:///usr/share/wallpapers/Next/contents/images/1920x1080.jpg
 
