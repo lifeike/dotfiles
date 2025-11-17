@@ -863,22 +863,10 @@ alias youtubeplayliststartfrom='_ytplv() { yt-dlp -o "%(uploader)s/[%(upload_dat
 load() {
   source ~/.bashrc
   source ~/.profile
-  
   [ -n "$TMUX" ] && tmux source-file ~/.tmux.conf
-  
-  # Create restart script without heredoc
-  echo '#!/bin/bash' > /tmp/restart_plasma.sh
-  echo 'sleep 2' >> /tmp/restart_plasma.sh
-  echo 'kquitapp5 plasmashell' >> /tmp/restart_plasma.sh
-  echo 'sleep 3' >> /tmp/restart_plasma.sh
-  echo 'kstart5 plasmashell' >> /tmp/restart_plasma.sh
-  echo 'rm -f /tmp/restart_plasma.sh' >> /tmp/restart_plasma.sh
-  
-  chmod +x /tmp/restart_plasma.sh
-  nohup /tmp/restart_plasma.sh &>/dev/null &
-  disown
-  
-  echo "Plasma will restart in 2 seconds..."
+  echo "dotfiles reloaded..."
+  echo "to reload awesomeWM, use following command"
+  echo "super+ctrl+r"
 }
 
 #########################
