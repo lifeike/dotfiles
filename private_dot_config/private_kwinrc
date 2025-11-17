@@ -31,3 +31,7 @@ screenedgeEnabled=false
 slideEnabled=false
 slidingpopupsEnabled=false
 zoomEnabled=false
+
+[TabBox]
+LayoutName=org.kde.breeze.desktop
+ShowTabBox=false
