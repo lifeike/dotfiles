@@ -220,7 +220,7 @@ awful.screen.connect_for_each_screen(function(s)
   }
 
   -- Create the wibox
-  s.mywibox = awful.wibar({ position = "top", screen = s })
+  s.mywibox = awful.wibar({ position = "bottom", screen = s })
 
   -- Add widgets to the wibox
   s.mywibox:setup {
@@ -480,7 +480,8 @@ awful.rules.rules = {
       keys = clientkeys,
       buttons = clientbuttons,
       screen = awful.screen.preferred,
-      placement = awful.placement.no_overlap + awful.placement.no_offscreen
+      placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+      maximized = true
     }
   },
 

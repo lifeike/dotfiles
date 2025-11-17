@@ -28,7 +28,7 @@ foreground = "0xf2eaca"
 
 [window]
 opacity = 0.8
-startup_mode = "Fullscreen"
+# startup_mode = "Fullscreen"
 
 [font]
 normal = { family = "FiraCode Nerd Font", style = "Regular" }
