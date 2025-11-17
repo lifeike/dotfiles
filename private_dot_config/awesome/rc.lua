@@ -323,7 +323,6 @@ globalkeys = gears.table.join(
   -- Open Google Chrome with Alt+P
   awful.key({ "Mod1" }, "p", function() awful.spawn("google-chrome") end,
     { description = "open Google Chrome", group = "launcher" }),
-
   awful.key({ modkey, "Control" }, "n",
     function()
       local c = awful.client.restore()
