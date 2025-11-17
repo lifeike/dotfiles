@@ -104,9 +104,6 @@ install_apt fcitx5
 install_apt fcitx5-chinese-addons
 install_apt fcitx5-frontend-gtk3
 
-# desktop environment
-install_apt kde-standard
-
 # Node.js and npm
 print_header "Node.js/npm/n"
 install_apt nodejs
