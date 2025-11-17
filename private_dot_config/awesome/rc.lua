@@ -405,7 +405,7 @@ clientkeys = gears.table.join(
 for i = 1, 9 do
   globalkeys = gears.table.join(globalkeys,
     -- View tag only.
-    awful.key({ modkey }, "#" .. i + 9,
+    awful.key({ "Mod1" }, "#" .. i + 9,
       function()
         local screen = awful.screen.focused()
         local tag = screen.tags[i]
