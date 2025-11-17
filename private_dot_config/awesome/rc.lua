@@ -320,6 +320,9 @@ globalkeys = gears.table.join(
     { description = "select next", group = "layout" }),
   awful.key({ modkey, "Shift" }, "space", function() awful.layout.inc(-1) end,
     { description = "select previous", group = "layout" }),
+  -- Open Google Chrome with Alt+P
+  awful.key({ "Mod1" }, "p", function() awful.spawn("google-chrome") end,
+    { description = "open Google Chrome", group = "launcher" }),
 
   awful.key({ modkey, "Control" }, "n",
     function()
@@ -359,7 +362,7 @@ clientkeys = gears.table.join(
       c:raise()
     end,
     { description = "toggle fullscreen", group = "client" }),
-awful.key({ "Mod1" }, "q", function(c) c:kill() end,
+  awful.key({ "Mod1" }, "q", function(c) c:kill() end,
     { description = "close", group = "client" }),
   awful.key({ modkey, "Control" }, "space", awful.client.floating.toggle,
     { description = "toggle floating", group = "client" }),
