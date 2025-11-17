@@ -105,6 +105,7 @@ install_apt fcitx5-chinese-addons
 install_apt fcitx5-frontend-gtk3
 install_apt awesome
 install_apt awesome-extra
+install_apt slock # lock screen
 
 # Node.js and npm
 print_header "Node.js/npm/n"
