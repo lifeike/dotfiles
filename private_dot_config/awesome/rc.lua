@@ -130,8 +130,23 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+-- Styled textclock with white background and red text
+mytextclock = wibox.widget {
+    {
+        widget = wibox.widget.textclock,
+        format = "%m.%d %H:%M",  -- month.day hour:minute
+        font = "Monospace Bold 12",
+    },
+    left = 4,
+    right = 4,
+    top = 2,
+    bottom = 2,
+    widget = wibox.container.margin,
+    bg = "#ffffff",       -- white background
+    fg = "#ff0000",       -- red text
+    shape = gears.shape.rectangle,  -- square corners
+    widget = wibox.container.background
+}
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(

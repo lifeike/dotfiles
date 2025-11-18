@@ -89,7 +89,6 @@ install_apt git
 install_apt whois
 install_apt openssh-client
 install_apt tmux
-install_apt osdclock
 install_apt unrar
 install_apt ffmpeg
 install_apt mediainfo
