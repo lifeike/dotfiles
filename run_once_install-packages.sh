@@ -79,7 +79,7 @@ sudo apt-get upgrade -y
 
 # Command line tools
 print_header "Command Line Tools"
-install_apt alacritty
+install_apt kitty
 install_apt ranger
 install_apt w3m
 install_apt w3m-img
