@@ -132,20 +132,20 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Styled textclock with white background and red text
 mytextclock = wibox.widget {
-    {
-        widget = wibox.widget.textclock,
-        format = "%m.%d %H:%M",  -- month.day hour:minute
-        font = "Monospace Bold 12",
-    },
-    left = 4,
-    right = 4,
-    top = 2,
-    bottom = 2,
-    widget = wibox.container.margin,
-    bg = "#ffffff",       -- white background
-    fg = "#ff0000",       -- red text
-    shape = gears.shape.rectangle,  -- square corners
-    widget = wibox.container.background
+  {
+    widget = wibox.widget.textclock,
+    format = "%m.%d %H:%M", -- month.day hour:minute
+    font = "Monospace Bold 12",
+  },
+  left = 4,
+  right = 4,
+  top = 2,
+  bottom = 2,
+  widget = wibox.container.margin,
+  bg = "#ffffff",                -- white background
+  fg = "#ff0000",                -- red text
+  shape = gears.shape.rectangle, -- square corners
+  widget = wibox.container.background
 }
 
 -- Create a wibox for each screen and add it
@@ -310,7 +310,13 @@ globalkeys = gears.table.join(
         client.focus:raise()
       end
     end,
-    { description = "go back", group = "client" }),
+    { description = "switch between apps inside one monitor", group = "client" }),
+  -- Switch focus to next monitor with Super+Tab
+  awful.key({ modkey, }, "Tab",
+    function()
+      awful.screen.focus_relative(1)
+    end,
+    { description = "focus next monitor", group = "screen" }),
 
   -- Standard program
   awful.key({ "Mod1", }, "Return", function() awful.spawn(terminal) end,
