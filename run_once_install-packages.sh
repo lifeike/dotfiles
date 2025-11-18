@@ -258,9 +258,7 @@ sudo snap remove snap-store 2>/dev/null || true
 
 # Python
 print_header "Python"
-install_apt python
 install_apt python3
-install_apt python-pip
 install_apt python3-pip
 
 if pip3 list | grep -q "^tldr "; then
