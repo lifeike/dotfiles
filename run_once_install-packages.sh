@@ -79,7 +79,6 @@ sudo apt-get upgrade -y
 
 # Command line tools
 print_header "Command Line Tools"
-sudo add-apt-repository ppa:aslatter/ppa -y 2>/dev/null || true
 install_apt alacritty
 install_apt ranger
 install_apt w3m
