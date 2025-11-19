@@ -51,7 +51,7 @@ alias p='pwd '
 alias top='btop'
 alias t='btop'
 alias config='cd ~/.config && ranger'
-alias aliases='valiases'
+alias valiases='nvim ~/.aliases'
 
 #!/bin/bash
 # Add these functions to your .alias file
