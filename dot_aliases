@@ -52,6 +52,7 @@ alias top='btop'
 alias t='btop'
 alias config='cd ~/.config && ranger'
 alias valiases='nvim ~/.aliases'
+alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y-%m-%d %H:%M"'
 
 #!/bin/bash
 # Add these functions to your .alias file
