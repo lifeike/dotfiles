@@ -304,15 +304,9 @@ alias wechat-quit="singularity exec /opt/wechat.sif /opt/deepinwine/tools/kill.s
 #-------------------------------
 #get monitors you're using:     xrandr | grep " connected" | cut -f1 -d " "
 #change the brightness level:   xrandr --output eDP-1 --brightness 0.2
-alias 1="echo 1 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null   && xrandr --output eDP-1 --brightness 1   "
-alias 2="echo 100 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
-alias 3="echo 200 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
-alias 4="echo 300 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
-alias 5="echo 400 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
-alias 6="echo 500 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
-alias 7="echo 600 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
-alias 8="echo 700 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null && xrandr --output eDP-1 --brightness 1   "
-alias 9="echo 800 | sudo tee /sys/class/backlight/intel_backlight/brightness > /dev/null  && xrandr --output eDP-1 --brightness 1.2  "
+alias 1="brightnessctl set 10% "
+alias 5="brightnessctl set 50% "
+alias 9="brightnessctl set 90% "
 
 
 #-------------------------------
