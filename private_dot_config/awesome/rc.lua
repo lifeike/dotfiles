@@ -311,8 +311,8 @@ globalkeys = gears.table.join(
       end
     end,
     { description = "switch between apps inside one monitor", group = "client" }),
-  -- Switch focus to next monitor with Super+Tab
-  awful.key({ "Mod1", }, "Escape",
+  -- Switch focus to next monitor with Super+``
+  awful.key({ "Mod1", }, "`",
     function()
       awful.screen.focus_relative(1)
     end,
