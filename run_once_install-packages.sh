@@ -155,25 +155,39 @@ print_header "AWS Tools"
 install_snap aws-cli "--classic"
 install_npm_global aws-cdk
 
-# Docker
+# Docker Installation for Debian
 print_header "Docker"
 if command_exists docker; then
     DOCKER_VERSION=$(docker --version)
     echo -e "${GREEN}✓${NC} Docker is already installed: $DOCKER_VERSION"
 else
-    echo -e "${YELLOW}→${NC} Installing Docker..."
+    echo -e "${YELLOW}→${NC} Installing Docker on Debian..."
+
+    # Ensure system is updated and necessary tools are installed
     sudo apt-get update
-    sudo apt-get install -y ca-certificates curl
+    sudo apt-get install -y ca-certificates curl gnupg
+
+    # Add Docker's official GPG key directory
     sudo install -m 0755 -d /etc/apt/keyrings
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+
+    # Download and place the GPG key
+    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+
+    # Set correct permissions on the GPG key file
     sudo chmod a+r /etc/apt/keyrings/docker.asc
-    
-    echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-      $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
-      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    
+
+    # Add the repository to Apt sources using the 'docker.sources' file format
+    # The $(. /etc/os-release && echo "$VERSION_CODENAME") correctly retrieves 'trixie'
+    echo "Types: deb
+    URIs: https://download.docker.com/linux/debian
+    Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
+    Components: stable
+    Signed-By: /etc/apt/keyrings/docker.asc" | sudo tee /etc/apt/sources.list.d/docker.sources > /dev/null
+
+    # Update apt package index again with the new repository
     sudo apt-get update
+
+    # Install the latest versions of Docker components
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 fi
 
