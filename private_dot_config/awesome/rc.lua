@@ -344,6 +344,10 @@ globalkeys = gears.table.join(
   -- Open Google Chrome with Alt+P
   awful.key({ "Mod1" }, "p", function() awful.spawn("google-chrome") end,
     { description = "open Google Chrome", group = "launcher" }),
+  -- Capture screenshot using Alt+A
+  awful.key({ "Mod1" }, "a", function () awful.util.spawn("flameshot gui") end,
+    {description = "launch flameshot gui", group = "apps"}),
+
   awful.key({ modkey, "Control" }, "n",
     function()
       local c = awful.client.restore()
