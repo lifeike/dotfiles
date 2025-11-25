@@ -304,10 +304,10 @@ alias wechat-quit="singularity exec /opt/wechat.sif /opt/deepinwine/tools/kill.s
 #-------------------------------
 #get monitors you're using:     xrandr | grep " connected" | cut -f1 -d " "
 #change the brightness level:   xrandr --output eDP-1 --brightness 0.2
-alias 1="brightnessctl set 10% "
-alias 5="brightnessctl set 50% "
-alias 9="brightnessctl set 90% "
 
+alias 1='sudo ddcutil setvcp 10 10 --display 1'
+alias 5='sudo ddcutil setvcp 10 50 --display 1'
+alias 9='sudo ddcutil setvcp 10 90 --display 1'
 
 #-------------------------------
 # sound volume
