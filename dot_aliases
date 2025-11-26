@@ -54,9 +54,6 @@ alias config='cd ~/.config && ranger'
 alias vali='nvim ~/.aliases'
 alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y-%m-%d %H:%M"'
 
-#!/bin/bash
-# Add these functions to your .alias file
-
 # Beautiful netstat formatter with search and filter
 port() {
     local search_term="${1:-}"
@@ -287,24 +284,8 @@ look() {
 
 
 #-------------------------------
-# wechat 微信
-#-------------------------------
-## 运行微信
-alias wechat-start='singularity exec -B /run /opt/wechat.sif /opt/apps/com.qq.weixin.deepin/files/run.sh'
-# 唤出已运行的WeChat窗口
-alias wechat='singularity exec /opt/wechat.sif /opt/deepinwine/tools/sendkeys.sh w wechat 4'
-# 微信截图
-alias wechat-screenshot='singularity exec /opt/wechat.sif /opt/deepinwine/tools/sendkeys.sh a wechat 3'
-# 退出微信
-alias wechat-quit="singularity exec /opt/wechat.sif /opt/deepinwine/tools/kill.sh wechat"
-          
-          
-#-------------------------------
 # brightness
 #-------------------------------
-#get monitors you're using:     xrandr | grep " connected" | cut -f1 -d " "
-#change the brightness level:   xrandr --output eDP-1 --brightness 0.2
-
 alias 1='sudo ddcutil setvcp 10 10 --display 1'
 alias 5='sudo ddcutil setvcp 10 50 --display 1'
 alias 9='sudo ddcutil setvcp 10 90 --display 1'
@@ -724,6 +705,7 @@ updateChrome(){
 function alternative(){
 	google-chrome https://alternativeto.net/software/$1/?platform=linux&sort=likes
 }
+
 #-------------------------------
 # file formatting
 #-------------------------------
