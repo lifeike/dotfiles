@@ -702,10 +702,6 @@ updateChrome(){
    rm google-chrome-stable_current_amd64.deb
 }
 
-function alternative(){
-	google-chrome https://alternativeto.net/software/$1/?platform=linux&sort=likes
-}
-
 #-------------------------------
 # file formatting
 #-------------------------------
@@ -777,10 +773,6 @@ EOF
 #---------------------
 # applications
 #---------------------
-#nodejs npm
-alias ni='npm install && npm run start'
-alias nb='npm run build '
-
 #list all app installed manually
 alias installed=manually_installed
 function manually_installed(){
