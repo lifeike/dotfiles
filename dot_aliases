@@ -1139,7 +1139,7 @@ function split_big_video_into_clips_of_10mins(){
 # chezmoi
 #-----------------
 alias update-dotfiles='chezmoi re-add'
-alias sync-dotfiles='chezmoi update'
+alias sync-dotfiles='cd ~/Desktop && chezmoi update'
 alias cd-dotfiles='cd ~/.local/share/chezmoi && ranger'
 alias add-dotfiles='chezmoi add'
 alias cs='chezmoi status'
