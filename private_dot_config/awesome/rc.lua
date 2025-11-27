@@ -55,20 +55,30 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
+-- === Custom tasklist colors ===
+-- Background of the focused (active) application in the tasklist
+beautiful.tasklist_fg_focus  = "#000000" -- text color
+beautiful.tasklist_bg_focus  = "#FFD580" -- background color
+beautiful.tasklist_font_focus = "beautiful.font_bold"
+
+-- Unfocused (normal) apps in tasklist
+beautiful.tasklist_fg_normal = "#AAAAAA"
+beautiful.tasklist_bg_normal = "#333333" -- transparent
+
 -- This is used later as the default terminal and editor to run.
-terminal = "kitty"
-editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
+terminal                     = "kitty"
+editor                       = os.getenv("EDITOR") or "editor"
+editor_cmd                   = terminal .. " -e " .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+modkey                       = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts = {
+awful.layout.layouts         = {
   awful.layout.suit.floating,
   awful.layout.suit.tile,
   awful.layout.suit.tile.left,
@@ -90,7 +100,7 @@ awful.layout.layouts = {
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu
-myawesomemenu = {
+myawesomemenu                = {
   { "hotkeys",     function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
   { "manual",      terminal .. " -e man awesome" },
   { "edit config", editor_cmd .. " " .. awesome.conffile },
@@ -98,8 +108,8 @@ myawesomemenu = {
   { "quit",        function() awesome.quit() end },
 }
 
-local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
-local menu_terminal = { "open terminal", terminal }
+local menu_awesome           = { "awesome", myawesomemenu, beautiful.awesome_icon }
+local menu_terminal          = { "open terminal", terminal }
 
 if has_fdo then
   mymainmenu = freedesktop.menu.build({
@@ -345,8 +355,8 @@ globalkeys = gears.table.join(
   awful.key({ "Mod1" }, "p", function() awful.spawn("google-chrome") end,
     { description = "open Google Chrome", group = "launcher" }),
   -- Capture screenshot using Alt+A
-  awful.key({ "Mod1" }, "a", function () awful.util.spawn("flameshot gui") end,
-    {description = "launch flameshot gui", group = "apps"}),
+  awful.key({ "Mod1" }, "a", function() awful.util.spawn("flameshot gui") end,
+    { description = "launch flameshot gui", group = "apps" }),
 
   awful.key({ modkey, "Control" }, "n",
     function()
