@@ -55,6 +55,22 @@ alias vali='nvim ~/.aliases'
 alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y-%m-%d %H:%M"'
 alias o='nvim ~/Desktop/text.txt'
 
+
+# wifi connection
+alias wifilist='nmcli device wifi list'
+connect_wifi() {
+    # Prompt for SSID
+    read -r -p "Enter SSID: " ssid
+    
+    # Prompt for password silently (-s flag hides input)
+    read -r -s -p "Enter Password: " password
+    echo # Move to a new line after silent input
+    
+    # Connect using nmcli
+    # Use quotes around variables to handle SSIDs/passwords with spaces or special characters
+    sudo nmcli device wifi connect "$ssid" password "$password"
+}
+
 # Beautiful netstat formatter with search and filter
 port() {
     local search_term="${1:-}"
