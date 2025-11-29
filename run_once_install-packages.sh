@@ -110,13 +110,22 @@ install_apt brightnessctl # lock screen
 print_header "Node.js/npm/n"
 install_apt nodejs
 install_apt npm
-
+# n
 if command_exists n; then
     echo -e "${GREEN}✓${NC} n (node version manager) is already installed"
 else
     echo -e "${YELLOW}→${NC} Installing n globally via npm..."
     sudo npm install -g n
     sudo n lts
+fi
+
+# Gemini CLI
+print_header "Gemini CLI"
+if command_exists gemini-cli; then
+    echo -e "${GREEN}✓${NC} gemini-cli is already installed"
+else
+    echo -e "${YELLOW}→${NC} Installing gemini-cli..."
+    sudo npm install -g @google/gemini-cli
 fi
 
 # Git credential manager
