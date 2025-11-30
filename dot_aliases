@@ -53,7 +53,7 @@ alias config='cd ~/.config && ranger'
 alias vali='nvim ~/.aliases'
 alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y-%m-%d %H:%M"'
 alias o='nvim ~/Desktop/text.txt'
-
+alias e='neomutt'
 
 # wifi connection
 alias wifilist='nmcli device wifi list'
