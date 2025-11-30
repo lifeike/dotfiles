@@ -105,6 +105,10 @@ install_apt awesome
 install_apt awesome-extra
 install_apt slock # lock screen
 install_apt brightnessctl # lock screen
+# email neomut
+install_apt neomutt
+install_apt isync
+install_apt pass
 
 # Node.js and npm
 print_header "Node.js/npm/n"
