@@ -174,34 +174,11 @@ if command_exists docker; then
     DOCKER_VERSION=$(docker --version)
     echo -e "${GREEN}✓${NC} Docker is already installed: $DOCKER_VERSION"
 else
-    echo -e "${YELLOW}→${NC} Installing Docker on Debian..."
-
-    # Ensure system is updated and necessary tools are installed
-    sudo apt-get update
-    sudo apt-get install -y ca-certificates curl gnupg
-
-    # Add Docker's official GPG key directory
-    sudo install -m 0755 -d /etc/apt/keyrings
-
-    # Download and place the GPG key
-    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-
-    # Set correct permissions on the GPG key file
-    sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-    # Add the repository to Apt sources using the 'docker.sources' file format
-    # The $(. /etc/os-release && echo "$VERSION_CODENAME") correctly retrieves 'trixie'
-    echo "Types: deb
-    URIs: https://download.docker.com/linux/debian
-    Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
-    Components: stable
-    Signed-By: /etc/apt/keyrings/docker.asc" | sudo tee /etc/apt/sources.list.d/docker.sources > /dev/null
-
-    # Update apt package index again with the new repository
-    sudo apt-get update
-
-    # Install the latest versions of Docker components
-    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    echo -e "${YELLOW}→${NC} Installing Docker..."
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo sh get-docker.sh
+    rm get-docker.sh
+    echo -e "${GREEN}✓${NC} Docker installed successfully"
 fi
 
 # Add user to docker group
@@ -210,7 +187,7 @@ if groups $USER | grep -q '\bdocker\b'; then
 else
     echo -e "${YELLOW}→${NC} Adding user $USER to docker group..."
     sudo usermod -aG docker $USER
-    echo "User added to docker group. Log out and back in, or run: newgrp docker"
+    echo -e "${YELLOW}!${NC} Log out and back in, or run: newgrp docker"
 fi
 
 # Lazydocker
