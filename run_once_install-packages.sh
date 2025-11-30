@@ -125,7 +125,7 @@ fi
 
 # Gemini CLI
 print_header "Gemini CLI"
-if command_exists gemini-cli; then
+if command_exists gemini; then
     echo -e "${GREEN}✓${NC} gemini-cli is already installed"
 else
     echo -e "${YELLOW}→${NC} Installing gemini-cli..."
