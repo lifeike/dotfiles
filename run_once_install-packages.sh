@@ -252,13 +252,6 @@ install_apt zathura
 print_header "Screenshot Tool"
 install_apt flameshot
 
-# GNOME settings
-print_header "GNOME Configuration"
-gsettings set org.gnome.desktop.interface enable-animations false 2>/dev/null || true
-sudo apt remove -y update-notifier update-notifier-common 2>/dev/null || true
-sudo apt remove -y gnome-software 2>/dev/null || true
-sudo snap remove snap-store 2>/dev/null || true
-
 # Python
 print_header "Python"
 install_apt python3
