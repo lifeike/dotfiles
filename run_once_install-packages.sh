@@ -52,6 +52,20 @@ install_snap() {
     fi
 }
 
+
+# Function to install pip package if not installed
+install_pip() {
+    local package=$1
+    local install_cmd=${2:-"pip3 install --user $package"}  # default install command
+
+    if pip3 list | grep -q "^$package "; then
+        echo -e "${GREEN}✓${NC} $package is already installed"
+    else
+        echo -e "${YELLOW}→${NC} Installing $package via pip3..."
+        eval "$install_cmd"
+    fi
+}
+
 # Function to install npm global package if not installed
 install_npm_global() {
     local package=$1
@@ -256,22 +270,9 @@ install_apt flameshot
 print_header "Python"
 install_apt python3
 install_apt python3-pip
-
-if pip3 list | grep -q "^tldr "; then
-    echo -e "${GREEN}✓${NC} tldr is already installed"
-else
-    echo -e "${YELLOW}→${NC} Installing tldr via pip3..."
-    sudo pip3 install tldr
-fi
-
-# yt-dlp
-print_header "yt-dlp"
-if command_exists yt-dlp; then
-    echo -e "${GREEN}✓${NC} yt-dlp is already installed"
-else
-    echo -e "${YELLOW}→${NC} Installing yt-dlp..."
-    python3 -m pip install -U yt-dlp
-fi
+install_pip tldr                     # installs tldr via pip3 --user
+install_pip vimiv                     # installs vimiv via pip3 --user
+install_pip yt-dlp "python3 -m pip install -U yt-dlp"   # custom install command
 
 # Cleanup
 print_header "Cleanup"
