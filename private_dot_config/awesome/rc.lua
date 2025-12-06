@@ -1,6 +1,8 @@
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
+-- disable x server screen saver, remove this in the future if switch to wyland
+os.execute("xset s off && xset s noblank && xset -dpms")
 
 -- Standard awesome library
 local gears = require("gears")
