@@ -103,13 +103,11 @@ install_apt git
 install_apt whois
 install_apt openssh-client
 install_apt tmux
-install_apt unrar
 install_apt ffmpeg
 install_apt mediainfo
 install_apt kazam
 install_apt ncdu
 install_apt vnstat
-install_apt neofetch
 install_apt curl
 install_apt btop
 install_apt fcitx5
@@ -120,6 +118,7 @@ install_apt awesome-extra
 install_apt suckless-tools  # contains slock to lock screen
 install_apt brightnessctl # lock screen
 install_apt ncal
+install_apt tldr
 # email neomut
 install_apt neomutt
 install_apt isync
@@ -271,7 +270,6 @@ install_apt flameshot
 print_header "Python"
 install_apt python3
 install_apt python3-pip
-install_pip tldr                     # installs tldr via pip3 --user
 install_pip vimiv                     # installs vimiv via pip3 --user
 install_pip yt-dlp "python3 -m pip install -U yt-dlp"   # custom install command
 
