@@ -55,6 +55,10 @@ alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y
 alias o='nvim ~/Desktop/text.txt'
 alias e='neomutt'
 
+
+# calendar
+alias cal='ncal -b -3'
+
 # wifi connection
 alias wifilist='nmcli device wifi list'
 connect_wifi() {
