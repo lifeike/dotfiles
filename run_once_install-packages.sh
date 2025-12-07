@@ -118,7 +118,7 @@ install_apt awesome-extra
 install_apt suckless-tools  # contains slock to lock screen
 install_apt brightnessctl # lock screen
 install_apt ncal
-install_apt tldr
+install_apt tealdeer
 # email neomut
 install_apt neomutt
 install_apt isync
