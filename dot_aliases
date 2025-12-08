@@ -61,6 +61,17 @@ alias cal='ncal -b -3'
 
 # wifi connection
 alias wifilist='nmcli device wifi list'
+show_connected_wifi(){
+    # show connected wifi 
+    nmcli connection show
+}
+
+delete_connected_wifi(){
+    # Prompt for SSID
+    read -r -p "Enter SSID: " ssid
+    nmcli connection delete "$ssid"
+}
+
 connect_wifi() {
     # Prompt for SSID
     read -r -p "Enter SSID: " ssid
