@@ -124,7 +124,8 @@ install_apt pipx
 install_apt neomutt
 install_apt isync
 install_apt pass
-
+# remove unused debian utilities
+sudo apt remove -y hw-probe 
 # Node.js and npm
 print_header "Node.js/npm/n"
 install_apt nodejs
