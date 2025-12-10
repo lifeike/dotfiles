@@ -125,7 +125,7 @@ install_apt neomutt
 install_apt isync
 install_apt pass
 # remove unused debian utilities
-sudo apt purge installation-report
+sudo apt purge -y installation-report
 
 # Node.js and npm
 print_header "Node.js/npm/n"
