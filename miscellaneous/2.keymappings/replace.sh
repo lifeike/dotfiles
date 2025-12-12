@@ -1,1 +1,1 @@
-sudo cp ./evdev /usr/share/x11/keycodes/evdev
+sudo cp ./evdev /usr/share/X11/xkb/keycodes/evdev
