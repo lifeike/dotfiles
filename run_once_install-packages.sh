@@ -56,9 +56,9 @@ install_snap() {
 # Function to install pip package if not installed
 install_pip() {
     local package=$1
-    local install_cmd=${2:-"pipx install $package"}  # default pipx install command
+    local install_cmd=${2:-"pipx install $package --python python3"}  # default install command
 
-    # Check if package is already installed via pipx
+    # Check if the package is already installed via pipx
     if pipx list | grep -q " $package "; then
         echo -e "${GREEN}✓${NC} $package is already installed via pipx"
     else
