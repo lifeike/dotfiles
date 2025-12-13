@@ -20,7 +20,7 @@ alias t3='npm create t3-app@latest'
 #---------------------
 # system aliases
 #---------------------
-alias v='nvim'
+alias v='nvim .'
 alias r='ranger'
 alias f='tmux a' 
 alias c='clear'
