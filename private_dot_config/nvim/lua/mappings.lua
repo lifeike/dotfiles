@@ -1,6 +1,4 @@
 require "nvchad.mappings"
-
-
 local map = vim.keymap.set
 
 map("i", "jk", "<ESC>")
@@ -58,5 +56,5 @@ map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
 map("n", "<C-f>", "<cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
 map("i", "<C-f>", "<Esc><cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
 
--- Switch windows with Ctrl+s (instead of <C-w>w)
--- map("n", "<C-p>", "<C-w>w", { desc = "switch window" })
+-- show jump list
+map("n", "<A-;>", "<cmd>Telescope jumplist<CR>", { desc = "switch window" })
