@@ -37,6 +37,3 @@ vim.schedule(function()
   require "mappings"
 end)
 
--- other customizations
--- clipboard
-vim.opt.clipboard = "unnamedplus"

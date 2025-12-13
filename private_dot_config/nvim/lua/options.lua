@@ -17,3 +17,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+-- other customizations
+-- clipboard
+vim.opt.clipboard = "unnamedplus"
