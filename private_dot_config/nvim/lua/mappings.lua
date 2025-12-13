@@ -28,7 +28,7 @@ end, { desc = "general format file" })
 -- close tabe
 map({ "n", "i", "v" }, "<A-w>", "<cmd>bp<bar>bd#<CR>", { desc = "close current buffer safely" })
 -- quit
-map({ "n" }, "q", "<cmd>q<CR>", { desc = "quit neovim" })
+map({ "n" }, "q", "<cmd>wqa<CR>", { desc = "quit neovim" })
 -- Termninal
 map({ "n", "t", "i", "v" }, "<A-Space>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
