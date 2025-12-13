@@ -48,7 +48,7 @@ install_snap() {
         echo -e "${GREEN}✓${NC} $package is already installed"
     else
         echo -e "${YELLOW}→${NC} Installing $package via snap..."
-        sudo snap install $flags "$package"
+        sudo snap install $flags "$package" --classic
     fi
 }
 
