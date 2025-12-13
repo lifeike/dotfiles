@@ -12,7 +12,6 @@ M.servers = {
   "html",
   "cssls",
   "pyright",
-  "ts_ls",
 }
 
 -- Per-server custom settings
@@ -30,16 +29,6 @@ M.config = {
     },
   },
 
-  ts_ls = {
-    settings = {
-      typescript = {
-        format = { enable = true },
-      },
-      javascript = {
-        format = { enable = true },
-      },
-    },
-  },
 
 }
 
