@@ -229,7 +229,7 @@ print_header "Editors (nano/vim/neovim)"
 sudo apt remove -y nano 2>/dev/null || true
 sudo apt remove -y vim-gtk3 2>/dev/null || true
 install_apt vim
-install_snap neovim
+install_snap nvim
 install_apt ripgrep
 install_npm_global prettier
 install_npm_global typescript
