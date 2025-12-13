@@ -39,5 +39,4 @@ end)
 
 -- other customizations
 -- clipboard
-vim.cmd("set clipboard=unnamedplus")
-
+vim.opt.clipboard = "unnamedplus"
