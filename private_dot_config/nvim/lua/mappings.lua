@@ -17,7 +17,7 @@ map({ "n", "i", "v" }, "<A-,>", "<cmd>Telescope<CR>", { desc = "show all list pi
 -- Telescope Commands
 map({ "n", "i", "v" }, "<A-.>", "<cmd>Telescope commands<CR>", { desc = "show all commands in telescope" })
 -- Telescope Find Files
-map({ "n", "i", "v" }, "<A-f>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
+map({ "n", "i", "v" }, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
 -- Telescope Find Current Tabs
 map({ "n" }, "t", "<cmd>Telescope buffers<CR>", { desc = "find current tabs", noremap = true, silent = true })
 -- Telescope Find Occurrence
