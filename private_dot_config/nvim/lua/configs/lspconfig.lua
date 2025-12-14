@@ -1,31 +1,26 @@
--- Load NvChad's default LSP behavior (on_attach, capabilities, lua_ls, etc.)
-local nvlsp = require("nvchad.configs.lspconfig")
 
--- Apply NvChad's defaults (must run)
-nvlsp.defaults()
+local servers = {
+  html = {},
+  awk_ls = {},
+  bashls = {},
 
--- Export servers + per-server config overrides
-local M = {}
-
--- Servers you want enabled
-M.servers = { "html", "cssls", "pyright", }
-
--- Per-server custom settings
-M.config = {
   pyright = {
     settings = {
       python = {
         analysis = {
-          typeCheckingMode = "basic",
           autoSearchPaths = true,
-          useLibraryCodeForTypes = true,
+          typeCheckingMode = "basic",
         },
       },
     },
   },
-
-
 }
 
-return M
+for name, opts in pairs(servers) do
+  vim.lsp.config(name, opts)
+  vim.lsp.enable(name)
+end
 
+-- if you dont want to call the enable method in the loop, just pass a table.
+-- vim.lsp.enable(vim.tbl_keys(servers))
+-- vim.lsp.enable({"pyright", "clangd"})
