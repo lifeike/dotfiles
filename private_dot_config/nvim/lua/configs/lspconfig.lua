@@ -8,15 +8,10 @@ nvlsp.defaults()
 local M = {}
 
 -- Servers you want enabled
-M.servers = {
-  "html",
-  "cssls",
-  "pyright",
-}
+M.servers = { "html", "cssls", "pyright", }
 
 -- Per-server custom settings
 M.config = {
-
   pyright = {
     settings = {
       python = {
