@@ -121,6 +121,7 @@ install_apt brightnessctl # lock screen
 install_apt ncal
 install_apt tealdeer
 install_apt pipx
+install_apt flatpak
 # email neomut
 install_apt neomutt
 install_apt isync
