@@ -923,7 +923,7 @@ function projectLayout(){
 }
 
 #create new window
-alias tnewwindow='tmux new-window -n ' 
+alias new='tmux new-window -n ' 
 #rename the current window
 alias twindowname='tmux rename-window '
 #list all session and windows
