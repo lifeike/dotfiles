@@ -322,17 +322,7 @@ alias 9='sudo ddcutil setvcp 10 90 --display 1'
 #-------------------------------
 # sound volume
 #-------------------------------
-alias 11='amixer sset "Master" 10%'
-alias 22='amixer sset "Master" 20%'
-alias 33='amixer sset "Master" 30%'
-alias 44='amixer sset "Master" 40%'
-alias 55='amixer sset "Master" 50%'
-alias 66='amixer sset "Master" 60%'
-alias 77='amixer sset "Master" 70%'
-alias 88='amixer sset "Master" 80%'
-alias 99='amixer sset "Master" 90%'
-alias 00='amixer sset "Master" 100%'
-alias soundRestart='pulseaudio -k && sudo alsa force-reload'
+alias volume='alsamixer'
 
 #-------------------------------
 # fzf
