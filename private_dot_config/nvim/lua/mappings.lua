@@ -8,24 +8,29 @@ map("o", "E", "g_")
 map("n", "W", "+")
 map("n", "B", "0")
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 -- Feeco's custom mappings
 -- Telescope
 map({ "n", "i", "v" }, "<A-,>", "<cmd>Telescope<CR>", { desc = "show all list pickers" })
 -- Telescope Commands
 map({ "n", "i", "v" }, "<A-.>", "<cmd>Telescope commands<CR>", { desc = "show all commands in telescope" })
+
+-- File Navigation
+
 -- Telescope Find Files
 map({ "n", "i", "v" }, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
 -- Find Defination
 map({ "n", "i", "v" }, "<C-l>", "<C-]>", { desc = "find defination" })
 -- Open last file
-map({ "n", "i", "v" }, "<C-k>", "<C-o>", { desc = "open last file" })
+map({ "n", "i", "v" }, "<C-k>", "<C-o>", { desc = "go to last position" })
 -- Open forward file
-map({ "n", "i", "v" }, "<C-j>", "<C-i>", { desc = "open forward file" })
+map({ "n", "i", "v" }, "<C-j>", "<C-i>", { desc = "go to forward position" })
 -- Telescope list document symbols
 map({ "n", "i", "v" }, "<A-d>", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "list symbols in a file" })
 -- Telescope Find Occurrence
 map({ "n", "i", "v" }, "<A-f>", "<cmd>Telescope live_grep<CR>", { desc = "search a text globally inside a project" })
+
+
+-- Editing
 -- Save and Format Files
 map("n", "<A-s>", function()
   vim.cmd("w")
@@ -35,6 +40,7 @@ end, { desc = "general format file" })
 map({ "n", "i", "v" }, "<A-w>", "<cmd>bp<bar>bd#<CR>", { desc = "close current buffer safely" })
 -- quit
 map({ "n" }, "q", "<cmd>wqa<CR>", { desc = "quit neovim" })
+
 -- Termninal
 map({ "n", "t", "i", "v" }, "<A-Space>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
