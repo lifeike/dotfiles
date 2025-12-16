@@ -121,7 +121,7 @@ export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow'
 [ -n "$XTERM_VERSION" ] && transset -i "$WINDOWID" >/dev/null # set current windows transparent
 
 # cursor speed
-xset r rate 330 50
+xset r rate 250 40
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'micromamba shell init' !!
