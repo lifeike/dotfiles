@@ -16,6 +16,8 @@ map({ "n", "i", "v" }, "<A-,>", "<cmd>Telescope<CR>", { desc = "show all list pi
 map({ "n", "i", "v" }, "<A-.>", "<cmd>Telescope commands<CR>", { desc = "show all commands in telescope" })
 -- Telescope Find Files
 map({ "n", "i", "v" }, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
+-- Telescope Find Defination
+map({ "n", "i", "v" }, "<A-I>", "<C-]>", { desc = "find defination" })
 -- Telescope list document symbols
 map({ "n", "i", "v" }, "<A-d>", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "list symbols in a file" })
 -- Telescope Find Occurrence
