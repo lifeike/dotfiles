@@ -1,39 +1,51 @@
 return {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    event = { "BufWritePre", "BufNewFile" },
     opts = require "configs.conform",
   },
 
-  -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require "configs.lspconfig"
     end,
   },
 
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
-
-
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate",
+    opts = {
+      ensure_installed = {
+        "vim", "lua", "vimdoc",
+        "html", "css", "javascript", "typescript",
+        "python", "json", "markdown"
+      },
+      highlight = { enable = true },
+      indent = { enable = true },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
 
   -- feeco's plugins
   -- file auto save
   {
     "Pocco81/auto-save.nvim",
-    lazy = false,
+    event = { "InsertLeave", "TextChanged" },
     config = function()
       require("auto-save").setup {
-        -- your config goes here
-        -- or just leave it empty :)
+        enabled = true,
+        execution_message = {
+          message = function()
+            return ""  -- disable save messages
+          end,
+        },
+        debounce_delay = 135,
       }
     end,
   },
@@ -45,6 +57,7 @@ return {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
     ft = { "markdown", "quarto" },
+    cmd = { "RenderMarkdown" },
     opts = {
       file_types = { "markdown", "quarto" },
       conceal = true,

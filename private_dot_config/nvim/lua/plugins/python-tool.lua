@@ -1,21 +1,20 @@
 return {
   "neovim/nvim-lspconfig",
-  ft = { "python","ipynb" },
-  opts = {
-    servers = {
-      pyright = {
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = "basic", -- "off", "basic", or "strict"
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-            },
+  ft = { "python", "ipynb" },
+  config = function()
+    vim.lsp.config("pyright", {
+      settings = {
+        python = {
+          analysis = {
+            typeCheckingMode = "basic",
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = true,
           },
         },
       },
-    },
-  },
+    })
+    vim.lsp.enable("pyright")
+  end,
 }
 
 
