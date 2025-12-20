@@ -235,7 +235,6 @@ install_snap nvim
 install_apt ripgrep
 install_npm_global prettier
 install_npm_global typescript
-install_npm_global pyright
 
 # Media
 print_header "Media Player"
@@ -278,6 +277,7 @@ install_apt python3-pip
 install_apt pipx
 install_pip vimiv                     # installs vimiv via pip3 --user
 install_pip uv                     
+install_pip ty                     
 install_pip yt-dlp "python3 -m pip install -U yt-dlp"   # custom install command
 
 # Cleanup
