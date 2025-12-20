@@ -1,96 +1,14 @@
 #!/bin/bash
 
-# Color codes for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
-
-# Function to print section headers
-print_header() {
-    echo ""
-    echo "##############################################"
-    echo "$1"
-    echo "##############################################"
-}
-
-# Function to check if a command exists
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
-
-# Function to check if apt package is installed
-package_installed() {
-    dpkg -l "$1" 2>/dev/null | grep -q "^ii"
-}
-
-# Function to check if snap package is installed
-snap_installed() {
-    snap list "$1" >/dev/null 2>&1
-}
-
-# Function to install apt package if not installed
-install_apt() {
-    local package=$1
-    if package_installed "$package"; then
-        echo -e "${GREEN}✓${NC} $package is already installed"
-    else
-        echo -e "${YELLOW}→${NC} Installing $package..."
-        sudo apt install -y "$package"
-    fi
-}
-
-# Function to install snap package if not installed
-install_snap() {
-    local package=$1
-    local flags=${2:-""}
-    if snap_installed "$package"; then
-        echo -e "${GREEN}✓${NC} $package is already installed"
-    else
-        echo -e "${YELLOW}→${NC} Installing $package via snap..."
-        sudo snap install $flags "$package" --classic
-    fi
-}
-
-
-# Function to install pip package if not installed
-install_pip() {
-    local package=$1
-    local install_cmd=${2:-"uv tool install $package"}  # default install command
-
-    # Check if the package is already installed via pipx
-    if pipx list | grep -q " $package "; then
-        echo -e "${GREEN}✓${NC} $package is already installed via pipx"
-    else
-        echo -e "${YELLOW}→${NC} Installing $package via pipx..."
-        eval "$install_cmd"
-    fi
-}
-
-# Function to install npm global package if not installed
-install_npm_global() {
-    local package=$1
-    if npm list -g "$package" >/dev/null 2>&1; then
-        echo -e "${GREEN}✓${NC} $package is already installed globally"
-    else
-        echo -e "${YELLOW}→${NC} Installing $package globally via npm..."
-        sudo npm install -g "$package"
-    fi
-}
+# Source utility functions
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/install-utils.sh"
 
 # Grant sudo access without password
-if sudo grep -Fxq "$USER ALL=(ALL) NOPASSWD:ALL" /etc/sudoers; then
-    echo -e "${GREEN}✓${NC} User already has passwordless sudo access"
-else
-    echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
-fi
+setup_passwordless_sudo
 
 # System update
-print_header "System Update"
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt-get update -y
-sudo apt-get upgrade -y
+system_update
 
 # Command line tools
 print_header "Command Line Tools"
@@ -158,10 +76,7 @@ if command_exists git-credential-manager; then
 else
     echo -e "${YELLOW}→${NC} Installing Git Credential Manager..."
     LATEST_URL=$(curl -s https://api.github.com/repos/git-ecosystem/git-credential-manager/releases/latest | grep "browser_download_url.*gcm-linux_amd64.*\.deb" | cut -d '"' -f 4)
-    FILENAME=$(basename "$LATEST_URL")
-    curl -LO "$LATEST_URL"
-    sudo dpkg -i "$FILENAME"
-    rm "$FILENAME"
+    install_deb_from_url "$LATEST_URL" "Git Credential Manager"
 fi
 
 git config --global --get-regexp credential
@@ -201,13 +116,7 @@ else
 fi
 
 # Add user to docker group
-if groups $USER | grep -q '\bdocker\b'; then
-    echo -e "${GREEN}✓${NC} User $USER is already in the docker group"
-else
-    echo -e "${YELLOW}→${NC} Adding user $USER to docker group..."
-    sudo usermod -aG docker $USER
-    echo -e "${YELLOW}!${NC} Log out and back in, or run: newgrp docker"
-fi
+add_user_to_group docker
 
 # Lazydocker
 if command_exists lazydocker; then
@@ -245,10 +154,7 @@ print_header "Google Chrome"
 if command_exists google-chrome; then
     echo -e "${GREEN}✓${NC} Google Chrome is already installed"
 else
-    echo -e "${YELLOW}→${NC} Installing Google Chrome..."
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    sudo apt install -y ./google-chrome-stable_current_amd64.deb
-    rm ./google-chrome-stable_current_amd64.deb
+    install_deb_from_url "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" "Google Chrome"
 fi
 
 # WeChat
@@ -256,10 +162,7 @@ print_header "WeChat"
 if command_exists wechat; then
     echo -e "${GREEN}✓${NC} WeChat is already installed"
 else
-    echo -e "${YELLOW}→${NC} Installing WeChat..."
-    wget https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb
-    sudo apt install -y ./WeChatLinux_x86_64.deb
-    rm ./WeChatLinux_x86_64.deb
+    install_deb_from_url "https://dldir1v6.qq.com/weixin/Universal/Linux/WeChatLinux_x86_64.deb" "WeChat"
 fi
 
 # PDF viewer
@@ -281,17 +184,10 @@ install_pip ty
 install_pip yt-dlp "python3 -m pip install -U yt-dlp"   # custom install command
 
 # Cleanup
-print_header "Cleanup"
-sudo fc-cache -fv
-sudo apt clean -y
-sudo apt autoremove -y
-sudo apt autoclean -y
+cleanup_system
 
 # Load configuration files
-print_header "Loading Configuration Files"
-[ -f ~/.bashrc ] && source ~/.bashrc
-[ -f ~/.profile ] && source ~/.profile
-[ -f ~/.tmux.conf ] && command_exists tmux && tmux source-file ~/.tmux.conf 2>/dev/null || true
+load_configs
 
 print_header "Installation Complete!"
 echo -e "${GREEN}✓${NC} All installations finished successfully"
