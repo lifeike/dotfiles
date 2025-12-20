@@ -12,12 +12,21 @@ map({ "n", "v", "o" }, "w", function()
     vim.fn.search([[\v<\a]], "W")
 end, { desc = "Jump to next English lettet, not punctuation." })
 
+-- Jump to first alphabetic character on next line
 map({ "n", "v", "o" }, "W", function()
-  -- 1. Move to the next line
-  -- 2. Move to the absolute start of that line (column 0)
-  -- 3. Search for the first alphabetic character (\a) from that point forward
-  vim.cmd("normal! j0")
-  vim.fn.search([[\a]], "Wc")
+    local current_line = vim.fn.line(".")
+    local total_lines = vim.fn.line("$")
+    
+    -- Check if we're not on the last line
+    if current_line < total_lines then
+        -- Move to next line without modifying search history
+        vim.fn.cursor(current_line + 1, 1)
+        -- Search from beginning of line
+        vim.fn.search([[\a]], "c", current_line + 1)
+    else
+        -- Optionally: provide feedback or wrap to first line
+        vim.notify("Already at last line", vim.log.levels.INFO)
+    end
 end, { desc = "Jump to first English letter of the next line" })
 
 -- Telescope
