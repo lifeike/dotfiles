@@ -21,9 +21,9 @@ map({ "n", "i", "v" }, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find 
 -- Find Defination
 map({ "n", "i", "v" }, "<C-l>", "<C-]>", { desc = "find defination" })
 -- Open last file
-map({ "n", "i", "v" }, "<C-k>", "<C-o>", { desc = "go to last position" })
+map({ "n", "i", "v" }, "<A-0>", "<C-o>", { desc = "go to last position" })
 -- Open forward file
-map({ "n", "i", "v" }, "<C-j>", "<C-i>", { desc = "go to forward position" })
+map({ "n", "i", "v" }, "<A-9>", "<C-i>", { desc = "go to forward position" })
 -- Telescope list document symbols
 map({ "n", "i", "v" }, "<A-d>", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "list symbols in a file" })
 -- Telescope Find Occurrence
