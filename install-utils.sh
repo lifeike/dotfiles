@@ -68,6 +68,20 @@ install_pip() {
     fi
 }
 
+# Function to install Python package via uv if not installed
+install_uv() {
+    local package=$1
+    local install_cmd=${2:-"uv tool install $package"}  # default install command
+
+    # Check if the package is already installed via uv
+    if uv tool list | grep -q "^$package "; then
+        echo -e "${GREEN}✓${NC} $package is already installed via uv"
+    else
+        echo -e "${YELLOW}→${NC} Installing $package via uv..."
+        eval "$install_cmd"
+    fi
+}
+
 # Function to install npm global package if not installed
 install_npm_global() {
     local package=$1

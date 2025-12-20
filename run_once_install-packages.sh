@@ -38,7 +38,6 @@ install_apt suckless-tools  # contains slock to lock screen
 install_apt brightnessctl # lock screen
 install_apt ncal
 install_apt tealdeer
-install_apt pipx
 install_apt cargo
 # email neomut
 install_apt neomutt
@@ -177,11 +176,21 @@ install_apt flameshot
 print_header "Python"
 install_apt python3
 install_apt python3-pip
-install_apt pipx
-install_pip uv                     
-install_pip vimiv                     # installs vimiv via pip3 --user
-install_pip ty                     
-install_pip yt-dlp "python3 -m pip install -U yt-dlp"   # custom install command
+
+# Install uv (Python package manager)
+if command_exists uv; then
+    echo -e "${GREEN}✓${NC} uv is already installed"
+else
+    echo -e "${YELLOW}→${NC} Installing uv..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    # Add uv to PATH for current session
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# Install Python applications via uv
+install_uv vimiv                     
+install_uv ty                     
+install_uv yt-dlp
 
 # Cleanup
 cleanup_system
