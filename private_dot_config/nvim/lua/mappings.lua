@@ -13,7 +13,11 @@ map({ "n", "v", "o" }, "w", function()
 end, { desc = "Jump to next English lettet, not punctuation." })
 
 map({ "n", "v", "o" }, "W", function()
-    vim.fn.search([[\v^\s*\zs\a]], "W")
+  -- 1. Move to the next line
+  -- 2. Move to the absolute start of that line (column 0)
+  -- 3. Search for the first alphabetic character (\a) from that point forward
+  vim.cmd("normal! j0")
+  vim.fn.search([[\a]], "Wc")
 end, { desc = "Jump to first English letter of the next line" })
 
 -- Telescope
