@@ -5,8 +5,20 @@ map("i", "jk", "<ESC>")
 map("n", "O", "o<ESC>")
 map({ "n", "v" }, "E", "g_")
 map("o", "E", "g_")
-map("n", "W", "+")
 map("n", "B", "0")
+
+-- Normal, Visual, and Operator-pending mode
+map({ "n", "v", "o" }, "w", function()
+  vim.fn.search([[\v(^\s*|\A)\zs\a]], "W")
+end, { desc = "Jump to next English letter without highlighting" })
+
+map({ "n", "v", "o" }, "W", function()
+  -- 1. Move to the next line
+  -- 2. Move to the absolute start of that line (column 0)
+  -- 3. Search for the first alphabetic character (\a) from that point forward
+  vim.cmd("normal! j0")
+  vim.fn.search([[\a]], "Wc")
+end, { desc = "Jump to first English letter of the next line" })
 
 -- Feeco's custom mappings
 -- Telescope
