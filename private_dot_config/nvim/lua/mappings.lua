@@ -7,7 +7,7 @@ map({ "n", "v" }, "E", "g_")
 map("o", "E", "g_")
 map("n", "B", "0")
 
--- Normal, Visual, and Operator-pending mode
+-- Jump to first alphabetic character
 map({ "n", "v", "o" }, "w", function()
     vim.fn.search([[\v<\a]], "W")
 end, { desc = "Jump to next English lettet, not punctuation." })
