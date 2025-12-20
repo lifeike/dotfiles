@@ -19,7 +19,7 @@ map({ "n", "i", "v" }, "<A-.>", "<cmd>Telescope commands<CR>", { desc = "show al
 -- Telescope Find Files
 map({ "n", "i", "v" }, "<A-i>", "<cmd>Telescope find_files<CR>", { desc = "find files" })
 -- Find Defination
-map({ "n", "i", "v" }, "<C-l>", "<C-]>", { desc = "find defination" })
+map({ "n", "i", "v" }, "<A-I>", "<C-]>", { desc = "find defination" })
 -- Open last file
 map({ "n", "i", "v" }, "<A-0>", "<C-o>", { desc = "go to last position" })
 -- Open forward file
