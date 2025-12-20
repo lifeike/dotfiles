@@ -72,11 +72,17 @@ install_uv() {
     local install_cmd=${2:-"uv tool install $package"}  # default install command
 
     # Check if the package is already installed via uv
-    if uv tool list | grep -q "^$package "; then
-        echo -e "${GREEN}✓${NC} $package is already installed via uv"
+    # Use command_exists as primary check since it's more reliable
+    if command_exists "$package"; then
+        echo -e "${GREEN}✓${NC} $package is already installed"
     else
         echo -e "${YELLOW}→${NC} Installing $package via uv..."
-        eval "$install_cmd"
+        # Use --force to overwrite if executable already exists
+        if [[ "$install_cmd" == "uv tool install $package" ]]; then
+            uv tool install --force "$package"
+        else
+            eval "$install_cmd"
+        fi
     fi
 }
 
