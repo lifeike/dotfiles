@@ -47,7 +47,7 @@ map({ "n", "i", "v" }, "<A-J>", "<C-i>", { desc = "go to forward position" })
 -- Telescope list document symbols
 map({ "n", "i", "v" }, "<A-d>", "<cmd>Telescope lsp_document_symbols<CR>", { desc = "list symbols in a file" })
 -- Telescope Find Occurrence
-map({ "n", "i", "v" }, "<A-f>", "<cmd>Telescope live_grep<CR>", { desc = "search a text globally inside a project" })
+map({ "n", "i", "v" }, "<C-f>", "<cmd>Telescope live_grep<CR>", { desc = "search a text globally inside a project" })
 
 
 -- Editing
@@ -83,10 +83,12 @@ map("n", "M", "J", { desc = "join current line with the next" })
 map("n", "<A-c>", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
 
--- focus file explorer
--- Map Ctrl+E to NvimTreeFocus in normal mode
-map("n", "<C-f>", "<cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
-map("i", "<C-f>", "<Esc><cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
+-- toggle file explorer
+map({ "n", "i", "v" }, "<C-e>", "<cmd>NvimTreeToggle<CR>", {
+  desc = "toggle file explorer",
+  noremap = true,
+  silent = true,
+})
 
 -- show jump list
 map("n", "<A-;>", "<cmd>Telescope jumplist<CR>", { desc = "show jumplist" })
