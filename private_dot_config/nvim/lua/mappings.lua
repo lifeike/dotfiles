@@ -10,7 +10,7 @@ map("n", "B", "0")
 -- Jump to first alphabetic character
 map({ "n", "v", "o" }, "w", function()
     vim.fn.search([[\v<\a]], "W")
-end, { desc = "Jump to next English lettet, not punctuation." })
+end, { desc = "Jump to next English letter, not punctuation." })
 
 -- Jump to first alphabetic character on next line
 map({ "n", "v", "o" }, "W", function()
