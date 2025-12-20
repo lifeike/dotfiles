@@ -56,7 +56,7 @@ install_snap() {
 # Function to install pip package if not installed
 install_pip() {
     local package=$1
-    local install_cmd=${2:-"pipx install $package"}  # default install command
+    local install_cmd=${2:-"uv tool install $package"}  # default install command
 
     # Check if the package is already installed via pipx
     if pipx list | grep -q " $package "; then
@@ -275,8 +275,8 @@ print_header "Python"
 install_apt python3
 install_apt python3-pip
 install_apt pipx
-install_pip vimiv                     # installs vimiv via pip3 --user
 install_pip uv                     
+install_pip vimiv                     # installs vimiv via pip3 --user
 install_pip ty                     
 install_pip yt-dlp "python3 -m pip install -U yt-dlp"   # custom install command
 
