@@ -122,6 +122,7 @@ install_apt ncal
 install_apt tealdeer
 install_apt pipx
 install_apt cargo
+install_apt ddcutil
 # email neomut
 install_apt neomutt
 install_apt isync
