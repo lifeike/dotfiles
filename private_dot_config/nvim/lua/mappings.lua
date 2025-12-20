@@ -89,4 +89,4 @@ map("n", "<C-f>", "<cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
 map("i", "<C-f>", "<Esc><cmd>NvimTreeFocus<CR>", { noremap = true, silent = true })
 
 -- show jump list
-map("n", "<A-;>", "<cmd>Telescope jumplist<CR>", { desc = "switch window" })
+map("n", "<A-;>", "<cmd>Telescope jumplist<CR>", { desc = "show jumplist" })
