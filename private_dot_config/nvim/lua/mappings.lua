@@ -84,10 +84,31 @@ map("n", "<A-c>", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
 
 -- toggle file explorer
-map({ "n", "i", "v" }, "<C-e>", "<cmd>NvimTreeToggle<CR>", {
+map({ "n", "i", "v" }, "<C-e>", function()
+  require("nvim-tree.api").tree.toggle()
+end, {
   desc = "toggle file explorer",
   noremap = true,
   silent = true,
+})
+
+-- Force Ctrl+E override in nvim-tree buffer (more aggressive approach)
+vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+  pattern = "NvimTree",
+  callback = function(args)
+    -- Wait a bit to ensure all mappings are loaded
+    vim.defer_fn(function()
+      vim.keymap.set("n", "<C-e>", function()
+        require("nvim-tree.api").tree.toggle()
+      end, {
+        desc = "Toggle NvimTree",
+        buffer = args.buf,
+        noremap = true,
+        silent = true,
+        nowait = true,
+      })
+    end, 100)
+  end,
 })
 
 -- show jump list
