@@ -1,7 +1,7 @@
 require "nvchad.mappings"
 local map = vim.keymap.set
 
-map("i", "jk", "<ESC>")
+-- Feeco's custom mappings
 map("n", "O", "o<ESC>")
 map({ "n", "v" }, "E", "g_")
 map("o", "E", "g_")
@@ -9,18 +9,13 @@ map("n", "B", "0")
 
 -- Normal, Visual, and Operator-pending mode
 map({ "n", "v", "o" }, "w", function()
-  vim.fn.search([[\v(^\s*|\A)\zs\a]], "W")
-end, { desc = "Jump to next English letter without highlighting" })
+    vim.fn.search([[\v<\a]], "W")
+end, { desc = "Jump to next English lettet, not punctuation." })
 
 map({ "n", "v", "o" }, "W", function()
-  -- 1. Move to the next line
-  -- 2. Move to the absolute start of that line (column 0)
-  -- 3. Search for the first alphabetic character (\a) from that point forward
-  vim.cmd("normal! j0")
-  vim.fn.search([[\a]], "Wc")
+    vim.fn.search([[\v^\s*\zs\a]], "W")
 end, { desc = "Jump to first English letter of the next line" })
 
--- Feeco's custom mappings
 -- Telescope
 map({ "n", "i", "v" }, "<A-,>", "<cmd>Telescope<CR>", { desc = "show all list pickers" })
 -- Telescope Commands
