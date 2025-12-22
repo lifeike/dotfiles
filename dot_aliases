@@ -317,7 +317,7 @@ look() {
 #-------------------------------
 alias 1='xrandr --output DP-2 --brightness 0.5'
 alias 2='xrandr --output DP-2 --brightness 0.7'
-alias 3='xrandr --output DP-2 --brightness 0.9'
+alias 3='xrandr --output DP-2 --brightness 1'
 
 #-------------------------------
 # sound volume
