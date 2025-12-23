@@ -345,7 +345,7 @@ fh() {
   # 2. Use fzf to select a command
   # 3. Print the selected command to the terminal and execute it
   local command
-  command=$(history | sed 's/^[ ]*[0-9]*[ ]*//' | fzf --height 40% --reverse --query="$1")
+  command=$(history | sed 's/^[ ]*[0-9]*[ ]*//' | fzf --height 80% --reverse --query="$1")
   
   if [ -n "$command" ]; then
     # Put the command on the command line buffer for easy execution or editing
