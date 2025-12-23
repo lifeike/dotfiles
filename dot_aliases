@@ -53,6 +53,7 @@ alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y
 alias o='nvim ~/Desktop/text.txt'
 alias e='neomutt'
 alias g='gemini'
+alias neofetch='fastfetch'
 
 # calendar
 alias cal='ncal -b -3'
