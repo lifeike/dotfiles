@@ -395,7 +395,7 @@ helpfzf() {
   # fzf interactive search
   local selected
   selected=$(printf "%s\n" "$help" |
-             fzf --height=50% \
+             fzf --height=80% \
                  --border \
                  --prompt="help($cmd)> " \
                  --bind='tab:down,btab:up') || return
