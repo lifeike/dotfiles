@@ -54,6 +54,7 @@ alias o='nvim ~/Desktop/text.txt'
 alias e='neomutt'
 alias g='gemini'
 alias neofetch='fastfetch'
+alias l='fh'
 
 # calendar
 alias cal='ncal -b -3'
@@ -337,6 +338,22 @@ cdf() {
    pwd
 }
 
+
+# Interactively select a command from history using fzf
+fh() {
+  # 1. Get history and remove leading line numbers/indices
+  # 2. Use fzf to select a command
+  # 3. Print the selected command to the terminal and execute it
+  local command
+  command=$(history | sed 's/^[ ]*[0-9]*[ ]*//' | fzf --height 40% --reverse --query="$1")
+  
+  if [ -n "$command" ]; then
+    # Put the command on the command line buffer for easy execution or editing
+    # Note: This version simply prints and then executes via 'eval'
+    echo "Executing: $command"
+    eval "$command"
+  fi
+}
 
 helpfzf() {
     local cmd="$1"
@@ -917,8 +934,6 @@ function projectLayout(){
 alias new='tmux new-window -n ' 
 #rename the current window
 alias twindowname='tmux rename-window '
-#list all session and windows
-alias l='tmux choose-window '
 
 #----------------------------
 # application github
