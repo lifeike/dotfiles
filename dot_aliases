@@ -339,20 +339,15 @@ cdf() {
 }
 
 
-# Interactively select a command from history using fzf
+# Interactively select history and place it on the command line buffer
 fh() {
-  # 1. Get history and remove leading line numbers/indices
-  # 2. Use fzf to select a command
-  # 3. Print the selected command to the terminal and execute it
-  local command
-  command=$(history | sed 's/^[ ]*[0-9]*[ ]*//' | fzf --height 80% --reverse --query="$1")
-  
-  if [ -n "$command" ]; then
-    # Put the command on the command line buffer for easy execution or editing
-    # Note: This version simply prints and then executes via 'eval'
-    echo "Executing: $command"
-    eval "$command"
-  fi
+  local cmd
+  cmd=$(history |
+    sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
+    awk '!seen[$0]++' |
+    fzf --tac) || return
+
+  eval "$cmd"
 }
 
 helpfzf() {
