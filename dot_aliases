@@ -54,7 +54,7 @@ alias o='nvim ~/Desktop/text.txt'
 alias e='neomutt'
 alias g='gemini'
 alias neofetch='fastfetch'
-alias l='fh'
+alias l='eval $(fh)'
 
 # calendar
 alias cal='ncal -b -3'
@@ -339,27 +339,24 @@ cdf() {
 }
 
 
-# Interactively select history and place it on the command line buffer
+# Interactively select history and run selected command
 fh() {
+  set -o history
+  HISTFILE=~/.bash_history
+  
   local cmd
-  # Make sure current session history is flushed
-  history -a
-  cmd=$(
-    builtin history |
-      sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
-      tac | awk '!seen[$0]++' | tac |
-      fzf --tac \
-          --height=80% \
-          --border \
-          --prompt='History> ' \
-          --bind='tab:down,btab:up'
-  ) || return
+  # Optimization: 
+  # 1. 'tac' reverses the history so newest items are first
+  # 2. 'sed' removes the line numbers
+  # 3. 'awk' keeps ONLY the first occurrence it sees (which is the newest)
+  # 4. 'fzf' handles the search
+  cmd=$(history | tac | sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' | awk '!seen[$0]++' | fzf --height=40% --border --prompt='History> ' --bind='tab:down,shift-tab:up')
 
-  [[ -z $cmd ]] && return
-
-  READLINE_LINE="$cmd"
-  READLINE_POINT=${#READLINE_LINE}
+  if [[ -n "$cmd" ]]; then
+    echo "$cmd"
+  fi
 }
+
 
 helpfzf() {
   local cmd="$1"
