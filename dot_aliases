@@ -349,7 +349,7 @@ fh() {
       sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' |
       tac | awk '!seen[$0]++' | tac |
       fzf --tac \
-          --height=40% \
+          --height=80% \
           --border \
           --prompt='History> ' \
           --bind='tab:down,btab:up'
