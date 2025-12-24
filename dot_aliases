@@ -618,7 +618,8 @@ alias lifeike='cd /home/feeco/Documents/feeco && gb && gs && ranger'
 alias gb='git branch --sort=committerdate | column'
 
 
-alias gitlastcommit='git diff HEAD^ '
+#alias gitlastcommit='git diff HEAD^ '
+alias gitlastcommit='git diff --name-only HEAD^ | fzf --preview "git diff HEAD^ --color=always -- {}" --preview-window=right:70%'
 alias gitcommitscount='git shortlog -sn --all'
 alias gitlistconflicts='git diff --check'
 alias gittodolist='gh issue list'
@@ -746,21 +747,6 @@ alias npminstalled='npm list --global --depth=0'
 #-----------------
 # ffmpeg
 #-----------------
-# merge video with subtitles
-alias combinevideosubtitle=combine_video_and_subtitles
-function combine_video_and_subtitles(){
-
-    ffmpeg -i $1 -i $2 -c:s mov_text -c:v copy -c:a copy output.mp4
-
-}
-
-# split video into 10 mins clip
-# ffmpeg -i fff.avi -acodec copy -f segment -segment_time 10 -vcodec copy -reset_timestamps 1 -map 0 fff%d.avi
-alias splitvideo='split_big_video_into_clips_of_10mins'
-function split_big_video_into_clips_of_10mins(){
-	local input=$1;
-	ffmpeg -i $1 -acodec copy -f segment -segment_time 600 -vcodec copy -reset_timestamps 1 -map 0 $1%d.avi
-}
 
 #-----------------
 # chezmoi
@@ -778,40 +764,6 @@ function updatePrismaSchema(){
  npx prisma db pull
  npx prisma generate
 }
-
-
-#------------------------------------
-# postgresql database running locally
-#------------------------------------
-# PostgreSQL Alias Cheatsheet (MongoDB-like Syntax)
-# Database & Connection
-alias showdbs='psql -c "\l"'                    #	\l	List all databases
-alias usedb='psql -d '                          #	\c  dbname	Switch database
-alias currentdb='psql -c "\conninfo"'	          # \conninfo	Show current DB connection
-# Tables & Schemas
-alias showtables='psql -c "\dt"'	              # \dt	List tables in current DB
-alias showalltables='psql -c "\dt *.*"'	        # \dt *.*	List all tables (including system schemas)
-alias desc='psql -c "\d+"'	                    # \d+ table	Describe a table (structure, indexes, etc.)
-# User & Roles
-alias showusers='psql -c "\du"'	                # \du	List all users/roles
-alias showgrants='psql -c "\dp"'                #	\dp	Show table permissions
-# Query & Admin Shortcuts
-alias query='psql -c'	                          # SELECT ...	Run a quick SQL query
-alias explain='psql -c "EXPLAIN ANALYZE"'	      # EXPLAIN ANALYZE ...	Analyze query performance
-alias killconn='psql -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE ..."'	   # pg_terminate_backend()	Kill a stuck connection
-# Export & Import
-alias exportdb='pg_dump -U user -d dbname -f output.sql'	# pg_dump	Export DB to SQL file
-alias importdb='psql -U user -d dbname -f input.sql'	# psql -f	Import SQL file into DB
-
-
-
-#------------------------------------
-# tts
-#------------------------------------
-tts() {
-    edge-tts --voice zh-CN-YunyangNeural --rate=-10% --file "$1" --write-media "${1%.*}.mp3"
-}
-
 
 #------------------------------------
 # disk / system
