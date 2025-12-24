@@ -596,8 +596,8 @@ function defaultLayout(){
   tmux splitw -v -p 50;
   tmux selectp -t 1;     #select pane number 1
   tmux splitw -v -p 50;
-  tmux send-keys -t2 music Enter ;
-  tmux send-keys -t2 ranger Enter ;
+  tmux send-keys -t1 music Enter ;
+  tmux send-keys -t1 ranger Enter ;
   tmux send-keys -t4 "cd ~/Downloads" Enter ;
   tmux selectp -t 0;
 }
