@@ -711,9 +711,10 @@ function gitdeploy(){
 alias githublogin='gh auth login'
 alias githublist='gh auth status'
 alias githubswitch='gh auth switch'
-alias githubrepos='ghclone'
 alias githubclonerepo='gh repo clone '
 alias githubbrowser='gh browse'
+
+alias githubrepos='ghclone'
 ghclone() {
   local repo
 
@@ -723,7 +724,7 @@ ghclone() {
       --json nameWithOwner,description \
       --jq '.[] | "\(.nameWithOwner)\t\(.description // "")"' |
     fzf \
-      --height=40% \
+      --height=80% \
       --layout=reverse \
       --prompt="Clone repo > " \
       --delimiter=$'\t' \
