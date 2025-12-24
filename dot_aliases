@@ -317,9 +317,13 @@ look() {
 #-------------------------------
 # brightness
 #-------------------------------
-alias 1='xrandr --output DP-2 --brightness 0.5'
-alias 2='xrandr --output DP-2 --brightness 0.7'
-alias 3='xrandr --output DP-2 --brightness 1'
+alias desktopbrightness1='xrandr --output DP-2 --brightness 0.5'
+alias desktopbrightness2='xrandr --output DP-2 --brightness 0.7'
+alias desktopbrightness3='xrandr --output DP-2 --brightness 1'
+
+alias laptopbrightness1='xrandr --output eDP --brightness 0.5'
+alias laptopbrightness2='xrandr --output eDP --brightness 0.7'
+alias laptopbrightness3='xrandr --output eDP --brightness 1'
 
 #-------------------------------
 # sound volume
