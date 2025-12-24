@@ -755,7 +755,7 @@ alias npminstalled='npm list --global --depth=0'
 #-----------------
 alias updatedotfiles='chezmoi re-add'
 alias syncdotfiles='cd ~/Desktop && chezmoi update'
-alias cddotfiles='cd ~/.local/share/chezmoi && pwd'
+alias cddotfiles='cd ~/.local/share/chezmoi && echo "current path" && pwd'
 alias adddotfiles='chezmoi add'
 alias cs='chezmoi status'
 
