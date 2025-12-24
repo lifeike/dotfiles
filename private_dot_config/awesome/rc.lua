@@ -142,6 +142,41 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
+-- Battery widget (handles multiple batteries correctly)
+local battery_widget = awful.widget.watch(
+  "acpi -b",
+  30,
+  function(widget, stdout)
+    local max_charge = -1
+    local best_status = "Unknown"
+
+    for status, charge in stdout:gmatch("Battery %d+: (%a+), (%d?%d?%d)%%") do
+      charge = tonumber(charge)
+      if charge and charge > max_charge then
+        max_charge = charge
+        best_status = status
+      end
+    end
+    if max_charge >= 0 then
+      local icon = "🔋"
+      if best_status == "Charging" then
+        icon = "⚡"
+      end
+      widget:set_text(icon .. " " .. max_charge .. "%")
+      -- Low battery warning (only when discharging)
+      if best_status == "Discharging" and max_charge <= 15 then
+        naughty.notify({
+          title   = "Battery low",
+          text    = max_charge .. "% remaining",
+          urgency = "critical",
+        })
+      end
+    else
+      widget:set_text("🔋 N/A")
+    end
+  end
+)
+
 -- Styled textclock with white background and red text
 mytextclock = wibox.widget {
   {
@@ -263,6 +298,7 @@ awful.screen.connect_for_each_screen(function(s)
       layout = wibox.layout.fixed.horizontal,
       mykeyboardlayout,
       wibox.widget.systray(),
+      battery_widget,
       mytextclock,
       s.mylayoutbox,
     },
