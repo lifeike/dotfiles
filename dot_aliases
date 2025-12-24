@@ -16,7 +16,8 @@
 # temp alias
 #----------------------
 alias t3='npm create t3-app@latest'          
-
+alias vcmi='flatpak run eu.vcmi.VCMI'
+ 
 #---------------------
 # system aliases
 #---------------------
