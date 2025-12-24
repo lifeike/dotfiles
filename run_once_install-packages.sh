@@ -198,6 +198,7 @@ install_apt fastfetch
 install_apt neomutt
 install_apt isync
 install_apt pass
+install_apt acpi
 # remove unused debian utilities
 sudo apt purge -y installation-report
 
