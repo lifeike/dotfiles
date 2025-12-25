@@ -322,7 +322,7 @@ look() {
 alias desktopbrightness1='xrandr --output DP-2 --brightness 0.5'
 alias desktopbrightness2='xrandr --output DP-2 --brightness 0.7'
 alias desktopbrightness3='xrandr --output DP-2 --brightness 0.9'
-alias desktopbrightness4='xrandr --output DP-2 --brightness 1.2'
+alias desktopbrightness4='xrandr --output DP-2 --brightness 1.1'
 
 alias laptopbrightness1='xrandr --output eDP --brightness 0.5'
 alias laptopbrightness2='xrandr --output eDP --brightness 0.7'
