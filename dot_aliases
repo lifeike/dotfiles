@@ -506,7 +506,6 @@ function updateall(){
 	sudo apt-get update;
   updateChrome;
   sudo snap refresh;
-  python3 -m pip install -U yt-dlp;
 	sudo apt-get clean;
 	sudo apt clean;
 	sudo apt autoremove;

@@ -144,37 +144,42 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Battery widget (handles multiple batteries correctly)
 local battery_widget = awful.widget.watch(
-  "acpi -b",
-  30,
-  function(widget, stdout)
-    local max_charge = -1
-    local best_status = "Unknown"
-
-    for status, charge in stdout:gmatch("Battery %d+: (%a+), (%d?%d?%d)%%") do
-      charge = tonumber(charge)
-      if charge and charge > max_charge then
-        max_charge = charge
-        best_status = status
-      end
+    "acpi -b", 30,
+    function(widget, stdout)
+        local max_charge = -1
+        local best_status = "Unknown"
+        
+        -- Updated pattern to handle multi-word statuses
+        for status, charge in stdout:gmatch("Battery %d+: ([^,]+), (%d?%d?%d)%%") do
+            charge = tonumber(charge)
+            -- Trim whitespace from status
+            status = status:match("^%s*(.-)%s*$")
+            
+            if charge and charge > max_charge then
+                max_charge = charge
+                best_status = status
+            end
+        end
+        
+        if max_charge >= 0 then
+            local icon = "🔋"
+            if best_status == "Charging" then
+                icon = "⚡"
+            end
+            widget:set_text(icon .. " " .. max_charge .. "%")
+            
+            -- Low battery warning (only when discharging)
+            if best_status == "Discharging" and max_charge <= 15 then
+                naughty.notify({
+                    title = "Battery low",
+                    text = max_charge .. "% remaining",
+                    urgency = "critical",
+                })
+            end
+        else
+            widget:set_text("🔋 N/A")
+        end
     end
-    if max_charge >= 0 then
-      local icon = "🔋"
-      if best_status == "Charging" then
-        icon = "⚡"
-      end
-      widget:set_text(icon .. " " .. max_charge .. "%")
-      -- Low battery warning (only when discharging)
-      if best_status == "Discharging" and max_charge <= 15 then
-        naughty.notify({
-          title   = "Battery low",
-          text    = max_charge .. "% remaining",
-          urgency = "critical",
-        })
-      end
-    else
-      widget:set_text("🔋 N/A")
-    end
-  end
 )
 
 -- Styled textclock with white background and red text
