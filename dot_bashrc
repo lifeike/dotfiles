@@ -135,8 +135,8 @@ else
 fi
 unset __mamba_setup
 
-# check tmux session on every terminal open
+# check tmux session on every terminal open and focus first pane
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux a || tmux
+    # Try attaching and selecting pane 0; if no session exists, start a new one
+    tmux attach \; select-pane -t 0 || tmux
 fi
-
