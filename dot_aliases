@@ -609,6 +609,23 @@ ghclone() {
   [[ -n "$repo" ]] && gh repo clone "$repo"
 }
 
+
+gc() {
+  # Clone the repository using GitHub CLI
+  gh repo clone "$1"
+  
+  # Navigate into the newly created directory
+  cd "$(basename "$1" .git)" || return
+
+  # Loop through all remote branches (excluding HEAD) and set up local tracking
+  for branch in $(git branch -r | grep -v '\->'); do
+    git branch --track "${branch#origin/}" "$branch" 2>/dev/null
+  done
+
+  # Ensure all branch data is fetched
+  git fetch --all
+}
+
 #-----------------
 # npm + mongodb
 #-----------------
