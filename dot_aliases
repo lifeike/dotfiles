@@ -661,40 +661,11 @@ alias gl='git log -20 --graph --abbrev-commit --decorate=no --date=format:"%m-%d
 alias gitbigfile='git rev-list --all | xargs -rL1 git ls-tree -r --long | sort -uk3 | sort -rnk4 | head -10'
 # git discard all local changes and remove all untracked files(new files)
 alias gr='git reset --hard && git clean -fd'
-
-# open a git project then open source code in vscode then run this project
-alias open=git-open-project
-function git-open-project(){
-    git-clone-all-branches $1 && code -r . && npm install &&  npm run start
-}
-
 # Map GitHub usernames to SSH aliases (from ~/.ssh/config)
 declare -A GH_ALIAS_MAP=(
     [hankAndfeeco]=hankAndfeeco
     [lifeike]=lifeike
 )
-
-# clone a git repo with all remote branches
-gc() {
-    if [ $# -eq 0 ]; then
-        echo "Usage: gc <repository-url> [directory-name]"
-        return 1
-    fi
-    
-    local repo_url="$1"
-    local dir_name="${2:-$(basename "$repo_url" .git)}"
-    
-    git clone "$repo_url" "$dir_name"
-    cd "$dir_name"
-    
-    # Fetch all remote branches and create local tracking branches
-    for branch in $(git branch -r | grep -v HEAD | sed 's/origin\///'); do
-        git checkout -b "$branch" "origin/$branch" 2>/dev/null || true
-    done
-    
-    # Switch back to main/master branch
-    git checkout main 2>/dev/null || git checkout master 2>/dev/null
-}
 
 
 alias gp='pushall'
