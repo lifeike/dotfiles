@@ -611,19 +611,18 @@ ghclone() {
 
 
 gc() {
-  # Clone the repository using GitHub CLI
-  gh repo clone "$1"
-  
-  # Navigate into the newly created directory
-  cd "$(basename "$1" .git)" || return
+    # Strip any trailing slashes, then get the basename and remove .git suffix
+    local repo_dir
+    repo_dir=$(basename "${1%/}" .git)
 
-  # Loop through all remote branches (excluding HEAD) and set up local tracking
-  for branch in $(git branch -r | grep -v '\->'); do
-    git branch --track "${branch#origin/}" "$branch" 2>/dev/null
-  done
+    gh repo clone "$1" || return
+    cd "$repo_dir" || return
 
-  # Ensure all branch data is fetched
-  git fetch --all
+    # Track all remote branches
+    for branch in $(git branch -r | grep -v '\->'); do
+        git branch --track "${branch#origin/}" "$branch" 2>/dev/null
+    done
+    git fetch --all
 }
 
 #-----------------
