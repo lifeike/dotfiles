@@ -250,17 +250,31 @@ cdf() {
 fh() {
   set -o history
   HISTFILE=~/.bash_history
-  
   local cmd
-  # Optimization: 
-  # 1. 'tac' reverses the history so newest items are first
-  # 2. 'sed' removes the line numbers
-  # 3. 'awk' keeps ONLY the first occurrence it sees (which is the newest)
-  # 4. 'fzf' handles the search
-  cmd=$(history | tac | sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' | awk '!seen[$0]++' | fzf --height=80% --border --prompt='History> ' --bind='tab:down,shift-tab:up')
 
+  # STAGE 1: Search Aliases and Functions
+  # 'alias' lists aliases; 'declare -F' lists functions (cut extracts names)
+  cmd=$( (alias; declare -F | cut -d' ' -f3) | 
+         fzf --height=40% --border --prompt='Alias/Func> ' \
+             --header='Searching Aliases & Functions (ESC to search History)' \
+             --bind='tab:down,shift-tab:up' --select-1 --exit-0)
+
+  # STAGE 2: If nothing found in Stage 1, search History
+  if [[ -z "$cmd" ]]; then
+    cmd=$(history | tac | sed 's/^[[:space:]]*[0-9]\+[[:space:]]*//' | awk '!seen[$0]++' | 
+          fzf --height=80% --border --prompt='History> ' \
+              --bind='tab:down,shift-tab:up')
+  fi
+
+  # Execution logic
   if [[ -n "$cmd" ]]; then
+    # If it was an alias, clean the 'alias ' prefix and '=...' suffix to get the name
+    if [[ "$cmd" == alias* ]]; then
+      cmd=$(echo "$cmd" | sed "s/^alias //; s/='.*$//")
+    fi
     echo "$cmd"
+    # To execute immediately, uncomment the line below:
+    # eval "$cmd"
   fi
 }
 
