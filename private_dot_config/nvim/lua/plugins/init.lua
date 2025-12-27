@@ -8,8 +8,8 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      require "configs.lspconfig"
+    opts = function()
+      return require "configs.lspconfig"
     end,
   },
 
@@ -22,10 +22,14 @@ return {
       ensure_installed = {
         "vim", "lua", "vimdoc",
         "html", "css", "javascript", "typescript",
-        "python", "json", "markdown"
+        "python", "json",
+        "markdown", "markdown_inline",
       },
       highlight = { enable = true },
-      indent = { enable = true },
+      indent = {
+        enable = true,
+        disable = { "markdown" },
+      },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
@@ -33,22 +37,18 @@ return {
   },
 
   -- feeco's plugins
-  -- file auto save
   {
     "Pocco81/auto-save.nvim",
-    event = { "InsertLeave", "TextChanged" },
+    event = { "InsertLeave", "TextChangedI" },
     config = function()
       require("auto-save").setup {
         enabled = true,
-        execution_message = {
-          message = function()
-            return ""  -- disable save messages
-          end,
-        },
+        execution_message = { message = "" },
         debounce_delay = 135,
       }
     end,
   },
+
   {
     "prisma/vim-prisma",
     ft = "prisma",
