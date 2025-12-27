@@ -83,11 +83,9 @@ map("n", "M", "J", { desc = "join current line with the next" })
 map("n", "<A-c>", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
 
--- toggle file explorer
-map({ "n", "i", "v" }, "<C-e>", function()
-  require("nvim-tree.api").tree.toggle()
-end, {
-  desc = "toggle file explorer",
+-- focus file explorer
+map({ "n", "i", "v" }, "<C-e>", "<Cmd>NvimTreeFocus<CR>", {
+  desc = "focus file explorer",
   noremap = true,
   silent = true,
 })
