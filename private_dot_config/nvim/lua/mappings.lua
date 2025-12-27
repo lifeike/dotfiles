@@ -83,31 +83,11 @@ map("n", "M", "J", { desc = "join current line with the next" })
 map("n", "<A-c>", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
 
--- focus file explorer
+-- global: focus nvim-tree
 map({ "n", "i", "v" }, "<C-e>", "<Cmd>NvimTreeFocus<CR>", {
   desc = "focus file explorer",
   noremap = true,
   silent = true,
 })
-
--- Force Ctrl+E override in nvim-tree buffer (more aggressive approach)
-vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
-  pattern = "NvimTree",
-  callback = function(args)
-    -- Wait a bit to ensure all mappings are loaded
-    vim.defer_fn(function()
-      vim.keymap.set("n", "<C-e>", function()
-        require("nvim-tree.api").tree.toggle()
-      end, {
-        desc = "Toggle NvimTree",
-        buffer = args.buf,
-        noremap = true,
-        silent = true,
-        nowait = true,
-      })
-    end, 100)
-  end,
-})
-
 -- show jump list
 map("n", "<A-;>", "<cmd>Telescope jumplist<CR>", { desc = "show jumplist" })
