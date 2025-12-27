@@ -53,15 +53,4 @@ return {
     "prisma/vim-prisma",
     ft = "prisma",
   },
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
-    ft = { "markdown", "quarto" },
-    cmd = { "RenderMarkdown" },
-    opts = {
-      file_types = { "markdown", "quarto" },
-      conceal = true,
-      hide_markdown_syntax = true,
-    },
-  }
 }
