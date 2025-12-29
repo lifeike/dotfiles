@@ -192,7 +192,6 @@ install_apt suckless-tools  # contains slock to lock screen
 install_apt brightnessctl # lock screen
 install_apt ncal
 install_apt tealdeer
-install_apt cargo
 install_apt fastfetch
 # email neomut
 install_apt neomutt
