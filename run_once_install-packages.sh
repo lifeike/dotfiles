@@ -347,6 +347,17 @@ install_uv vimiv
 install_uv ty                     
 install_uv yt-dlp
 
+# Install cargo (rust package manager)
+if command_exists cargo; then
+    echo -e "${GREEN}✓${NC} cargo is already installed"
+else
+    echo -e "${YELLOW}→${NC} Installing uv..."
+    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+    # check installation status
+    rustc --version
+    cargo --version
+fi
+
 # Cleanup
 cleanup_system
 
