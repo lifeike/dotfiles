@@ -84,10 +84,19 @@ map("n", "<A-c>", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
 
 -- global: focus nvim-tree
-map({ "n", "i", "v" }, "<C-e>", "<Cmd>NvimTreeFocus<CR>", {
+map({ "n", "i", "v" }, "<A-e>", "<Cmd>NvimTreeFocus<CR>", {
   desc = "focus file explorer",
   noremap = true,
   silent = true,
 })
+
+-- global: focus aerial document symbols
+map({ "n", "i", "v" }, "<A-d>", "<Cmd>AerialOpen<CR>", {
+  desc = "focus file explorer",
+  noremap = true,
+  silent = true,
+})
+
+
 -- show jump list
 map("n", "<A-;>", "<cmd>Telescope jumplist<CR>", { desc = "show jumplist" })
