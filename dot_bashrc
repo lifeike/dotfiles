@@ -140,4 +140,6 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     # Try attaching and selecting pane 0; if no session exists, start a new one
     tmux attach \; select-pane -t 0 || tmux
 fi
+
+# add cargo variable
 . "$HOME/.cargo/env"
