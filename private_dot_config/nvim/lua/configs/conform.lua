@@ -4,7 +4,6 @@ require("conform").setup({
     typescript = { "prettier" },
     javascriptreact = { "prettier" },
     typescriptreact = { "prettier" },
-    lua = { "prettier" },
   },
   formatters = {
     prettier = {
