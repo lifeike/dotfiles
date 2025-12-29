@@ -9,24 +9,24 @@ map("n", "B", "0")
 
 -- Jump to first alphabetic character
 map({ "n", "v", "o" }, "w", function()
-    vim.fn.search([[\v<\k]], "W")
+  vim.fn.search([[\v<\k]], "W")
 end, { desc = "Jump to next English letter, not punctuation." })
 
 -- Jump to first alphabetic character on next line
 map({ "n", "v", "o" }, "W", function()
-    local current_line = vim.fn.line(".")
-    local total_lines = vim.fn.line("$")
-    
-    -- Check if we're not on the last line
-    if current_line < total_lines then
-        -- Move to next line without modifying search history
-        vim.fn.cursor(current_line + 1, 1)
-        -- Search from beginning of line
-        vim.fn.search([[\a]], "c", current_line + 1)
-    else
-        -- Optionally: provide feedback or wrap to first line
-        vim.notify("Already at last line", vim.log.levels.INFO)
-    end
+  local current_line = vim.fn.line "."
+  local total_lines = vim.fn.line "$"
+
+  -- Check if we're not on the last line
+  if current_line < total_lines then
+    -- Move to next line without modifying search history
+    vim.fn.cursor(current_line + 1, 1)
+    -- Search from beginning of line
+    vim.fn.search([[\a]], "c", current_line + 1)
+  else
+    -- Optionally: provide feedback or wrap to first line
+    vim.notify("Already at last line", vim.log.levels.INFO)
+  end
 end, { desc = "Jump to first English letter of the next line" })
 
 -- Telescope
@@ -49,11 +49,10 @@ map({ "n", "i", "v" }, "<A-d>", "<cmd>Telescope lsp_document_symbols<CR>", { des
 -- Telescope Find Occurrence
 map({ "n", "i", "v" }, "<C-f>", "<cmd>Telescope live_grep<CR>", { desc = "search a text globally inside a project" })
 
-
 -- Editing
 -- Save and Format Files
 map("n", "<A-s>", function()
-  vim.cmd("w")
+  vim.cmd "w"
   require("conform").format { lsp_fallback = true }
 end, { desc = "general format file" })
 -- close tabe
@@ -96,7 +95,6 @@ map({ "n", "i", "v" }, "<A-d>", "<Cmd>AerialOpen<CR>", {
   noremap = true,
   silent = true,
 })
-
 
 -- show jump list
 map("n", "<A-;>", "<cmd>Telescope jumplist<CR>", { desc = "show jumplist" })

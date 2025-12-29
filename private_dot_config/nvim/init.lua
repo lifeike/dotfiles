@@ -11,8 +11,6 @@ if not vim.uv.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-
-
 local lazy_config = require "configs.lazy"
 
 -- load plugins
@@ -37,4 +35,3 @@ require "nvchad.autocmds"
 vim.schedule(function()
   require "mappings"
 end)
-

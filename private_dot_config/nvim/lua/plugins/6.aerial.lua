@@ -3,8 +3,8 @@ return {
   event = "VeryLazy",
   opts = {
     -- Priority list of backends for aerial to use
-    backends = { "lsp", "treesitter" },  -- default
-    filter_kind = false,                  -- show all symbols
+    backends = { "lsp", "treesitter" }, -- default
+    filter_kind = false, -- show all symbols
     show_guides = true,
     layout = {
       max_width = { 35, 0.2 },
@@ -13,7 +13,7 @@ return {
   },
   -- Optional dependencies
   dependencies = {
-     "nvim-treesitter/nvim-treesitter",
-     "nvim-tree/nvim-web-devicons"
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-tree/nvim-web-devicons",
   },
 }
