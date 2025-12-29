@@ -105,10 +105,10 @@ default xkb_keycodes "evdev" {
 	<END> = 115;
 	<PGDN> = 117;
 
-	<UP> = 96;
-	<LEFT> = 76;
-	<DOWN> = 95;
-	<RGHT> = 107;
+	<UP> = 111;
+	<LEFT> = 113;
+	<DOWN> = 116;
+	<RGHT> = 114;
 
 	<NMLK> = 77;
 	<KPDV> = 106;
