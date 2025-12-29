@@ -735,3 +735,18 @@ burnLinuxUSB(){
   echo '2. sudo dd if=linux.iso of=/dev/sdb bs=4M status=progress oflag=sync'
   echo "3. takes about 1-2 hours to burn to usb"
 }
+
+mm() {
+    echo "$PWD" >> "$HOME/.marked_directories"
+    echo "Marked: $PWD"
+}
+
+lm() {
+    if [[ ! -f "$HOME/.marked_directories" ]]; then
+        echo "No directories marked yet."
+        return 1
+    fi
+    local dir
+    dir=$(cat "$HOME/.marked_directories" | fzf)
+    [[ -n "$dir" ]] && cd "$dir" && echo "Changed directory to: $dir"
+}
