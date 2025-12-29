@@ -299,7 +299,6 @@ install_snap nvim
 install_apt ripgrep
 install_npm_global prettier
 install_npm_global typescript
-install_npm_global prettier-plugin-lua
 
 # Media
 print_header "Media Player"
