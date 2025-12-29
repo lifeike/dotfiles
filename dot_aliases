@@ -17,6 +17,10 @@
 #----------------------
 alias t3='npm create t3-app@latest'          
 alias vcmi='flatpak run eu.vcmi.VCMI'
+# Mark current directory (overwrites)
+alias mm='pwd > ~/.quickmark && echo "Marked: $(cat ~/.quickmark)"'
+# Go to marked directory
+alias gm='[ -f ~/.quickmark ] && cd "$(cat ~/.quickmark)" || echo "No mark found."'
  
 #---------------------
 # system aliases
