@@ -352,7 +352,7 @@ if command_exists cargo; then
     echo -e "${GREEN}✓${NC} cargo is already installed"
 else
     echo -e "${YELLOW}→${NC} Installing uv..."
-    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     # check installation status
     rustc --version
     cargo --version
