@@ -54,7 +54,6 @@ alias vhistory='nvim ~/.bash_history'
 alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y-%m-%d %H:%M"'
 alias o='nvim ~/Desktop/text.txt'
 alias e='neomutt'
-alias g='gemini'
 alias neofetch='fastfetch'
 alias l='eval $(fh)'
 
