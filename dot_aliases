@@ -44,7 +44,6 @@ alias ds='ncdu ~'
 alias s='cdf'
 alias ss='cdf && ranger'
 alias clear='clear && tmux clear-history'
-alias m='helpfzf'
 alias p='pwd '          
 alias top='btop'
 alias t='btop'
@@ -278,58 +277,14 @@ fh() {
 }
 
 
-helpfzf() {
-  local cmd="$1"
-  [[ -z $cmd ]] && { echo "Usage: helpfzf <command>"; return; }
 
-  local help_methods=(
-    "--help"
-    "-h"
-    "help"
-    "-help"
-    "--usage"
-    "-usage"
-    "usage"
-    "-?"
-    "/?"
-  )
-
-  local help output longest
-
-  # collect help outputs, pick the longest one
-  for h in "${help_methods[@]}"; do
-    if command -v "$cmd" >/dev/null 2>&1; then
-      output=$("$cmd" "$h" 2>/dev/null)
-      [[ ${#output} -gt ${#longest} ]] && longest="$output"
-    fi
-  done
-
-  [[ -z $longest ]] && { echo "No help found for: $cmd"; return; }
-
-  # clean output: dedupe lines, trim whitespace
-  help=$(printf "%s\n" "$longest" | sed 's/^[[:space:]]*//' | awk '!seen[$0]++')
-
-  # fzf interactive search
-  local selected
-  selected=$(printf "%s\n" "$help" |
-             fzf --height=80% \
-                 --border \
-                 --prompt="help($cmd)> " \
-                 --bind='tab:down,btab:up') || return
-
-  [[ -z $selected ]] && return
-
-  # insert selected line into prompt
-  READLINE_LINE="$cmd $selected"
-  READLINE_POINT=${#READLINE_LINE}
-}
-
-
+# mark current directory as marked list
 mm() {
     echo "$PWD" >> "$HOME/.marked_directories"
     echo "Marked: $PWD"
 }
 
+# search marked list with fzf
 lm() {
     if [[ ! -f "$HOME/.marked_directories" ]]; then
         echo "No directories marked yet."
