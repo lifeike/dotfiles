@@ -5,10 +5,17 @@ return {
   build = ":TSUpdate",
   opts = {
     ensure_installed = {
-      "vim", "lua", "vimdoc",
-      "html", "css", "javascript", "typescript",
-      "python", "json",
-      "markdown", "markdown_inline",
+      "vim",
+      "lua",
+      "vimdoc",
+      "html",
+      "css",
+      "javascript",
+      "typescript",
+      "python",
+      "json",
+      "markdown",
+      "markdown_inline",
     },
     highlight = { enable = true },
     indent = {
