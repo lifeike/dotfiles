@@ -7,8 +7,8 @@ return {
     filter_kind = false,                  -- show all symbols
     show_guides = true,
     layout = {
-      max_width = { 30, 0.2 },
-      min_width = 20,
+      max_width = { 35, 0.2 },
+      min_width = 25,
     },
   },
   -- Optional dependencies
