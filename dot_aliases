@@ -637,6 +637,9 @@ gc() {
         git branch --track "${branch#origin/}" "$branch" 2>/dev/null
     done
     git fetch --all
+
+    # open project with editor
+    nvim .
 }
 
 #-----------------
