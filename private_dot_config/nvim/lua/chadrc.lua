@@ -24,7 +24,11 @@ M.ui = {
   statusline = {
     theme = "default",
     order = { "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd" },
-    modules = { f = "%F" },
+    modules = { 
+      f = "%F",         -- file path
+      pct = "%l/%L",    -- current line / total lines
+      perc = "%p%%",    -- percentage through file
+    }
   },
 }
 
