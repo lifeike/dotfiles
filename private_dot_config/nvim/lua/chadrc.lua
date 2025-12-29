@@ -23,12 +23,8 @@ M.ui = {
   theme = "ayu_dark",
   statusline = {
     theme = "default",
-    order = { "f", "git", "%=", "lsp_msg", "%=", "lsp", "cwd" },
-    modules = { 
-      f = "%F",         -- file path
-      pct = "%l/%L",    -- current line / total lines
-      perc = "%p%%",    -- percentage through file
-    }
+    order = { "f", "%=", "pct", "git", "lsp_msg", "lsp", "cwd" },
+    modules = { f = "%F ", pct = "%l/%L " },
   },
 }
 
