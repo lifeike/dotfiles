@@ -8,6 +8,9 @@ os.execute("xset s off && xset s noblank && xset -dpms")
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
+
+awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf")
+
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
