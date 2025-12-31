@@ -9,8 +9,12 @@ local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
 
--- Init compositor in one session
-awful.spawn.once("picom --config ~/.config/picom/picom.conf")
+-- Init compositor (Picom) once per session
+awful.spawn.once("picom", {
+    args = {"--config", "/home/feeco/.config/picom/picom.conf"},
+    -- Optional: set this to true if you want it detached from AwesomeWM
+    detached = true,
+})
 
 -- Widget and layout library
 local wibox = require("wibox")
