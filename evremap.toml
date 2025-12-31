@@ -1,0 +1,41 @@
+device_name = "CASUE USB KB"
+# Optional: Use if you have issues, otherwise keep commented
+# phys = "usb-0000:00:14.0-1/input0" 
+
+# Map Delete key to Arrow Left
+[[remap]]
+input = ["KEY_DELETE"]
+output = ["KEY_LEFT"]
+
+# Map Home key to Arrow Up
+[[remap]]
+input = ["KEY_HOME"]
+output = ["KEY_UP"]
+
+# Map End key to Arrow Down
+[[remap]]
+input = ["KEY_END"]
+output = ["KEY_DOWN"]
+
+# Map Page Down key to Arrow Right
+[[remap]]
+input = ["KEY_PAGEDOWN"]
+output = ["KEY_RIGHT"]
+
+
+# Map Caps Lock to Escape
+[[remap]]
+input = ["KEY_CAPSLOCK"]
+output = ["KEY_ESC"]
+
+# Map Escape to Caps Lock
+[[remap]]
+input = ["KEY_ESC"]
+output = ["KEY_CAPSLOCK"]
+
+# Map Right Alt to Right Control
+[[remap]]
+input = ["KEY_RIGHTALT"]
+output = ["KEY_RIGHTCTRL"]
+
+
