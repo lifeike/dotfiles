@@ -9,7 +9,8 @@ local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
 
-awful.spawn.with_shell("picom --config ~/.config/picom/picom.conf")
+-- Init compositor in one session
+awful.spawn.once("picom --config ~/.config/picom/picom.conf")
 
 -- Widget and layout library
 local wibox = require("wibox")
