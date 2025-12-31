@@ -1,3 +1,4 @@
+# NEED TO RUN EVREMAP COMMAND TO IDENTIFY DEVICE NAMES
 device_name = "CASUE USB KB"
 # Optional: Use if you have issues, otherwise keep commented
 # phys = "usb-0000:00:14.0-1/input0" 
