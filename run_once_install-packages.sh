@@ -283,7 +283,7 @@ fi
 
 # Database
 print_header "Database"
-if docker images | grep -q "postgres"; then
+if docker image inspect postgres:latest >/dev/null 2>&1; then
     echo -e "${GREEN}✓${NC} PostgreSQL Docker image already exists"
 else
     echo -e "${YELLOW}→${NC} Pulling PostgreSQL Docker image..."
