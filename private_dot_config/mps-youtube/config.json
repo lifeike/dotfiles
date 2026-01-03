@@ -16,7 +16,7 @@
   "COLUMNS": "date user",
   "DDIR": "/home/feeco/Downloads/mps",
   "OVERWRITE": true,
-  "SHOW_VIDEO": true,
+  "SHOW_VIDEO": false,
   "SEARCH_MUSIC": false,
   "WINDOW_POS": "",
   "WINDOW_SIZE": "",
