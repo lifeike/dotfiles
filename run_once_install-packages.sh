@@ -348,7 +348,13 @@ fi
 install_uv vimiv                     
 install_uv ty                     
 install_uv yt-dlp
-install_pip git+https://github.com/mps-youtube/yewtube.git
+
+if command_exists yewtube; then
+    echo -e "${GREEN}✓${NC} yewtube is already installed"
+else
+    echo -e "${YELLOW}→${NC} Installing yewtube..."
+    pipx install git+https://github.com/mps-youtube/yewtube.git
+fi
 
 # Install cargo (rust package manager)
 if command_exists cargo; then
