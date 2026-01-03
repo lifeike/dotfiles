@@ -348,7 +348,7 @@ fi
 install_uv vimiv                     
 install_uv ty                     
 install_uv yt-dlp
-install_pip yewtube
+install_pip git+https://github.com/mps-youtube/yewtube.git
 
 # Install cargo (rust package manager)
 if command_exists cargo; then
