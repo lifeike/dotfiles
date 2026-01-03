@@ -349,7 +349,7 @@ install_uv vimiv
 install_uv ty                     
 install_uv yt-dlp
 
-if command_exists yewtube; then
+if command_exists yt; then
     echo -e "${GREEN}✓${NC} yewtube is already installed"
 else
     echo -e "${YELLOW}→${NC} Installing yewtube..."
