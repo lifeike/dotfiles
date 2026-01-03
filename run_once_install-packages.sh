@@ -348,6 +348,7 @@ fi
 install_uv vimiv                     
 install_uv ty                     
 install_uv yt-dlp
+install_pip yewtube
 
 # Install cargo (rust package manager)
 if command_exists cargo; then
