@@ -1,7 +1,11 @@
 #!/usr/bin/env sh
 
-TARGET="/etc/evremap.toml"
+# 1. sudo evremap list-devices to find keyboard device
+# 2. put the device name in the home.tmol or office.tmol file
+# 3. set home.tmol or office.tmol file as the source file
 SOURCE="./evremap.toml"
+# 4. run this script to replace /etc/evremap.toml file with home or office.tmol file 
+TARGET="/etc/evremap.toml"
 
 # Check if target file already exists
 if [ -f "$TARGET" ]; then
