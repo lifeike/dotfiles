@@ -227,6 +227,11 @@ alias laptopbrightness2='xrandr --output eDP --brightness 0.8'
 alias laptopbrightness3='xrandr --output eDP --brightness 1'
 
 #-------------------------------
+# rotation
+#-------------------------------
+alias secondMonitorRotation='xrandr --output DP-1 --rotate left'
+
+#-------------------------------
 # sound volume
 #-------------------------------
 alias volume='alsamixer'
