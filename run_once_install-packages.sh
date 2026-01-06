@@ -367,6 +367,9 @@ else
     cargo --version
 fi
 
+
+# Install go
+install_snap go
 # Cleanup
 cleanup_system
 
