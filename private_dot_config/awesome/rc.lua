@@ -521,7 +521,7 @@ for i = 1, 9 do
 			end
 		end, { description = "toggle tag #" .. i, group = "tag" }),
 		-- Move client to tag.
-		awful.key({ modkey, "Shift" }, "#" .. i + 9, function()
+		awful.key({ "Mod1", "Shift" }, "#" .. i + 9, function()
 			if client.focus then
 				local tag = client.focus.screen.tags[i]
 				if tag then
