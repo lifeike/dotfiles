@@ -94,4 +94,4 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
 fi
 
 # add cargo variable
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
