@@ -19,7 +19,8 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # Set custom prompt (simple version)
-PS1='\[\033[01;31m\]\w\[\033[00m\] > '
+# PS1='\[\033[01;31m\]\w\[\033[00m\] > '
+PS1='\[\033[01;33m\]\w\[\033[00m\] > '
 
 # Source alias files
 [ -f "$HOME/.aliases" ] && . "$HOME/.aliases"
