@@ -449,7 +449,7 @@ load() {
 #   tmux
 #########################
 # open tmux fullscreen with sessions attached
-alias tnew=createNewSessionInsideTmuxSession
+alias tnewsession=createNewSessionInsideTmuxSession
 
 function createNewSessionInsideTmuxSession(){
 session_name=$1
@@ -492,7 +492,7 @@ function defaultLayout(){
 }
 
 #create new window
-alias new='tmux new-window -n ' 
+alias tnewwindow='tmux new-window -n ' 
 #rename the current window
 alias twindowname='tmux rename-window '
 
