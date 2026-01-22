@@ -308,12 +308,16 @@ lm() {
 # find the tmux session windows and navigate
 tmw() {
   local target
-  target=$(tmux list-windows -a -F '#{session_name}:#{window_index} - #{window_name}' | \
-    fzf-tmux -p 80% --reverse --header "Switch to Tmux Window" | \
+  # 1. List all windows with session name and window name
+  # 2. Use fzf with '--with-nth 2..' to hide the first column (the ID) from display
+  target=$(tmux list-windows -a -F "#{session_name}:#{window_index} | #{session_name} > #{window_name} #{?window_active,(active),}" | \
+    fzf-tmux -p 80% --reverse --header "Search Sessions & Windows" \
+    --delimiter "|" --with-nth 2 | \
     cut -d " " -f 1)
 
   if [[ -n "$target" ]]; then
-    tmux switch-client -t "$target"
+    # Removes the trailing ':' if a session was somehow selected without a window index
+    tmux switch-client -t "${target%:}"
   fi
 }
 
