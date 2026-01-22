@@ -18,20 +18,12 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# Colored prompt setup
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt
+# Set custom prompt (simple version)
+PS1='> '
 
 # Source alias files
 [ -f "$HOME/.aliases" ] && . "$HOME/.aliases"
+[ -f "$HOME/.bash_aliases" ] && . "$HOME/.bash_aliases"
 
 # Enable programmable completion
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then

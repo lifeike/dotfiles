@@ -1,4 +1,4 @@
-# ~/.bash_env: environment variables
+# ~/.env: environment variables
 # Name: Feike Li  2023
 
 # Locale settings
@@ -12,9 +12,6 @@ export HISTFILESIZE=2000
 
 # Fuzzy finder
 export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow'
-
-# Custom prompt
-export PS1='> '
 
 # Cargo (Rust)
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
