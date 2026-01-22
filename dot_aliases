@@ -300,6 +300,18 @@ lm() {
     [[ -n "$dir" ]] && cd "$dir" && echo "Changed directory to: $dir"
 }
 
+# find the tmux session windows and navigate
+tmw() {
+  local target
+  target=$(tmux list-windows -a -F '#{session_name}:#{window_index} - #{window_name}' | \
+    fzf-tmux -p 80% --reverse --header "Switch to Tmux Window" | \
+    cut -d " " -f 1)
+
+  if [[ -n "$target" ]]; then
+    tmux switch-client -t "$target"
+  fi
+}
+
 #-------------------------------
 # chrome
 #-------------------------------
