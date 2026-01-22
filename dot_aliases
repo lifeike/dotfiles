@@ -516,6 +516,8 @@ function defaultLayout(){
 alias tnewwindow='tmux new-window -n ' 
 #rename the current window
 alias twindowname='tmux rename-window '
+#rename the current session
+alias tsessionname='tmux rename-session '
 
 #----------------------------
 # application github
