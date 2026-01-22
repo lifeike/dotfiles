@@ -54,7 +54,8 @@ alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y
 alias o='nvim ~/Desktop/text.txt'
 alias e='neomutt'
 alias neofetch='fastfetch'
-alias l='eval $(fh)'
+alias lc='eval $(fh)'
+alias lw='tmw'
 
 # calendar
 alias cal='ncal -b -3'
