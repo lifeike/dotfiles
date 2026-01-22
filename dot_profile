@@ -7,7 +7,7 @@ if [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ]; then
 fi
 
 # Source environment variables (for non-bash shells)
-[ -f "$HOME/.bash_env" ] && . "$HOME/.bash_env"
+[ -f "$HOME/.env" ] && . "$HOME/.env"
 
 # Setup inputrc for case-insensitive tab completion
 if [ ! -f "$HOME/.inputrc" ]; then
