@@ -77,8 +77,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 # environment variables
-export LC_ALL=en_US.UTF-8  
-export LANG=zh_CN.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 export PS1='> '
 
 # fuzzy finder
