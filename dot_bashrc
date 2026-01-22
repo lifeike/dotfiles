@@ -32,7 +32,6 @@ unset color_prompt
 
 # Source alias files
 [ -f "$HOME/.aliases" ] && . "$HOME/.aliases"
-[ -f "$HOME/.bash_aliases" ] && . "$HOME/.bash_aliases"
 
 # Enable programmable completion
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
