@@ -60,6 +60,7 @@ alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y
 alias lc='eval $(fh)'
 # find tmux windows
 alias lw='tmw'
+alias w='tmw'
 
 # calendar
 alias cal='ncal -b -3'
