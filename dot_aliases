@@ -294,7 +294,6 @@ function allpdftopng(){
 alias convertpptxtopdf='libreoffice --headless --invisible --convert-to pdf *.pptx'
 alias convertdocxtotxt='libreoffice --headless --convert-to txt'
 alias convertjpgtopdf='convert *.jpg output.pdf'
-
 md2pdf_batch() {
     local tmp_css="__temp_style.css"
     cat > "$tmp_css" <<'EOF'
@@ -326,6 +325,9 @@ EOF
     echo "✅ All Markdown files converted."
 }
 
+
+# merge all pdf files in current folder
+alias mergepdfs='find . -maxdepth 1 -name "*.pdf" -print0 | sort -zV | xargs -0 sh -c "pdftk \"$@\" cat output merged_output.pdf" sh'
 
 #=======================================================================
 #  PACKAGE MANAGEMENT & SYSTEM UPDATES
