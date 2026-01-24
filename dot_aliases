@@ -44,7 +44,7 @@ alias t='btop'
 alias tree='tree -a'
 alias process='ps -ef | grep'
 alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
-alias ds='ncdu ~'
+alias du='du -h '
 alias cal='ncal -b -3'
 
 
