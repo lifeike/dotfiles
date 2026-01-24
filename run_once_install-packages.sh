@@ -196,6 +196,7 @@ install_apt tealdeer
 install_apt fastfetch
 install_apt picom
 install_apt evremap
+install_apt pdftk
 # email neomut
 install_apt neomutt
 install_apt isync
