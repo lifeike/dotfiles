@@ -327,7 +327,7 @@ EOF
 
 
 # merge all pdf files in current folder
-alias mergepdfs='find . -maxdepth 1 -name "*.pdf" -print0 | sort -zV | xargs -0 sh -c "pdftk \"$@\" cat output merged_output.pdf" sh'
+alias mergepdfs='pdftk $(printf "%s\n" *.pdf | sort -V) cat output merged_output.pdf'
 
 #=======================================================================
 #  PACKAGE MANAGEMENT & SYSTEM UPDATES
