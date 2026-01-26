@@ -10,6 +10,10 @@ export HISTCONTROL=ignoredups:ignorespace
 export HISTSIZE=1000
 export HISTFILESIZE=2000
 
+# Default editor
+export EDITOR=nvim
+export VISUAL=nvim
+
 # Fuzzy finder
 export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow'
 
