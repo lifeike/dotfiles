@@ -120,7 +120,7 @@ return {
       },
 
       heading = {
-        icons = { " 󰼏 ", " 󰎨 ", " 󰼑 ", " 󰎲 ", " 󰼓 ", " 󰎴 " },
+        icons = { " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 " },
         border = true,
         render_modes = true,
         -- backgrounds control the TEXT color, foregrounds control the ICON
