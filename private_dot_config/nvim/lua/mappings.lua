@@ -57,8 +57,16 @@ map("n", "<A-s>", function()
 end, { desc = "general format file" })
 -- close tabe
 map({ "n", "i", "v" }, "<A-w>", "<cmd>bp<bar>bd#<CR>", { desc = "close current buffer safely" })
--- quit
-map({ "n" }, "q", "<cmd>wqa<CR>", { desc = "quit neovim" })
+-- quit (force close terminals first)
+map({ "n" }, "q", function()
+  -- Close all terminal buffers first
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buftype == "terminal" then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+  vim.cmd "wqa"
+end, { desc = "quit neovim" })
 
 -- Termninal
 map({ "n", "t", "i", "v" }, "<A-Space>", function()
