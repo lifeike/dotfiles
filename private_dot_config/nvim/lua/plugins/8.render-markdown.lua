@@ -16,6 +16,25 @@ return {
     -- LSP
     vim.lsp.enable "marksman"
 
+    -- Custom heading highlights (fg for text, bg for background)
+    local function set_heading_colors()
+      vim.api.nvim_set_hl(0, "FeecoH1Bg", { fg = "#ff5555", bg = "#2d1f1f", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH2Bg", { fg = "#ff9944", bg = "#2d261f", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH3Bg", { fg = "#ffff00", bg = "#2d2d1f", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH4Bg", { fg = "#50fa7b", bg = "#1f2d1f", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH5Bg", { fg = "#8be9fd", bg = "#1f2a2d", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH6Bg", { fg = "#bd93f9", bg = "#251f2d", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH1Fg", { fg = "#ff5555", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH2Fg", { fg = "#ff9944", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH3Fg", { fg = "#ffff00", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH4Fg", { fg = "#50fa7b", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH5Fg", { fg = "#8be9fd", bold = true })
+      vim.api.nvim_set_hl(0, "FeecoH6Fg", { fg = "#bd93f9", bold = true })
+    end
+
+    set_heading_colors()
+    vim.api.nvim_create_autocmd("ColorScheme", { callback = set_heading_colors })
+
     require("render-markdown").setup {
       callout = {
         abstract = {
@@ -104,6 +123,9 @@ return {
         icons = { " 󰼏 ", " 󰎨 ", " 󰼑 ", " 󰎲 ", " 󰼓 ", " 󰎴 " },
         border = true,
         render_modes = true,
+        -- backgrounds control the TEXT color, foregrounds control the ICON
+        backgrounds = { "FeecoH1Bg", "FeecoH2Bg", "FeecoH3Bg", "FeecoH4Bg", "FeecoH5Bg", "FeecoH6Bg" },
+        foregrounds = { "FeecoH1Fg", "FeecoH2Fg", "FeecoH3Fg", "FeecoH4Fg", "FeecoH5Fg", "FeecoH6Fg" },
       },
 
       checkbox = {
