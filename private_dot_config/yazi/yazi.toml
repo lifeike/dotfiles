@@ -5,9 +5,13 @@ video = [
 audio = [
     { run = 'mpv --no-video "$@"', block = true, for = "unix" },
 ]
+pdf = [
+    { run = 'zathura "$@"', orphan = true, for = "unix" },
+]
 
 [open]
 rules = [
     { mime = "video/*", use = "video" },
     { mime = "audio/*", use = "audio" },
+    { mime = "application/pdf", use = "pdf" },
 ]
