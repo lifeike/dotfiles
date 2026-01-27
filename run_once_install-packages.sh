@@ -369,6 +369,17 @@ else
     cargo --version
 fi
 
+# Claude code Installation for Debian
+print_header "Docker"
+if command_exists claude; then
+    DOCKER_VERSION=$(claude --version)
+    echo -e "${GREEN}✓${NC} Claude is already installed: $DOCKER_VERSION"
+else
+    echo -e "${YELLOW}→${NC} Installing Claude..."
+    curl -fsSL https://claude.ai/install.sh | bash
+    echo -e "${GREEN}✓${NC} Claude installed successfully"
+fi
+
 
 # Install go
 install_snap go
