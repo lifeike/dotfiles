@@ -29,14 +29,14 @@ alias neofetch='fastfetch'
 # Basic aliases for shell navigation, editing config files, and system commands.
 alias v='nvim'
 alias vv='nvim .'
-alias r='ranger'
+alias r='yazi'
 alias f='tmux a' 
 alias c='clear'
 alias h='cd $HOME && clear'
 alias q='exit'
 alias p='pwd '
 alias s='cdf'
-alias ss='cdf && ranger'
+alias ss='cdf && yazi'
 alias clear='clear && tmux clear-history'
 alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y-%m-%d %H:%M"'
 alias top='btop'
@@ -53,7 +53,7 @@ alias cal='ncal -b -3'
 #=======================================================================
 # Quick access to edit configuration files and other specific text files.
 alias password='nvim ~/Documents/feeco/1.lifeike/password.txt'
-alias config='cd ~/.config && ranger'
+alias config='cd ~/.config && yazi'
 alias vali='nvim ~/.aliases'
 alias vbash='nvim ~/.bashrc'
 alias vhistory='nvim ~/.bash_history'
@@ -64,11 +64,11 @@ alias o='nvim ~/Desktop/text.txt'
 #  DIRECTORY SHORTCUTS
 #=======================================================================
 # Quick navigation to frequently used directories.
-alias d='cd /home/feeco/Downloads && ranger'
-alias repos='cd /home/feeco/Documents && ranger'
-alias desktop='cd /home/feeco/Desktop && ranger'
-alias video='cd /home/feeco/Videos && ranger'
-alias picture='cd /home/feeco/Pictures && ranger'
+alias d='cd /home/feeco/Downloads && yazi'
+alias repos='cd /home/feeco/Documents && yazi'
+alias desktop='cd /home/feeco/Desktop && yazi'
+alias video='cd /home/feeco/Videos && yazi'
+alias picture='cd /home/feeco/Pictures && yazi'
 alias music='yt '
 
 
@@ -377,7 +377,7 @@ updateChrome(){
 #  GIT & GITHUB WORKFLOW
 #=======================================================================
 # A comprehensive set of aliases and functions to streamline Git and GitHub usage.
-alias lifeike='cd /home/feeco/Documents/feeco && gb && gs && ranger'
+alias lifeike='cd /home/feeco/Documents/feeco && gb && gs && yazi'
 alias gb='git branch --sort=committerdate | column'
 alias gitlastcommit='git diff --name-only HEAD^ | fzf --ansi \
   --preview "git diff --color=always HEAD^ -- {}" \
@@ -526,7 +526,7 @@ function defaultLayout(){
   tmux selectp -t 1;
   tmux splitw -v -p 50;
   tmux send-keys -t1 music Enter ;
-  tmux send-keys -t1 ranger Enter ;
+  tmux send-keys -t1 yazi Enter ;
   tmux send-keys -t4 "cd ~/Downloads" Enter ;
   tmux selectp -t 0;
 }
