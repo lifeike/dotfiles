@@ -1,10 +1,13 @@
 [opener]
-play = [
-    { run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
+video = [
+    { run = 'mpv "$@"', orphan = true, for = "unix" },
+]
+audio = [
+    { run = 'mpv --no-video "$@"', block = true, for = "unix" },
 ]
 
 [open]
 rules = [
-    { mime = "video/*", use = "play" },
-    { mime = "audio/*", use = "play" },
+    { mime = "video/*", use = "video" },
+    { mime = "audio/*", use = "audio" },
 ]
