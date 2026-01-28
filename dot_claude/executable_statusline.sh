@@ -43,19 +43,19 @@ else
 fi
 CTX_FMT=$(printf "%.0f%%" "$CONTEXT_USED")
 
-# Build output
-OUTPUT="${CYAN}${MODEL}${RESET}"
-OUTPUT+=" ${DIM}|${RESET} ${GREEN}${DIR_NAME}${RESET}"
+# Build output with titles
+OUTPUT="${DIM}model:${RESET}${CYAN}${MODEL}${RESET}"
+OUTPUT+=" ${DIM}|${RESET} ${DIM}path:${RESET}${GREEN}${DIR_NAME}${RESET}"
 
 if [ -n "$GIT_BRANCH" ]; then
-    OUTPUT+=" ${DIM}|${RESET} ${MAGENTA}${GIT_BRANCH}${RESET}"
+    OUTPUT+=" ${DIM}|${RESET} ${DIM}branch:${RESET}${MAGENTA}${GIT_BRANCH}${RESET}"
 fi
 
-OUTPUT+=" ${DIM}|${RESET} ${YELLOW}\$${COST_FMT}${RESET}"
-OUTPUT+=" ${DIM}|${RESET} ${CTX_COLOR}ctx:${CTX_FMT}${RESET}"
+OUTPUT+=" ${DIM}|${RESET} ${DIM}cost:${RESET}${YELLOW}\$${COST_FMT}${RESET}"
+OUTPUT+=" ${DIM}|${RESET} ${DIM}ctx:${RESET}${CTX_COLOR}${CTX_FMT}${RESET}"
 
 if [ "$LINES_ADDED" -gt 0 ] || [ "$LINES_REMOVED" -gt 0 ]; then
-    OUTPUT+=" ${DIM}|${RESET} ${GREEN}+${LINES_ADDED}${RESET}/${RED}-${LINES_REMOVED}${RESET}"
+    OUTPUT+=" ${DIM}|${RESET} ${DIM}lines:${RESET}${GREEN}+${LINES_ADDED}${RESET}/${RED}-${LINES_REMOVED}${RESET}"
 fi
 
 echo -e "$OUTPUT"
