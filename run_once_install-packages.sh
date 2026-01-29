@@ -343,7 +343,7 @@ else
     echo -e "${YELLOW}→${NC} Installing uv..."
     curl -LsSf https://astral.sh/uv/install.sh | sh
     # Add uv to PATH for current session
-    export PATH="$HOME/.cargo/bin:$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
 # Install Python applications via uv
