@@ -5,6 +5,7 @@ require("conform").setup {
     javascriptreact = { "prettier" },
     typescriptreact = { "prettier" },
     lua = { "stylua" },
+    python = { "ruff_format", "ruff_fix" },
   },
   formatters = {
     prettier = {

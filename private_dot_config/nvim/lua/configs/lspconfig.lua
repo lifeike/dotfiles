@@ -4,6 +4,7 @@ local servers = {
   awk_ls = {},
   bashls = {},
   ty = {},
+  ruff = {},
 }
 
 for name, opts in pairs(servers) do
