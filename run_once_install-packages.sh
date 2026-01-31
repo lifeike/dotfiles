@@ -349,6 +349,7 @@ fi
 # Install Python applications via uv
 install_uv vimiv                     
 install_uv ty                     
+install_uv ruff                     
 install_uv yt-dlp
 
 if command_exists yt; then
