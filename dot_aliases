@@ -396,19 +396,51 @@ alias gr='git reset --hard && git clean -fd'
 alias gp='pushall'
 
 gs() {
-  echo "== Current Branch : $(git branch --show-current)=========================="
+  local CYAN='\033[1;36m'
+  local GREEN='\033[1;32m'
+  local RED='\033[1;31m'
+  local YELLOW='\033[1;33m'
+  local MAGENTA='\033[1;35m'
+  local BLUE='\033[1;34m'
+  local DIM='\033[2m'
+  local NC='\033[0m'
+
+  local branch=$(git branch --show-current 2>/dev/null)
+  local repo=$(basename "$(git rev-parse --show-toplevel 2>/dev/null)")
+  local ahead_behind=$(git rev-list --left-right --count HEAD...@{upstream} 2>/dev/null)
+  local ahead=$(echo "$ahead_behind" | cut -f1)
+  local behind=$(echo "$ahead_behind" | cut -f2)
+
+  echo -e "\n${DIM}╔════════════════════════════════════════════════════════════════════════════╗${NC}"
+  echo -e "${DIM}║${NC}  ${MAGENTA}${repo}${NC} ${DIM}│${NC} ${CYAN}${branch}${NC} ${ahead:+${GREEN}↑$ahead${NC}} ${behind:+${RED}↓$behind${NC}}"
+  echo -e "${DIM}╠════════════════════════════════════════════════════════════════════════════╣${NC}"
+
+  local has_changes=false
   while IFS= read -r line; do
-    status="${line:0:2}"
-    file="${line:3}"
+    [[ -z "$line" ]] && continue
+    has_changes=true
+    local status="${line:0:2}"
+    local file="${line:3}"
     case "$status" in
-      " M") echo -e "\033[36m$line\033[0m" ;;  # Cyan for Modified
-      "A ") echo -e "\033[32m$line\033[0m" ;;  # Green for Added
-      " D") echo -e "\033[34m$line\033[0m" ;;  # Red for Deleted
-      "??") echo -e "\033[33m$line\033[0m" ;;  # Yellow for Untracked
-      *) echo "$line" ;;
+      "M ") echo -e "${DIM}║${NC}  ${GREEN}  staged${NC}     $file" ;;
+      " M") echo -e "${DIM}║${NC}  ${CYAN}  modified${NC}  $file" ;;
+      "MM") echo -e "${DIM}║${NC}  ${YELLOW}  partial${NC}   $file" ;;
+      "A ") echo -e "${DIM}║${NC}  ${GREEN}  added${NC}     $file" ;;
+      "AM") echo -e "${DIM}║${NC}  ${YELLOW}  added+mod${NC} $file" ;;
+      " D") echo -e "${DIM}║${NC}  ${RED}  deleted${NC}   $file" ;;
+      "D ") echo -e "${DIM}║${NC}  ${RED}  staged-del${NC}$file" ;;
+      "R ") echo -e "${DIM}║${NC}  ${BLUE}  renamed${NC}   $file" ;;
+      "??") echo -e "${DIM}║${NC}  ${YELLOW}  untracked${NC} $file" ;;
+      "UU") echo -e "${DIM}║${NC}  ${RED}  conflict${NC}  $file" ;;
+      *) echo -e "${DIM}║${NC}  ${DIM}$status${NC}        $file" ;;
     esac
-  done < <(git status --short)
-  echo "== Current Directory : $(basename "$PWD")====================================="
+  done < <(git status --short 2>/dev/null)
+
+  if [[ "$has_changes" == false ]]; then
+    echo -e "${DIM}║${NC}  ${GREEN}  clean${NC}     working tree is clean"
+  fi
+
+  echo -e "${DIM}╚════════════════════════════════════════════════════════════════════════════╝${NC}\n"
 }
 
 declare -A GH_ALIAS_MAP=(
