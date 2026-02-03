@@ -512,6 +512,7 @@ gc() {
 alias tnewsession=createNewSessionInsideTmuxSession
 alias tkill=killTmuxSession 
 alias layout=defaultLayout
+alias project=projectLayout
 alias tnewwindow='tmux new-window -n ' 
 alias twindowname='tmux rename-window '
 alias tsessionname='tmux rename-session '
@@ -561,6 +562,15 @@ function defaultLayout(){
   tmux send-keys -t1 yazi Enter ;
   tmux send-keys -t4 "cd ~/Downloads" Enter ;
   tmux selectp -t 0;
+}
+
+function projectLayout(){
+  tmux selectp -t 0;
+  tmux splitw -h -p 50;
+  tmux selectp -t 1;
+  tmux splitw -v -p 50;
+  tmux selectp -t 0;
+  tmux send-keys -t0 claude Enter;
 }
 
 
