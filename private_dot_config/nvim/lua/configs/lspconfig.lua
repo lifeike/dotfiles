@@ -5,6 +5,15 @@ local servers = {
   bashls = {},
   ty = {},
   ruff = {},
+  rust_analyzer = {
+    settings = {
+      ["rust-analyzer"] = {
+        check = {
+          command = "clippy",
+        },
+      },
+    },
+  },
 }
 
 for name, opts in pairs(servers) do

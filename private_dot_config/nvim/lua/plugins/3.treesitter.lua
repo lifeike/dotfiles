@@ -16,6 +16,7 @@ return {
       "json",
       "markdown",
       "markdown_inline",
+      "rust",
     },
     highlight = { enable = true },
     indent = {
