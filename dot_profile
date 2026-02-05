@@ -16,4 +16,3 @@ $include /etc/inputrc
 set completion-ignore-case On
 EOF
 fi
-. "$HOME/.cargo/env"
