@@ -1,10 +1,4 @@
 {
-  "theme": "dark",
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh",
-    "padding": 0
-  },
   "permissions": {
     "allow": [
       "Bash(ls:*)",
@@ -48,5 +42,11 @@
       "Bash(go build:*)",
       "Bash(go run:*)"
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 0
+  },
+  "theme": "dark"
 }

@@ -8,6 +8,9 @@ video = [
 audio = [
     { run = 'mpv --no-video "$@"', block = true, for = "unix" },
 ]
+image = [
+    { run = 'vimiv "$@"', orphan = true, for = "unix" },
+]
 pdf = [
     { run = 'zathura "$@"', orphan = true, for = "unix" },
 ]
@@ -32,6 +35,7 @@ rules = [
     { mime = "application/x-lua", use = "text" },
     { mime = "application/sql", use = "text" },
     { mime = "inode/x-empty", use = "text" },
+    { mime = "image/*", use = "image" },
     { mime = "video/*", use = "video" },
     { mime = "audio/*", use = "audio" },
     { mime = "application/pdf", use = "pdf" },
