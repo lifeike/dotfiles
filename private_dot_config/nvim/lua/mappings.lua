@@ -76,7 +76,20 @@ end, { desc = "quit neovim" })
 
 -- Termninal
 map({ "n", "t", "i", "v" }, "<A-Space>", function()
-  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
+  require("nvchad.term").toggle {
+    pos = "float",
+    id = "floatTerm",
+    float_opts = {
+      width = 0.8,
+      height = 0.8,
+      row = 0.1,
+      col = 0.1,
+      border = "double",
+    },
+    winopts = {
+      winhighlight = "FloatBorder:DiagnosticError",
+    },
+  }
 end, { desc = "terminal toggle floating term" })
 
 map({ "n", "t" }, "<A-S-h>", function()
