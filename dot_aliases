@@ -41,6 +41,7 @@ alias clear='clear && tmux clear-history'
 alias ls='ls -lAhvFis --color=always --group-directories-first --time-style="+%Y-%m-%d %H:%M"'
 alias top='btop'
 alias t='btop'
+p() { unbuffer "$@" 2>&1 | less -RiFS; }
 alias tree='tree -a'
 alias process='ps -ef | grep'
 alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
