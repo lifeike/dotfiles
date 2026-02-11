@@ -25,3 +25,24 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 -- clipboard
 vim.opt.clipboard = "unnamedplus"
+
+-- Diagnostic underline style: use double underline for better visibility
+local function set_diagnostic_highlights()
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underdouble = true, sp = "#f44747" })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { underdouble = true, sp = "#ff8800" })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { underdouble = true, sp = "#4fc1ff" })
+  vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { underdouble = true, sp = "#10b981" })
+  -- Diagnostic float window: white bg, black text, red for errors
+  vim.api.nvim_set_hl(0, "DiagnosticFloatNormal", { bg = "#ffffff", fg = "#000000" })
+  vim.api.nvim_set_hl(0, "DiagnosticFloatBorder", { bg = "#ffffff", fg = "#888888" })
+  vim.api.nvim_set_hl(0, "DiagnosticFloatError", { bg = "#ffffff", fg = "#cc0000", bold = true })
+  vim.api.nvim_set_hl(0, "DiagnosticFloatWarn", { bg = "#ffffff", fg = "#cc6600", bold = true })
+  vim.api.nvim_set_hl(0, "DiagnosticFloatInfo", { bg = "#ffffff", fg = "#000000" })
+  vim.api.nvim_set_hl(0, "DiagnosticFloatHint", { bg = "#ffffff", fg = "#000000" })
+end
+set_diagnostic_highlights()
+
+-- Re-apply after theme changes (NvChad base46 reloads can reset highlights)
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = set_diagnostic_highlights,
+})

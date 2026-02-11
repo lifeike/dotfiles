@@ -106,3 +106,25 @@ map({ "n", "i", "v" }, "<A-d>", "<Cmd>AerialOpen<CR>", {
 
 -- show jump list
 map("n", "<A-;>", "<cmd>Telescope jumplist<CR>", { desc = "show jumplist" })
+
+-- Hover: toggle diagnostics/LSP hover with Space Space
+map("n", "<leader><Space>", function()
+  -- If a float is already open, close it (toggle off)
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative ~= "" then
+      pcall(vim.api.nvim_win_close, win, true)
+      return
+    end
+  end
+
+  -- Otherwise open diagnostic float or LSP hover
+  local diags = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
+  if #diags > 0 then
+    local _, winnr = vim.diagnostic.open_float { border = "rounded" }
+    if winnr then
+      vim.wo[winnr].winhighlight = "Normal:DiagnosticFloatNormal,FloatBorder:DiagnosticFloatBorder,DiagnosticError:DiagnosticFloatError,DiagnosticWarn:DiagnosticFloatWarn,DiagnosticInfo:DiagnosticFloatInfo,DiagnosticHint:DiagnosticFloatHint"
+    end
+  else
+    vim.lsp.buf.hover()
+  end
+end, { desc = "toggle diagnostics or LSP hover" })
