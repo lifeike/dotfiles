@@ -128,3 +128,9 @@ map("n", "<leader><Space>", function()
     vim.lsp.buf.hover()
   end
 end, { desc = "toggle diagnostics or LSP hover" })
+
+-- Jump between diagnostics
+vim.keymap.del("n", "]d")
+vim.keymap.del("n", "[d")
+map("n", "<leader>n", vim.diagnostic.goto_next, { desc = "jump to next diagnostic" })
+map("n", "<leader>b", vim.diagnostic.goto_prev, { desc = "jump to previous diagnostic" })
