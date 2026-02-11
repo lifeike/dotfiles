@@ -39,6 +39,10 @@ local function set_diagnostic_highlights()
   vim.api.nvim_set_hl(0, "DiagnosticFloatWarn", { bg = "#ffffff", fg = "#cc6600", bold = true })
   vim.api.nvim_set_hl(0, "DiagnosticFloatInfo", { bg = "#ffffff", fg = "#000000" })
   vim.api.nvim_set_hl(0, "DiagnosticFloatHint", { bg = "#ffffff", fg = "#000000" })
+  -- LSP hover float: dark bg so default theme colors stay readable
+  local hover_ns = vim.api.nvim_create_namespace("feeco_hover")
+  vim.api.nvim_set_hl(hover_ns, "Normal", { bg = "#2d2d2d" })
+  vim.api.nvim_set_hl(hover_ns, "FloatBorder", { bg = "#2d2d2d", fg = "#888888" })
 end
 set_diagnostic_highlights()
 

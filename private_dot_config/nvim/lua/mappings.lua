@@ -1,6 +1,52 @@
 require "nvchad.mappings"
 local map = vim.keymap.set
 
+-- Float window helpers
+local diag_whl =
+  "Normal:DiagnosticFloatNormal,FloatBorder:DiagnosticFloatBorder,DiagnosticError:DiagnosticFloatError,DiagnosticWarn:DiagnosticFloatWarn,DiagnosticInfo:DiagnosticFloatInfo,DiagnosticHint:DiagnosticFloatHint"
+local function focus_float(bufnr, winnr, whl)
+  if not winnr or not vim.api.nvim_win_is_valid(winnr) then
+    return
+  end
+  if whl then
+    vim.wo[winnr].winhighlight = whl
+  end
+  vim.api.nvim_set_current_win(winnr)
+  -- Override q in float to close it (instead of triggering quit-neovim mapping)
+  vim.keymap.set("n", "q", function()
+    pcall(vim.api.nvim_win_close, winnr, true)
+  end, { buffer = bufnr, noremap = true, silent = true })
+end
+
+-- Custom LSP hover: make the request directly so we control the float
+local function open_styled_hover()
+  local cur_buf = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({ bufnr = cur_buf, method = "textDocument/hover" })
+  if #clients == 0 then
+    return
+  end
+  local params = vim.lsp.util.make_position_params(0, clients[1].offset_encoding)
+  vim.lsp.buf_request(cur_buf, "textDocument/hover", params, function(err, result)
+    if err or not result or not result.contents then
+      return
+    end
+    local lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+    if not lines or vim.tbl_isempty(lines) then
+      return
+    end
+    vim.schedule(function()
+      local fbufnr, winnr = vim.lsp.util.open_floating_preview(lines, "markdown", {
+        border = "rounded",
+        focusable = true,
+      })
+      if winnr then
+        vim.api.nvim_win_set_hl_ns(winnr, vim.api.nvim_create_namespace("feeco_hover"))
+        focus_float(fbufnr, winnr)
+      end
+    end)
+  end)
+end
+
 -- Feeco's custom mappings
 map("n", "O", "o<ESC>")
 map({ "n", "v" }, "E", "g_")
@@ -128,14 +174,21 @@ map("n", "<A-;>", "<cmd>Telescope jumplist<CR>", { desc = "show jumplist" })
 
 -- Hover: open diagnostics/LSP hover with Space Space
 map("n", "<leader><Space>", function()
+  -- If already in a float, close it and return to source buffer
+  local cur_win = vim.api.nvim_get_current_win()
+  if vim.api.nvim_win_get_config(cur_win).relative ~= "" then
+    pcall(vim.api.nvim_win_close, cur_win, true)
+    return
+  end
+
   local diags = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
   if #diags > 0 then
-    local _, winnr = vim.diagnostic.open_float { border = "rounded" }
+    local bufnr, winnr = vim.diagnostic.open_float { border = "rounded", focusable = true }
     if winnr then
-      vim.wo[winnr].winhighlight = "Normal:DiagnosticFloatNormal,FloatBorder:DiagnosticFloatBorder,DiagnosticError:DiagnosticFloatError,DiagnosticWarn:DiagnosticFloatWarn,DiagnosticInfo:DiagnosticFloatInfo,DiagnosticHint:DiagnosticFloatHint"
+      focus_float(bufnr, winnr, diag_whl)
     end
   else
-    vim.lsp.buf.hover()
+    open_styled_hover()
   end
 end, { desc = "open diagnostics or LSP hover" })
 
