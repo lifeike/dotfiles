@@ -5,6 +5,12 @@ local map = vim.keymap.set
 map("n", "O", "o<ESC>")
 map({ "n", "v" }, "E", "g_")
 map("o", "E", "g_")
+map({ "n", "v", "o" }, "b", function()
+  vim.fn.search([[\v<\k]], "bW")
+end, { desc = "Jump to previous English letter, not punctuation." })
+map({ "n", "v", "o" }, "e", function()
+  vim.fn.search([[\v\k>]], "W")
+end, { desc = "Jump to end of next English word, not punctuation." })
 map("n", "B", "0")
 
 -- Jump to first alphabetic character
@@ -107,17 +113,8 @@ map({ "n", "i", "v" }, "<A-d>", "<Cmd>AerialOpen<CR>", {
 -- show jump list
 map("n", "<A-;>", "<cmd>Telescope jumplist<CR>", { desc = "show jumplist" })
 
--- Hover: toggle diagnostics/LSP hover with Space Space
+-- Hover: open diagnostics/LSP hover with Space Space
 map("n", "<leader><Space>", function()
-  -- If a float is already open, close it (toggle off)
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_config(win).relative ~= "" then
-      pcall(vim.api.nvim_win_close, win, true)
-      return
-    end
-  end
-
-  -- Otherwise open diagnostic float or LSP hover
   local diags = vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
   if #diags > 0 then
     local _, winnr = vim.diagnostic.open_float { border = "rounded" }
@@ -127,10 +124,41 @@ map("n", "<leader><Space>", function()
   else
     vim.lsp.buf.hover()
   end
-end, { desc = "toggle diagnostics or LSP hover" })
+end, { desc = "open diagnostics or LSP hover" })
+
+-- Esc closes any floating window
+map("n", "<Esc>", function()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative ~= "" then
+      pcall(vim.api.nvim_win_close, win, true)
+    end
+  end
+end, { desc = "close floating windows" })
 
 -- Jump between diagnostics
 vim.keymap.del("n", "]d")
 vim.keymap.del("n", "[d")
-map("n", "<leader>n", vim.diagnostic.goto_next, { desc = "jump to next diagnostic" })
-map("n", "<leader>b", vim.diagnostic.goto_prev, { desc = "jump to previous diagnostic" })
+local function goto_diagnostic(next)
+  -- Close any existing float first
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative ~= "" then
+      pcall(vim.api.nvim_win_close, win, true)
+    end
+  end
+  local goto_fn = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  goto_fn { float = false }
+  vim.schedule(function()
+    local _, winnr = vim.diagnostic.open_float { border = "rounded" }
+    if winnr then
+      vim.wo[winnr].winhighlight =
+        "Normal:DiagnosticFloatNormal,FloatBorder:DiagnosticFloatBorder,DiagnosticError:DiagnosticFloatError,DiagnosticWarn:DiagnosticFloatWarn,DiagnosticInfo:DiagnosticFloatInfo,DiagnosticHint:DiagnosticFloatHint"
+    end
+  end)
+end
+
+map("n", "<A-S-n>", function()
+  goto_diagnostic(true)
+end, { desc = "jump to next diagnostic" })
+map("n", "<A-S-b>", function()
+  goto_diagnostic(false)
+end, { desc = "jump to previous diagnostic" })
