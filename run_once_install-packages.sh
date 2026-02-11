@@ -196,6 +196,7 @@ install_apt fastfetch
 install_apt picom
 install_apt evremap
 install_apt pdftk
+install_apt expect
 # email neomut
 install_apt neomutt
 install_apt isync
