@@ -65,7 +65,15 @@ alias o='nvim ~/Desktop/text.txt'
 #=======================================================================
 # Quick navigation to frequently used directories.
 alias d='cd /home/feeco/Downloads && yazi'
-alias repos='cd /home/feeco/Documents && yazi'
+repos() {
+    local dir
+    dir=$(find ~/Documents -maxdepth 3 -name .git -type d 2>/dev/null | sed 's|/.git$||' | fzf --height=40% --reverse --prompt='Repo> ')
+    if [[ -n "$dir" ]]; then
+        cd "$dir"
+    else
+        cd ~/Documents && yazi
+    fi
+}
 alias desktop='cd /home/feeco/Desktop && yazi'
 alias video='cd /home/feeco/Videos && yazi'
 alias picture='cd /home/feeco/Pictures && yazi'
