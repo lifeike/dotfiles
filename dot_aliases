@@ -484,7 +484,15 @@ github() {
     user=$(gh auth status 2>&1 | grep -oP 'account \K\S+' | fzf --height=40% --reverse --prompt='GitHub User> ')
     if [[ -n "$user" ]]; then
         gh auth switch --user "$user"
+        echo "=== $user ==="
         gh repo list "$user" --limit 100
+        local orgs
+        orgs=$(gh api user/orgs --jq '.[].login' 2>/dev/null)
+        for org in $orgs; do
+            echo ""
+            echo "=== $org ==="
+            gh repo list "$org" --limit 100
+        done
     fi
 }
 
