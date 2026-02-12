@@ -475,6 +475,31 @@ function gitdeploy(){
 alias githublogin='gh auth login'
 alias githubbrowser='gh browse'
 alias githubrepos='ghclone'
+alias githuborganizationrepos='ghcloneorg'
+
+ghcloneorg() {
+    local org
+    org=$(gh api user/orgs --jq '.[].login' 2>/dev/null | fzf --height=40% --reverse --prompt='Organization> ')
+    [[ -z "$org" ]] && return
+    local repo
+    repo=$(
+        gh repo list "$org" \
+            --limit 100 \
+            --json nameWithOwner,description \
+            --jq '.[] | "\(.nameWithOwner)\t\(.description // "")"' |
+        fzf \
+            --height=80% \
+            --layout=reverse \
+            --prompt="$org repo > " \
+            --delimiter=$'\t' \
+            --with-nth=1,2 \
+            --bind='tab:down,shift-tab:up,ctrl-j:down,ctrl-k:up' \
+            --preview 'echo {2}' \
+            --preview-window=down:3:wrap |
+        cut -f1
+    )
+    [[ -n "$repo" ]] && gh repo clone "$repo"
+}
 
 github() {
     local user
