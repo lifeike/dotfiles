@@ -473,9 +473,6 @@ function gitdeploy(){
 }
 
 alias githublogin='gh auth login'
-alias githublist='gh auth status'
-alias githubswitch='gh auth switch'
-alias githubclonerepo='gh repo clone '
 alias githubbrowser='gh browse'
 alias githubrepos='ghclone'
 
