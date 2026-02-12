@@ -479,6 +479,15 @@ alias githubclonerepo='gh repo clone '
 alias githubbrowser='gh browse'
 alias githubrepos='ghclone'
 
+github() {
+    local user
+    user=$(gh auth status 2>&1 | grep -oP 'account \K\S+' | fzf --height=40% --reverse --prompt='GitHub User> ')
+    if [[ -n "$user" ]]; then
+        gh auth switch --user "$user"
+        gh repo list "$user" --limit 100
+    fi
+}
+
 ghclone() {
   local repo
   repo=$(
