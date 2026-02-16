@@ -18,10 +18,7 @@
 #=======================================================================
 # Temporary aliases and launchers for specific applications.
 alias t3='npm create t3-app@latest'
-alias vcmi='flatpak run eu.vcmi.VCMI'
 alias e='neomutt'
-alias neofetch='fastfetch'
-
 
 #=======================================================================
 #  CORE SYSTEM & NAVIGATION
@@ -29,6 +26,7 @@ alias neofetch='fastfetch'
 # Basic aliases for shell navigation, editing config files, and system commands.
 alias v='nvim'
 alias vv='nvim .'
+alias cc='claude --chrome'
 alias r='yazi'
 alias f='tmux a' 
 alias c='clear'
@@ -46,6 +44,7 @@ alias process='ps -ef | grep'
 alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
 alias du='du -h '
 alias cal='ncal -b -3'
+alias neofetch='fastfetch'
 
 
 #=======================================================================
