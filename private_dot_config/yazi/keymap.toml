@@ -7,3 +7,18 @@ desc = "Toggle hidden files"
 on   = "s"
 run  = "quit"
 desc = "Quit yazi"
+
+[[mgr.prepend_keymap]]
+on   = "<Tab>"
+run  = "tab_switch 1 --relative"
+desc = "Next tab"
+
+[[mgr.prepend_keymap]]
+on   = "<BackTab>"
+run  = "tab_switch -1 --relative"
+desc = "Previous tab"
+
+[[mgr.prepend_keymap]]
+on   = "<A-w>"
+run  = "tab_close 0"
+desc = "Close current tab"
