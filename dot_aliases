@@ -385,7 +385,7 @@ updateChrome(){
 #=======================================================================
 # A comprehensive set of aliases and functions to streamline Git and GitHub usage.
 alias lifeike='cd /home/feeco/Documents/feeco && gb && gs && yazi'
-alias gb='git branch --sort=committerdate | column'
+alias gb='git branch -a'
 alias gitlastcommit='git diff --name-only HEAD^ | fzf --ansi \
   --preview "git diff --color=always HEAD^ -- {}" \
   --preview-window "right:70%" \
