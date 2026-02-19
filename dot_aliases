@@ -19,8 +19,8 @@
 # Temporary aliases and launchers for specific applications.
 alias t3='npm create t3-app@latest'
 alias e='neomutt'
-alias disableKeyboard ='xinput disable 13 '
-alias enableKeyboard ='xinput enable 13'
+alias disableKeyboard='xinput disable 13 '
+alias enableKeyboard='xinput enable 13'
 
 #=======================================================================
 #  CORE SYSTEM & NAVIGATION
