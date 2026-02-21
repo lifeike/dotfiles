@@ -503,6 +503,26 @@ function pushall(){
     clear
 }
 
+pull() {
+    local current
+    current=$(git branch --show-current 2>/dev/null)
+    if [[ -z "$current" ]]; then
+        echo "Not in a git repository."
+        return 1
+    fi
+    git fetch --all
+    git branch -r | grep -v '\->' | sed 's|origin/||' | while read -r branch; do
+        if git show-ref --verify --quiet "refs/heads/$branch"; then
+            echo "Pulling $branch..."
+            git checkout "$branch" && git pull origin "$branch"
+        else
+            echo "Tracking $branch..."
+            git checkout --track "origin/$branch"
+        fi
+    done
+    git checkout "$current"
+}
+
 function gitdeploy(){
    git checkout main
    git merge staging
