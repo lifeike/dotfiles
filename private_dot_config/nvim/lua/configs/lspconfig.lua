@@ -10,6 +10,7 @@ local servers = {
       ["rust-analyzer"] = {
         check = {
           command = "clippy",
+          extraArgs = { "--", "-A", "clippy::all" },
         },
       },
     },
