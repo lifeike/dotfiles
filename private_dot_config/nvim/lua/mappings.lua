@@ -153,7 +153,15 @@ map("n", "M", "J", { desc = "join current line with the next" })
 
 -- toggle comments
 map("n", "<A-c>", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<A-c>", "gc", { desc = "toggle comment", remap = true })
+map("v", "<A-c>", function()
+  local start_line = vim.fn.line("'<")
+  local end_line = vim.fn.line("'>")
+  if end_line - start_line >= 2 then
+    return "gb"
+  else
+    return "gc"
+  end
+end, { desc = "toggle comment (block if 3+ lines)", remap = true, expr = true })
 
 -- global: focus nvim-tree
 map({ "n", "i", "v" }, "<A-e>", "<Cmd>NvimTreeFocus<CR>", {
