@@ -78,30 +78,71 @@ beautiful.tasklist_fg_normal = "#AAAAAA"
 beautiful.tasklist_bg_normal = "#333333" -- transparent
 
 -- {{{ Notification styling
-beautiful.notification_font        = "Monospace Bold 13"
-beautiful.notification_bg          = "#1E1E2E"  -- dark background
-beautiful.notification_fg          = "#CDD6F4"  -- light text
-beautiful.notification_border_color = "#89B4FA" -- blue accent border
-beautiful.notification_border_width = 2
-beautiful.notification_icon_size   = 48
-beautiful.notification_width       = 400
-beautiful.notification_margin      = 12
-beautiful.notification_opacity     = 0.95
+beautiful.notification_font         = "Sans Bold 15"
+beautiful.notification_bg           = "#FAFAFA"
+beautiful.notification_fg           = "#111111"
+beautiful.notification_border_color = "#CC0000"
+beautiful.notification_border_width = 3
+beautiful.notification_icon_size    = 64
+beautiful.notification_width        = 600
+beautiful.notification_margin       = 14
+beautiful.notification_shape        = function(cr, w, h)
+    gears.shape.rounded_rect(cr, w, h, 10)
+end
 
-naughty.config.defaults.timeout    = 8
-naughty.config.defaults.position   = "top_right"
-naughty.config.defaults.margin     = 12
-naughty.config.defaults.gap        = 6
-naughty.config.defaults.border_width = 2
+-- Never auto-dismiss
+naughty.config.defaults.timeout      = 0
+naughty.config.defaults.margin       = 14
+naughty.config.defaults.border_width = 3
 
-naughty.config.presets.critical.bg       = "#F38BA8"  -- red background for critical
-naughty.config.presets.critical.fg       = "#1E1E2E"
-naughty.config.presets.critical.border_color = "#F38BA8"
-naughty.config.presets.critical.timeout  = 0          -- stay until dismissed
+-- All presets: white background, black text, never time out
+naughty.config.presets.normal.bg      = "#FFFFFF"
+naughty.config.presets.normal.fg      = "#000000"
+naughty.config.presets.normal.timeout = 0
+naughty.config.presets.critical.bg    = "#FFFFFF"
+naughty.config.presets.critical.fg    = "#000000"
+naughty.config.presets.critical.timeout = 0
+naughty.config.presets.low.bg         = "#FFFFFF"
+naughty.config.presets.low.fg         = "#000000"
+naughty.config.presets.low.timeout    = 0
 
-naughty.config.presets.low.bg            = "#313244"
-naughty.config.presets.low.fg            = "#A6ADC8"
-naughty.config.presets.low.timeout       = 5
+-- Wrap naughty.notify (legacy API) to add: red title, ✕ Close button, center on screen.
+-- The title arg is always HTML-escaped internally by naughty, so we move it into
+-- the text field as Pango markup to achieve the red color.
+local _orig_notify = naughty.notify
+naughty.notify = function(args)
+    args = args or {}
+
+    -- Red bold title via Pango markup in the text field
+    if args.title and args.title ~= "" then
+        local esc_title = args.title
+            :gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;")
+        local esc_text = (args.text or "")
+            :gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;")
+        args.text  = '<span color="#CC0000" font_weight="bold">' .. esc_title .. '</span>\n' .. esc_text
+        args.title = nil
+    end
+
+    -- ✕ Close action button (legacy API: actions = { label = callback })
+    local notif_ref = {}
+    args.actions = args.actions or {}
+    args.actions["✕  Close"] = function()
+        if notif_ref[1] then naughty.destroy(notif_ref[1]) end
+    end
+
+    local n = _orig_notify(args)
+
+    if n and n.box then
+        notif_ref[1] = n
+        -- Center the notification box within the screen workarea
+        local wa = n.screen.workarea
+        local geo = n.box:geometry()
+        n.box.x = wa.x + math.floor((wa.width  - geo.width)  / 2)
+        n.box.y = wa.y + math.floor((wa.height - geo.height) / 2)
+    end
+
+    return n
+end
 -- }}}
 
 -- This is used later as the default terminal and editor to run.
