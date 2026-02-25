@@ -77,6 +77,33 @@ beautiful.tasklist_font_focus = "beautiful.font_bold"
 beautiful.tasklist_fg_normal = "#AAAAAA"
 beautiful.tasklist_bg_normal = "#333333" -- transparent
 
+-- {{{ Notification styling
+beautiful.notification_font        = "Monospace Bold 13"
+beautiful.notification_bg          = "#1E1E2E"  -- dark background
+beautiful.notification_fg          = "#CDD6F4"  -- light text
+beautiful.notification_border_color = "#89B4FA" -- blue accent border
+beautiful.notification_border_width = 2
+beautiful.notification_icon_size   = 48
+beautiful.notification_width       = 400
+beautiful.notification_margin      = 12
+beautiful.notification_opacity     = 0.95
+
+naughty.config.defaults.timeout    = 8
+naughty.config.defaults.position   = "top_right"
+naughty.config.defaults.margin     = 12
+naughty.config.defaults.gap        = 6
+naughty.config.defaults.border_width = 2
+
+naughty.config.presets.critical.bg       = "#F38BA8"  -- red background for critical
+naughty.config.presets.critical.fg       = "#1E1E2E"
+naughty.config.presets.critical.border_color = "#F38BA8"
+naughty.config.presets.critical.timeout  = 0          -- stay until dismissed
+
+naughty.config.presets.low.bg            = "#313244"
+naughty.config.presets.low.fg            = "#A6ADC8"
+naughty.config.presets.low.timeout       = 5
+-- }}}
+
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
 editor = os.getenv("EDITOR") or "editor"
