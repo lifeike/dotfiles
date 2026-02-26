@@ -752,7 +752,7 @@ rustdoc() {
 
         } | fzf --height=70% --reverse \
                 --prompt='rustup doc > ' \
-                --header='structs · traits · modules · macros · keywords · books (Tab to navigate)' \
+                --header='struct · fn · type · trait · constant · macro · enum · keyword · primitive · derive · attr · union · module · book' \
                 --bind='tab:down,shift-tab:up'
     )
 
