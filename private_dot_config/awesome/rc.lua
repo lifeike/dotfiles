@@ -135,19 +135,6 @@ naughty.notify = function(args)
     if n and n.box then
         notif_ref[1] = n
 
-        -- Naughty stacks action buttons vertically by default; replace with a
-        -- flex horizontal layout so they sit side-by-side on one row.
-        if n.actionbox then
-            local btns = n.actionbox:get_children()
-            if btns and #btns > 0 then
-                local hbox = wibox.layout.flex.horizontal()
-                for _, b in ipairs(btns) do
-                    hbox:add(b)
-                end
-                n.layout:replace_widget(n.actionbox, hbox)
-            end
-        end
-
         -- Center the notification box within the screen workarea
         local wa = n.screen.workarea
         local geo = n.box:geometry()
