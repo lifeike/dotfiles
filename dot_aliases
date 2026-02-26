@@ -689,6 +689,80 @@ function updatePrismaSchema(){
  npx prisma generate
 }
 
+# Interactive rustup doc browser — fuzzy searches all ~2000 topics from local docs.
+# Note: shadows the rustdoc compiler binary (rarely called directly; cargo doc wraps it).
+# Rename to e.g. 'rdoc' if you need the real rustdoc in your PATH.
+rustdoc() {
+    local docs
+    docs=$(dirname "$(rustup doc --path 2>/dev/null)" 2>/dev/null)
+    if [[ -z "$docs" || ! -d "$docs/std" ]]; then
+        echo "rustup docs not found. Run: rustup component add rust-docs"
+        return 1
+    fi
+
+    local selection
+    selection=$(
+        {
+            # Named book flags pinned at top (description in middle, --flag at end for $NF extraction)
+            printf '%-10s %-54s %s\n' \
+                "book" "The Rust Programming Language book"               "--book" \
+                "book" "Standard library API documentation"               "--std" \
+                "book" "The Cargo Book"                                   "--cargo" \
+                "book" "The Rust Reference"                               "--reference" \
+                "book" "The Rust Core Library"                            "--core" \
+                "book" "The Rust core allocation and collections library" "--alloc" \
+                "book" "The Clippy Documentation"                         "--clippy" \
+                "book" "The Rust Edition Guide"                           "--edition-guide" \
+                "book" "The Embedded Rust Book"                           "--embedded-book" \
+                "book" "The Rust Error Codes Index"                       "--error-codes" \
+                "book" "The Dark Arts of Advanced and Unsafe Rust"        "--nomicon" \
+                "book" "A support library for macro authors"              "--proc_macro" \
+                "book" "Runnable examples illustrating Rust concepts"     "--rust-by-example" \
+                "book" "The Rust compiler documentation"                  "--rustc" \
+                "book" "Documentation generator for Rust projects"        "--rustdoc" \
+                "book" "The Rust Style Guide"                             "--style-guide" \
+                "book" "Unit-test and micro-benchmarking framework"       "--test" \
+                "book" "The Unstable Book"                                "--unstable-book"
+
+            # All std items + modules, sorted alphabetically by topic
+            {
+                # Modules (directories containing index.html)
+                find "$docs/std" -mindepth 2 -name "index.html" -printf "%P\n" \
+                    | sed 's|/index\.html$||; s|/|::|g' \
+                    | awk '{printf "%-10s std::%s\n", "module", $0}'
+
+                # Items — skip non-! macro duplicates (macro.foo.html) keeping macro.foo!.html
+                find "$docs/std" -name "*.html" -printf "%P\n" \
+                    | grep -v '^index\.html$' \
+                    | grep -v '^all\.html$' \
+                    | grep -v 'sidebar-items' \
+                    | grep -v 'not_found' \
+                    | grep -vE 'macro\.[^!]+\.html$' \
+                    | awk -F/ '{
+                        file=$NF; sub(/\.html$/, "", file)
+                        dot=index(file,".")
+                        kind=substr(file,1,dot-1)
+                        name=substr(file,dot+1)
+                        n=NF-1
+                        if(n==0) { topic=name }
+                        else { mod=$1; for(i=2;i<=n;i++) mod=mod"::"$i; topic="std::"mod"::"name }
+                        printf "%-10s %s\n", kind, topic
+                    }'
+            } | sort -k2
+
+        } | fzf --height=70% --reverse \
+                --prompt='rustup doc > ' \
+                --header='structs · traits · modules · macros · keywords · books (Tab to navigate)' \
+                --bind='tab:down,shift-tab:up'
+    )
+
+    [[ -z "$selection" ]] && return
+
+    local topic
+    topic=$(awk '{print $NF}' <<< "$selection")
+    rustup doc "$topic"
+}
+
 
 #=======================================================================
 #  MEDIA & YOUTUBE
