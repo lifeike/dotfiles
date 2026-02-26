@@ -16,6 +16,8 @@
 	credentialStore = secretservice
 [credential "https://github.com"]
 	gitHubAuthModes = oauth,pat,devicecode
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
 [credential "https://gitlab.com"]
 	gitLabAuthModes = oauth,pat
 [credential "https://github.com/hankAndfeeco"]
@@ -30,3 +32,6 @@
 	rebase = false
 [credential "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dmrv"]
 	provider = generic
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
