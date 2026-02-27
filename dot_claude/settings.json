@@ -48,5 +48,6 @@
     "command": "~/.claude/statusline.sh",
     "padding": 0
   },
-  "theme": "dark"
+  "theme": "dark",
+  "includeCoAuthoredBy": false
 }
