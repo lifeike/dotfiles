@@ -827,7 +827,12 @@ function updatedotfiles {
     [[ -n "$user" ]] && gh auth switch --user "$user"
     chezmoi re-add
 }
-alias syncdotfiles='cd ~/Desktop && chezmoi update'
+function syncdotfiles {
+    local user
+    user=$(gh auth status 2>&1 | grep -oP 'account \K\S+' | fzf --height=40% --reverse --prompt='GitHub User> ')
+    [[ -n "$user" ]] && gh auth switch --user "$user"
+    cd ~/Desktop && chezmoi update
+}
 alias cddotfiles='chezmoi cd && echo "current path" && pwd'
 alias adddotfiles='chezmoi add'
 alias removedotfiles='chezmoi destroy'
