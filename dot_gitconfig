@@ -20,8 +20,6 @@
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gitlab.com"]
 	gitLabAuthModes = oauth,pat
-[credential "https://github.com/lifeike"]
-	username = lifeike
 [credential "https://github.com/karbonXFrontend2023"]
 	username = karbonXFrontend2023
 [credential "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/dmrv-cdk"]
