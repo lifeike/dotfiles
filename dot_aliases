@@ -45,7 +45,14 @@ alias tree='tree -a'
 alias process='ps -ef | grep'
 alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
 alias du='du -h '
-alias cal='ncal -b -3'
+cal() {
+    ncal -b -3
+    printf "\n"
+    ansiweather -l Calgary,CA -u metric -f 7 \
+        | perl -pe 's/\x1b\[[0-9;]*m//g' \
+        | sed -E 's/ - (Mon|Tue|Wed|Thu|Fri|Sat|Sun)/\n\1/g'
+    printf "\n"
+}
 alias neofetch='fastfetch'
 
 
