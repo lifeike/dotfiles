@@ -191,6 +191,7 @@ install_apt awesome-extra
 install_apt suckless-tools  # contains slock to lock screen
 install_apt brightnessctl # lock screen
 install_apt ncal
+install_apt ansiweather
 install_apt tealdeer
 install_apt fastfetch
 install_apt picom
