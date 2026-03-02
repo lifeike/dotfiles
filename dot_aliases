@@ -520,10 +520,6 @@ pull() {
     local DIM='\033[2m'
     local NC='\033[0m'
 
-    local user
-    user=$(gh auth status 2>&1 | grep -oP 'account \K\S+' | fzf --height=40% --reverse --prompt='GitHub User> ')
-    [[ -n "$user" ]] && gh auth switch --user "$user"
-
     local current
     current=$(git branch --show-current 2>/dev/null)
     if [[ -z "$current" ]]; then
@@ -535,7 +531,7 @@ pull() {
     repo=$(basename "$(git rev-parse --show-toplevel 2>/dev/null)")
 
     echo -e "\n${DIM}╔════════════════════════════════════════════════════════════════════════════╗${NC}"
-    echo -e "${DIM}║${NC}  ${MAGENTA}pull${NC}  ${DIM}│${NC}  ${CYAN}${repo}${NC}  ${DIM}on${NC}  ${GREEN}${current}${NC}  ${DIM}as${NC}  ${YELLOW}${user:-unknown}${NC}"
+    echo -e "${DIM}║${NC}  ${MAGENTA}pull${NC}  ${DIM}│${NC}  ${CYAN}${repo}${NC}  ${DIM}on${NC}  ${GREEN}${current}${NC}"
     echo -e "${DIM}╠════════════════════════════════════════════════════════════════════════════╣${NC}"
 
     { git fetch --all; } 2>&1 | while IFS= read -r line; do
@@ -842,15 +838,9 @@ load() {
 }
 
 function updatedotfiles {
-    local user
-    user=$(gh auth status 2>&1 | grep -oP 'account \K\S+' | fzf --height=40% --reverse --prompt='GitHub User> ')
-    [[ -n "$user" ]] && gh auth switch --user "$user"
     chezmoi re-add
 }
 function syncdotfiles {
-    local user
-    user=$(gh auth status 2>&1 | grep -oP 'account \K\S+' | fzf --height=40% --reverse --prompt='GitHub User> ')
-    [[ -n "$user" ]] && gh auth switch --user "$user"
     cd ~/Desktop && chezmoi update
 }
 alias cddotfiles='chezmoi cd && echo "current path" && pwd'
