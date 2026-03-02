@@ -618,10 +618,23 @@ github() {
 ghclone() {
   local repo
   repo=$(
-    gh repo list \
-      --limit 100 \
-      --json nameWithOwner,description \
-      --jq '.[] | "\(.nameWithOwner)\t\(.description // "")"' |
+    {
+      gh repo list \
+        --limit 100 \
+        --json nameWithOwner,description \
+        --jq '.[] | "\(.nameWithOwner)\t\(.description // "")"'
+
+      gh api "user/repos?affiliation=collaborator&per_page=100" \
+        --paginate \
+        --jq '.[] | "\(.full_name)\t\(.description // "")"' 2>/dev/null
+
+      gh api user/orgs --jq '.[].login' 2>/dev/null | while read -r org; do
+        gh repo list "$org" \
+          --limit 100 \
+          --json nameWithOwner,description \
+          --jq '.[] | "\(.nameWithOwner)\t\(.description // "")"' 2>/dev/null
+      done
+    } | sort -u |
     fzf \
       --height=80% \
       --layout=reverse \
