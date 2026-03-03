@@ -442,7 +442,16 @@ alias gittodo='gh issue create'
 alias gt='echo "local tags: " && git tag -n && echo "" && echo "" && echo "remote tags: " && git ls-remote --tags'
 alias gnewtag='git tag -a'
 alias gitconflict='git diff --name-only --diff-filter=U'
-alias gl='git log -20 --graph --abbrev-commit --decorate=no --date=format:"%m-%d %H:%M" --format=format:"%C(03)%>|(15)%h%C(reset)  %an%C(reset) %C(04)%ad%C(reset)  %s%C(reset)  %C(bold 1)%d%C(reset) %C(reset)" --all'
+gl() {
+  local fmt="%C(bold yellow)%<(9,trunc)%h%C(reset)  %C(bold blue)%<(14,trunc)%ar%C(reset)  %C(green)%<(17,trunc)%an%C(reset)  %C(white)%s%C(reset)%C(bold magenta)%d%C(reset)"
+  git log \
+    --graph \
+    --abbrev-commit \
+    --all \
+    --topo-order \
+    --format=format:"$fmt" \
+    "${@:--40}"
+}
 alias gitbigfile='git rev-list --all | xargs -rL1 git ls-tree -r --long | sort -uk3 | sort -rnk4 | head -10'
 alias gr='git reset --hard && git clean -fd'
 alias gp='pushall'
