@@ -13,7 +13,7 @@ require("conform").setup {
       prepend_args = { "--print-width", "200" },
     },
     rustfmt = {
-      prepend_args = { "--config", "max_width=200" },
+      prepend_args = { "--config", "max_width=200,edition=2021,group_imports=StdExternalCrate" },
     },
   },
   format_on_save = {
