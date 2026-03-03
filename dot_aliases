@@ -65,7 +65,6 @@ alias config='cd ~/.config && yazi'
 alias vali='nvim ~/.aliases'
 alias vbash='nvim ~/.bashrc'
 alias vhistory='nvim ~/.bash_history'
-alias o='nvim ~/Desktop/text.txt'
 
 
 #=======================================================================
