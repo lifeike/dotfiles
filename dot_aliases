@@ -48,6 +48,8 @@ alias du='du -h '
 cal() {
     ncal -b -3
     printf "\n"
+    date
+    printf "\n"
     ansiweather -l Calgary,CA -u metric -f 7 \
         | perl -pe 's/\x1b\[[0-9;]*m//g' \
         | sed -E 's/ - (Mon|Tue|Wed|Thu|Fri|Sat|Sun)/\n\1/g'
