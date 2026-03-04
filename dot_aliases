@@ -46,13 +46,104 @@ alias process='ps -ef | grep'
 alias biggestFile='find . -type f -exec du -h {} + | sort -hr | head -20'
 alias du='du -h '
 cal() {
-    ncal -b -3
-    printf "\n"
-    date
-    printf "\n"
-    ansiweather -l Calgary,CA -u metric -f 7 \
-        | perl -pe 's/\x1b\[[0-9;]*m//g' \
-        | sed -E 's/ - (Mon|Tue|Wed|Thu|Fri|Sat|Sun)/\n\1/g'
+    local CYAN='\033[1;36m'
+    local GREEN='\033[1;32m'
+    local YELLOW='\033[1;33m'
+    local BOLD='\033[1m'
+    local DIM='\033[2m'
+    local NC='\033[0m'
+
+    local W=76                     # inner width; total box = W+2 chars
+    local CW=$(( (W - 13) / 7 ))  # weather column width = 9
+
+    local HBAR; HBAR=$(printf '═%.0s' $(seq 1 "$W"))
+
+    # $1=plain text (for width measurement), $2=colored display text
+    _cal_row() {
+        local plain="$1" display="$2"
+        local pad=$(( W - ${#plain} - 2 ))
+        [[ $pad -lt 0 ]] && pad=0
+        # ${NC} after display resets any ANSI left open by ncal's today-highlight
+        echo -e "${DIM}║${NC} ${display}${NC}$(printf '%*s' "$pad" "") ${DIM}║${NC}"
+    }
+
+    echo -e "${DIM}╔${HBAR}╗${NC}"
+
+    # ── Date ──────────────────────────────────────────────────────────────
+    local today; today=$(date "+%A, %B %d %Y  •  %H:%M")
+    _cal_row "$today" "${BOLD}${CYAN}${today}${NC}"
+    echo -e "${DIM}╠${HBAR}╣${NC}"
+
+    # ── 3-month calendar ──────────────────────────────────────────────────
+    # unbuffer makes ncal think it's writing to a tty, preserving today's highlight
+    while IFS= read -r line; do
+        local plain; plain=$(printf '%s' "$line" | sed 's/\x1b\[[0-9;]*[mK]//g')
+        if [[ "$plain" =~ (January|February|March|April|May|June|July|August|September|October|November|December) ]]; then
+            _cal_row "$plain" "${BOLD}${YELLOW}${plain}${NC}"
+        else
+            _cal_row "$plain" "$line"
+        fi
+    done < <(unbuffer ncal -b -3 2>/dev/null || ncal -b -3)
+    echo -e "${DIM}╠${HBAR}╣${NC}"
+
+    # ── Weather ───────────────────────────────────────────────────────────
+    local raw; raw=$(ansiweather -l Calgary,CA -u metric -f 7 2>/dev/null \
+        | perl -pe 's/\x1b\[[0-9;]*[mGKH]//g' \
+        | tr -d '\n' | sed 's/  */ /g; s/^ //; s/ $//')
+
+    local -a NAMES=() DATES=() TEMPS=()
+    local hdr=""
+
+    if echo "$raw" | grep -qi 'forecast:'; then
+        # Extract city/header (everything before "forecast:")
+        hdr=$(echo "$raw" | sed -E 's/ *[Ff]orecast:.*//' | sed 's/[[:space:]]*$//')
+        [[ -n "$hdr" ]] && hdr="${hdr}  (°C)"
+        [[ ${#hdr} -gt $((W - 2)) ]] && hdr="${hdr:0:$((W - 5))}..."
+
+        local fcast; fcast=$(echo "$raw" | sed -E 's/.*[Ff]orecast: //')
+
+        while IFS= read -r entry; do
+            entry="${entry# }"; entry="${entry% }"
+            [[ -z "$entry" ]] && continue
+            # New format:  "Tue Mar 03: 13/-5 °C"
+            if [[ "$entry" =~ ^[A-Z][a-z]{2}[[:space:]][A-Z][a-z]{2}[[:space:]][0-9] ]]; then
+                NAMES+=("$(awk '{print $1}' <<< "$entry")")
+                DATES+=("$(awk '{print $2, $3}' <<< "$entry" | tr -d ':')")
+                TEMPS+=("$(awk '{print $4}' <<< "$entry")")  # Hi/Lo only, strip °C (° is 2-cell wide)
+            # Old format: "Mon - Clear - 5/15 °C"
+            else
+                NAMES+=("$(awk -F' - ' '{print $1}' <<< "$entry")")
+                DATES+=("$(awk -F' - ' '{print $2}' <<< "$entry")")
+                TEMPS+=("$(awk -F' - ' '{print $3}' <<< "$entry" | sed 's/ °C$//')")
+            fi
+        done < <(echo "$fcast" | sed -E 's/ - (Mon|Tue|Wed|Thu|Fri|Sat|Sun)/\n\1/g' | grep .)
+    else
+        hdr="$raw"
+        [[ ${#hdr} -gt $((W - 2)) ]] && hdr="${hdr:0:$((W - 5))}..."
+    fi
+
+    if [[ -n "$hdr" ]]; then
+        _cal_row "$hdr" "${GREEN}${hdr}${NC}"
+        echo -e "${DIM}╠${HBAR}╣${NC}"
+    fi
+
+    # ── 7-column forecast table ───────────────────────────────────────────
+    local n=${#NAMES[@]}
+    if [[ $n -gt 0 ]]; then
+        local r1="${DIM}║${NC}" r2="${DIM}║${NC}" r3="${DIM}║${NC}"
+        local sep
+        for (( i=0; i<n; i++ )); do
+            [[ $i -lt $((n-1)) ]] && sep="${DIM}│${NC}" || sep="${DIM}║${NC}"
+            r1+=" ${BOLD}${CYAN}$(printf "%-${CW}.${CW}s" "${NAMES[$i]:-}")${NC}${sep}"
+            r2+=" ${YELLOW}$(printf "%-${CW}.${CW}s" "${DATES[$i]:-}")${NC}${sep}"
+            r3+=" ${GREEN}$(printf "%-${CW}.${CW}s" "${TEMPS[$i]:-}")${NC}${sep}"
+        done
+        echo -e "$r1"
+        echo -e "$r2"
+        echo -e "$r3"
+    fi
+
+    echo -e "${DIM}╚${HBAR}╝${NC}"
     printf "\n"
 }
 alias neofetch='fastfetch'
