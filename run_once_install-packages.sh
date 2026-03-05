@@ -374,10 +374,6 @@ else
     rustup component add rust-analyzer rustfmt clippy
 fi
 
-# leetcode cli
-cargo install leetui
-
-
 # Claude code Installation for Debian
 print_header "Docker"
 if command_exists claude; then
