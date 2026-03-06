@@ -758,6 +758,27 @@ gc() {
     nvim .
 }
 
+gf() {
+    local repo_dir
+    repo_dir=$(basename "${1%/}" .git)
+    gh repo fork "$1" --clone || return
+    cd "$repo_dir" || return
+    for branch in $(git branch -r | grep -v '\->'); do
+        git branch --track "${branch#origin/}" "$branch" 2>/dev/null
+    done
+    git fetch --all
+    nvim .
+}
+
+pr() {
+    local branch
+    branch=$(git branch --show-current)
+    git add -A
+    git commit
+    git push -u origin "$branch"
+    gh pr create --fill
+}
+
 
 #=======================================================================
 #  TMUX - TERMINAL MULTIPLEXER
