@@ -814,8 +814,8 @@ gf() {
     nvim .
 }
 
-# ghsearch: interactive GitHub repo search with rich metadata preview and optional clone
-ghsearch() {
+# githubsearch: interactive GitHub repo search with rich metadata preview and optional clone
+githubsearch() {
     local CYAN='\033[1;36m'
     local GREEN='\033[1;32m'
     local RED='\033[1;31m'
@@ -937,7 +937,7 @@ ghsearch() {
         gc "$selected"
     fi
 }
-alias ghs='ghsearch'
+alias ghs='githubsearch'
 
 
 #=======================================================================
