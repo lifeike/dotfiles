@@ -814,6 +814,131 @@ gf() {
     nvim .
 }
 
+# ghsearch: interactive GitHub repo search with rich metadata preview and optional clone
+ghsearch() {
+    local CYAN='\033[1;36m'
+    local GREEN='\033[1;32m'
+    local RED='\033[1;31m'
+    local YELLOW='\033[1;33m'
+    local MAGENTA='\033[1;35m'
+    local BLUE='\033[1;34m'
+    local DIM='\033[2m'
+    local NC='\033[0m'
+    local BOLD='\033[1m'
+
+    local query="$*"
+    if [[ -z "$query" ]]; then
+        IFS= read -r -p "Search GitHub repos: " query
+        [[ -z "$query" ]] && return
+    fi
+
+    echo -e "\n${DIM}Searching GitHub for: ${NC}${CYAN}${query}${NC}\n"
+
+    local selected
+    selected=$(
+        gh search repos "$query" \
+            --limit 50 \
+            --json fullName,description,stargazersCount,language,forksCount \
+            --jq '.[] | "\(.fullName)\t⭐\(.stargazersCount)  🍴\(.forksCount)  [\(.language // "?")]\t\(.description // "")"' |
+        fzf \
+            --height=80% \
+            --layout=reverse \
+            --prompt="GitHub Search> " \
+            --delimiter=$'\t' \
+            --with-nth=1,2,3 \
+            --bind='tab:down,shift-tab:up,ctrl-j:down,ctrl-k:up' \
+            --preview='gh repo view {1} 2>/dev/null' \
+            --preview-window=right:55%:wrap \
+            --header="Results for: $query" |
+        cut -f1
+    )
+    [[ -z "$selected" ]] && return
+
+    echo -e "\n${DIM}Fetching repo data...${NC}"
+
+    local meta commits issues prs contributors
+    meta=$(gh api "repos/$selected" 2>/dev/null)
+    commits=$(gh api "repos/$selected/commits?per_page=10" 2>/dev/null)
+    issues=$(gh api "repos/$selected/issues?state=open&per_page=10" 2>/dev/null)
+    prs=$(gh api "repos/$selected/pulls?state=open&per_page=10" 2>/dev/null)
+    contributors=$(gh api "repos/$selected/contributors?per_page=10" 2>/dev/null)
+
+    local W=76
+    local HBAR; HBAR=$(printf '═%.0s' $(seq 1 $W))
+
+    _ghs_row() { echo -e "${DIM}║${NC} $1"; }
+
+    echo -e "${DIM}╔${HBAR}╗${NC}"
+
+    # Header: repo name + stats
+    local stars forks lang license desc homepage topics created updated open_issues owner_type
+    stars=$(echo "$meta"       | jq -r '.stargazers_count // 0')
+    forks=$(echo "$meta"       | jq -r '.forks_count // 0')
+    lang=$(echo "$meta"        | jq -r '.language // "unknown"')
+    license=$(echo "$meta"     | jq -r '.license.spdx_id // "no license"')
+    desc=$(echo "$meta"        | jq -r '.description // ""')
+    homepage=$(echo "$meta"    | jq -r '.homepage // ""')
+    topics=$(echo "$meta"      | jq -r '.topics | join(", ")' 2>/dev/null)
+    created=$(echo "$meta"     | jq -r '.created_at[:10]')
+    updated=$(echo "$meta"     | jq -r '.updated_at[:10]')
+    open_issues=$(echo "$meta" | jq -r '.open_issues_count // 0')
+    owner_type=$(echo "$meta"  | jq -r '.owner.type // ""')
+
+    _ghs_row " ${BOLD}${MAGENTA}${selected}${NC}  ${YELLOW}⭐ $stars${NC}  ${BLUE}🍴 $forks${NC}  ${GREEN}$lang${NC}  ${DIM}$license${NC}"
+    [[ -n "$desc" ]]     && _ghs_row " ${desc}"
+    [[ -n "$homepage" ]] && _ghs_row " ${DIM}🌐 $homepage${NC}"
+    [[ -n "$topics" ]]   && _ghs_row " ${DIM}tags:${NC} $topics"
+    _ghs_row " ${DIM}owner: $owner_type  •  created: $created  •  updated: $updated  •  open issues: $open_issues${NC}"
+    echo -e "${DIM}╠${HBAR}╣${NC}"
+
+    # Last 10 commits
+    _ghs_row " ${BOLD}${CYAN}Last 10 Commits${NC}"
+    echo "$commits" | jq -r '.[] | "\(.commit.committer.date[:10])  \(.commit.author.name)  \(.commit.message | split("\n")[0])"' 2>/dev/null | \
+    while IFS= read -r line; do
+        local date author msg
+        date=$(echo "$line" | awk '{print $1}')
+        author=$(echo "$line" | awk '{print $2}')
+        msg=$(echo "$line" | cut -d' ' -f3-)
+        _ghs_row " ${BLUE}$date${NC}  ${GREEN}$author${NC}  ${msg}"
+    done
+    echo -e "${DIM}╠${HBAR}╣${NC}"
+
+    # Last 10 open issues
+    _ghs_row " ${BOLD}${YELLOW}Last 10 Open Issues${NC}"
+    echo "$issues" | jq -r '.[] | select(.pull_request == null) | "#\(.number)  \(.user.login)  \(.title)"' 2>/dev/null | head -10 | \
+    while IFS= read -r line; do
+        _ghs_row " ${YELLOW}$(echo "$line" | awk '{print $1}')${NC}  ${DIM}$(echo "$line" | awk '{print $2}')${NC}  $(echo "$line" | cut -d' ' -f3-)"
+    done
+    echo -e "${DIM}╠${HBAR}╣${NC}"
+
+    # Last 10 open PRs
+    _ghs_row " ${BOLD}${CYAN}Last 10 Open Pull Requests${NC}"
+    echo "$prs" | jq -r '.[] | "#\(.number)  \(.user.login)  \(.title)"' 2>/dev/null | head -10 | \
+    while IFS= read -r line; do
+        _ghs_row " ${CYAN}$(echo "$line" | awk '{print $1}')${NC}  ${DIM}$(echo "$line" | awk '{print $2}')${NC}  $(echo "$line" | cut -d' ' -f3-)"
+    done
+    echo -e "${DIM}╠${HBAR}╣${NC}"
+
+    # Top 10 contributors
+    _ghs_row " ${BOLD}${GREEN}Top 10 Contributors${NC}"
+    echo "$contributors" | jq -r '.[] | "\(.login)  \(.contributions)"' 2>/dev/null | head -10 | \
+    while IFS= read -r line; do
+        local login contribs
+        login=$(echo "$line" | awk '{print $1}')
+        contribs=$(echo "$line" | awk '{print $2}')
+        _ghs_row " ${GREEN}$login${NC}  ${DIM}$contribs commits${NC}"
+    done
+
+    echo -e "${DIM}╚${HBAR}╝${NC}\n"
+
+    local choice
+    IFS= read -r -p "Clone this repo? [y/N] " choice
+    if [[ "$choice" =~ ^[Yy]$ ]]; then
+        gc "$selected"
+    fi
+}
+alias ghs='ghsearch'
+
 
 #=======================================================================
 #  TMUX - TERMINAL MULTIPLEXER
