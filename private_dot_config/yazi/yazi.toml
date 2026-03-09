@@ -37,7 +37,7 @@ rules = [
     { mime = "application/x-ruby", use = "text" },
     { mime = "application/x-lua", use = "text" },
     { mime = "application/sql", use = "text" },
-    { mime = "inode/x-empty", use = "text" },
+    { mime = "inode/empty", use = "text" },
 
     # Name-based rules — ensures empty new files open correctly in nvim
     # Systems / compiled
