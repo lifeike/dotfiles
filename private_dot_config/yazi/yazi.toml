@@ -38,6 +38,44 @@ rules = [
     { mime = "application/x-lua", use = "text" },
     { mime = "application/sql", use = "text" },
     { mime = "inode/x-empty", use = "text" },
+
+    # Name-based rules — ensures empty new files open correctly in nvim
+    # Systems / compiled
+    { name = "*.{c,h}", use = "text" },
+    { name = "*.{cpp,cc,cxx,hpp,hxx,hh}", use = "text" },
+    { name = "*.{rs,go,zig,nim,cr,v}", use = "text" },
+    { name = "*.{java,kt,kts,scala,cs,swift,dart}", use = "text" },
+    # Scripting / interpreted
+    { name = "*.{py,pyi}", use = "text" },
+    { name = "*.{rb,php,lua,pl,pm,r}", use = "text" },
+    { name = "*.{ex,exs,erl,hrl,hs,ml,mli,fs,fsx,elm,clj,cljs,jl}", use = "text" },
+    # Web / JS ecosystem
+    { name = "*.{js,mjs,cjs,jsx}", use = "text" },
+    { name = "*.{ts,mts,cts,tsx}", use = "text" },
+    { name = "*.{html,htm,css,scss,sass,less}", use = "text" },
+    { name = "*.{vue,svelte,astro}", use = "text" },
+    # Shell
+    { name = "*.{sh,bash,zsh,fish,nu}", use = "text" },
+    # Config / data
+    { name = "*.{json,jsonc,json5}", use = "text" },
+    { name = "*.{yaml,yml,toml,xml,xsl,xsd}", use = "text" },
+    { name = "*.{ini,cfg,conf,env}", use = "text" },
+    { name = "*.{csv,tsv}", use = "text" },
+    # Build / infra
+    { name = "*.{nix,tf,tfvars,gradle}", use = "text" },
+    { name = "*.{cmake,mk,makefile}", use = "text" },
+    { name = "Dockerfile*", use = "text" },
+    { name = "Makefile", use = "text" },
+    { name = "*.{lock,log}", use = "text" },
+    # Docs / markup
+    { name = "*.{md,mdx,rst,org,tex,sty}", use = "text" },
+    { name = "*.txt", use = "text" },
+    # Other dev
+    { name = "*.{proto,graphql,gql,sql}", use = "text" },
+    { name = "*.{glsl,wgsl,hlsl,vert,frag,comp}", use = "text" },
+    { name = "*.{diff,patch}", use = "text" },
+    { name = "*.{pem,crt,cer,key}", use = "text" },
+
     { mime = "image/*", use = "image" },
     { mime = "video/*", use = "video" },
     { mime = "audio/*", use = "audio" },
