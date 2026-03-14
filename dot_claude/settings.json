@@ -1,4 +1,5 @@
 {
+  "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
       "Bash(ls:*)",
@@ -48,6 +49,6 @@
     "command": "~/.claude/statusline.sh",
     "padding": 0
   },
-  "theme": "dark",
-  "includeCoAuthoredBy": false
+  "voiceEnabled": true,
+  "theme": "dark"
 }
