@@ -7,7 +7,6 @@ input=$(cat)
 # Parse JSON input
 MODEL=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir // "~"')
-COST=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
 CONTEXT_USED=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
 LINES_ADDED=$(echo "$input" | jq -r '.cost.total_lines_added // 0')
 LINES_REMOVED=$(echo "$input" | jq -r '.cost.total_lines_removed // 0')
@@ -30,9 +29,6 @@ RED='\033[31m'
 RESET='\033[0m'
 DIM='\033[2m'
 
-# Format cost
-COST_FMT=$(printf "%.4f" "$COST")
-
 # Format context with color based on usage
 if (( $(echo "$CONTEXT_USED > 80" | bc -l) )); then
     CTX_COLOR=$RED
@@ -51,7 +47,6 @@ if [ -n "$GIT_BRANCH" ]; then
     OUTPUT+=" ${DIM}|${RESET} ${DIM}branch:${RESET}${MAGENTA}${GIT_BRANCH}${RESET}"
 fi
 
-OUTPUT+=" ${DIM}|${RESET} ${DIM}cost:${RESET}${YELLOW}\$${COST_FMT}${RESET}"
 OUTPUT+=" ${DIM}|${RESET} ${DIM}ctx:${RESET}${CTX_COLOR}${CTX_FMT}${RESET}"
 
 if [ "$LINES_ADDED" -gt 0 ] || [ "$LINES_REMOVED" -gt 0 ]; then
