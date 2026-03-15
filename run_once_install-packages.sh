@@ -388,6 +388,8 @@ fi
 
 # Install cargo packages
 install_cargo csvlens
+install_cargo doxx
+install_cargo tabiew tw
 
 # Claude code Installation for Debian
 print_header "Docker"

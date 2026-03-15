@@ -18,13 +18,23 @@ pdf = [
     { run = 'zathura "$@"', orphan = true, for = "unix" },
 ]
 csv = [
-    { run = 'csvlens "$@"', block = true, for = "unix" },
+    { run = '/home/feeco/.cargo/bin/csvlens "$@"', block = true, for = "unix" },
+]
+docx = [
+    { run = '/home/feeco/.cargo/bin/doxx "$@"', block = true, for = "unix" },
+]
+xlsx = [
+    { run = '/home/feeco/.cargo/bin/tw "$@"', block = true, for = "unix" },
 ]
 
 [open]
 rules = [
     { mime = "text/csv", use = "csv" },
-    { name = "*.csv", use = "csv" },
+    { url = "*.csv", use = "csv" },
+    { mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document", use = "docx" },
+    { url = "*.docx", use = "docx" },
+    { mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use = "xlsx" },
+    { url = "*.xlsx", use = "xlsx" },
     { mime = "text/*", use = "text" },
     { mime = "application/json", use = "text" },
     { mime = "application/x-ndjson", use = "text" },
@@ -44,46 +54,46 @@ rules = [
     { mime = "application/sql", use = "text" },
     { mime = "inode/empty", use = "text" },
 
-    # Name-based rules — ensures empty new files open correctly in nvim
+    # URL-based rules — ensures empty new files open correctly in nvim
     # Systems / compiled
-    { name = "*.{c,h}", use = "text" },
-    { name = "*.{cpp,cc,cxx,hpp,hxx,hh}", use = "text" },
-    { name = "*.{rs,go,zig,nim,cr,v}", use = "text" },
-    { name = "*.{java,kt,kts,scala,cs,swift,dart}", use = "text" },
+    { url = "*.{c,h}", use = "text" },
+    { url = "*.{cpp,cc,cxx,hpp,hxx,hh}", use = "text" },
+    { url = "*.{rs,go,zig,nim,cr,v}", use = "text" },
+    { url = "*.{java,kt,kts,scala,cs,swift,dart}", use = "text" },
     # Scripting / interpreted
-    { name = "*.{py,pyi}", use = "text" },
-    { name = "*.{rb,php,lua,pl,pm,r}", use = "text" },
-    { name = "*.{ex,exs,erl,hrl,hs,ml,mli,fs,fsx,elm,clj,cljs,jl}", use = "text" },
+    { url = "*.{py,pyi}", use = "text" },
+    { url = "*.{rb,php,lua,pl,pm,r}", use = "text" },
+    { url = "*.{ex,exs,erl,hrl,hs,ml,mli,fs,fsx,elm,clj,cljs,jl}", use = "text" },
     # Web / JS ecosystem
-    { name = "*.{js,mjs,cjs,jsx}", use = "text" },
-    { name = "*.{ts,mts,cts,tsx}", use = "text" },
-    { name = "*.{html,htm,css,scss,sass,less}", use = "text" },
-    { name = "*.{vue,svelte,astro}", use = "text" },
+    { url = "*.{js,mjs,cjs,jsx}", use = "text" },
+    { url = "*.{ts,mts,cts,tsx}", use = "text" },
+    { url = "*.{html,htm,css,scss,sass,less}", use = "text" },
+    { url = "*.{vue,svelte,astro}", use = "text" },
     # Shell
-    { name = "*.{sh,bash,zsh,fish,nu}", use = "text" },
+    { url = "*.{sh,bash,zsh,fish,nu}", use = "text" },
     # Config / data
-    { name = "*.{json,jsonc,json5}", use = "text" },
-    { name = "*.{yaml,yml,toml,xml,xsl,xsd}", use = "text" },
-    { name = "*.{ini,cfg,conf,env}", use = "text" },
-    { name = "*.tsv", use = "text" },
+    { url = "*.{json,jsonc,json5}", use = "text" },
+    { url = "*.{yaml,yml,toml,xml,xsl,xsd}", use = "text" },
+    { url = "*.{ini,cfg,conf,env}", use = "text" },
+    { url = "*.tsv", use = "text" },
     # Build / infra
-    { name = "*.{nix,tf,tfvars,gradle}", use = "text" },
-    { name = "*.{cmake,mk,makefile}", use = "text" },
-    { name = "Dockerfile*", use = "text" },
-    { name = "Makefile", use = "text" },
-    { name = "*.{lock,log}", use = "text" },
+    { url = "*.{nix,tf,tfvars,gradle}", use = "text" },
+    { url = "*.{cmake,mk,makefile}", use = "text" },
+    { url = "Dockerfile*", use = "text" },
+    { url = "Makefile", use = "text" },
+    { url = "*.{lock,log}", use = "text" },
     # Docs / markup
-    { name = "*.{md,mdx,rst,org,tex,sty}", use = "text" },
-    { name = "*.txt", use = "text" },
+    { url = "*.{md,mdx,rst,org,tex,sty}", use = "text" },
+    { url = "*.txt", use = "text" },
     # Other dev
-    { name = "*.{proto,graphql,gql,sql}", use = "text" },
-    { name = "*.{glsl,wgsl,hlsl,vert,frag,comp}", use = "text" },
-    { name = "*.{diff,patch}", use = "text" },
-    { name = "*.{pem,crt,cer,key}", use = "text" },
+    { url = "*.{proto,graphql,gql,sql}", use = "text" },
+    { url = "*.{glsl,wgsl,hlsl,vert,frag,comp}", use = "text" },
+    { url = "*.{diff,patch}", use = "text" },
+    { url = "*.{pem,crt,cer,key}", use = "text" },
 
     { mime = "image/*", use = "image" },
     { mime = "video/*", use = "video" },
     { mime = "audio/*", use = "audio" },
     { mime = "application/pdf", use = "pdf" },
-    { name = "*", use = "text" },
+    { url = "*", use = "text" },
 ]
