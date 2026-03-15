@@ -724,9 +724,10 @@ github() {
     fi
 }
 
-# ── Clone & fork ──────────────────────────────────────────────────────
+# ── Clone & fork & Create ──────────────────────────────────────────────────────
 alias githubrepos='ghclone'
 alias githuborganizationrepos='ghcloneorg'
+alias githubcreaterepo='gh repo create'
 
 # ghclone: fzf-pick from all personal, collaborator, and org repos then clone
 ghclone() {
