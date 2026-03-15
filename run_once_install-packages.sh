@@ -128,6 +128,18 @@ install_deb_from_url() {
     rm "$filename"
 }
 
+# Function to install cargo package if not installed
+install_cargo() {
+    local package=$1
+    local bin_name=${2:-$1}  # optional binary name if different from package name
+    if command_exists "$bin_name"; then
+        echo -e "${GREEN}✓${NC} $package is already installed"
+    else
+        echo -e "${YELLOW}→${NC} Installing $package via cargo..."
+        cargo install "$package"
+    fi
+}
+
 # Function to add user to a group
 add_user_to_group() {
     local group=$1
@@ -373,6 +385,9 @@ else
     # add LSP/formatter/Linter/Type Checker
     rustup component add rust-analyzer rustfmt clippy
 fi
+
+# Install cargo packages
+install_cargo csvlens
 
 # Claude code Installation for Debian
 print_header "Docker"
