@@ -23,6 +23,8 @@ csv = [
 
 [open]
 rules = [
+    { mime = "text/csv", use = "csv" },
+    { name = "*.csv", use = "csv" },
     { mime = "text/*", use = "text" },
     { mime = "application/json", use = "text" },
     { mime = "application/x-ndjson", use = "text" },
@@ -63,7 +65,6 @@ rules = [
     { name = "*.{json,jsonc,json5}", use = "text" },
     { name = "*.{yaml,yml,toml,xml,xsl,xsd}", use = "text" },
     { name = "*.{ini,cfg,conf,env}", use = "text" },
-    { name = "*.csv", use = "csv" },
     { name = "*.tsv", use = "text" },
     # Build / infra
     { name = "*.{nix,tf,tfvars,gradle}", use = "text" },
