@@ -728,6 +728,7 @@ github() {
 alias githubrepos='ghclone'
 alias githuborganizationrepos='ghcloneorg'
 alias githubcreaterepo='gh repo create'
+alias githubdeleterepo='gh repo delete'
 
 # ghclone: fzf-pick from all personal, collaborator, and org repos then clone
 ghclone() {
