@@ -392,6 +392,11 @@ install_cargo doxx
 install_cargo tabiew tw
 install_cargo cargo-generate
 install_cargo cargo-binstall
+install_cargo cargo-watch
+install_cargo cargo-update
+install_cargo cargo-make
+install_cargo cargo-lambda
+install_cargo cargo-audit
 
 # Claude code Installation for Debian
 print_header "Docker"
