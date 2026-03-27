@@ -228,3 +228,72 @@ end, { desc = "jump to next diagnostic" })
 map("n", "<A-S-b>", function()
   goto_diagnostic(false)
 end, { desc = "jump to previous diagnostic" })
+
+-- Toggle comment visibility: hide/show all comments in the current buffer
+local _comment_folds_active = {}  -- keyed by bufnr
+
+map("n", "<A-S-c>", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  if _comment_folds_active[bufnr] then
+    vim.cmd "normal! zE"
+    _comment_folds_active[bufnr] = nil
+    vim.notify("Comments shown", vim.log.levels.INFO)
+    return
+  end
+
+  local ft = vim.bo[bufnr].filetype
+  local lang = vim.treesitter.language.get_lang(ft) or ft
+
+  local ok, parser = pcall(vim.treesitter.get_parser, bufnr, lang)
+  if not ok then
+    vim.notify("No treesitter parser for " .. ft, vim.log.levels.WARN)
+    return
+  end
+
+  local root = parser:parse()[1]:root()
+
+  local query
+  for _, q in ipairs { "[(line_comment) (block_comment)] @c", "(comment) @c" } do
+    local ok2, result = pcall(vim.treesitter.query.parse, lang, q)
+    if ok2 then
+      query = result
+      break
+    end
+  end
+  if not query then
+    vim.notify("No comment query for " .. lang, vim.log.levels.WARN)
+    return
+  end
+
+  -- Collect and merge consecutive comment ranges (1-indexed lines)
+  local ranges = {}
+  for _, node in query:iter_captures(root, bufnr) do
+    local sr, _, er, _ = node:range()
+    table.insert(ranges, { sr + 1, er + 1 })
+  end
+  table.sort(ranges, function(a, b) return a[1] < b[1] end)
+
+  local merged = {}
+  for _, r in ipairs(ranges) do
+    if #merged == 0 or r[1] > merged[#merged][2] + 1 then
+      table.insert(merged, { r[1], r[2] })
+    else
+      merged[#merged][2] = math.max(merged[#merged][2], r[2])
+    end
+  end
+
+  vim.cmd "normal! zE"
+
+  local count = 0
+  for _, r in ipairs(merged) do
+    if r[2] > r[1] then
+      if pcall(vim.cmd, r[1] .. "," .. r[2] .. "fold") then
+        count = count + 1
+      end
+    end
+  end
+
+  _comment_folds_active[bufnr] = true
+  vim.notify(count .. " comment block(s) hidden", vim.log.levels.INFO)
+end, { desc = "toggle comment visibility" })

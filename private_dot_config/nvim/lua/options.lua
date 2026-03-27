@@ -26,6 +26,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 -- clipboard
 vim.opt.clipboard = "unnamedplus"
 
+
 -- Diagnostic underline style: use double underline for better visibility
 local function set_diagnostic_highlights()
   vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underdouble = true, sp = "#f44747" })
